@@ -6,126 +6,251 @@
 <title>FX ENGINE — EXECUTION PLATFORM</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap');
-  :root{--bg:#070b0f;--surface:#0d1318;--surface2:#10171e;--border:#1e2a35;--border2:#2a3a4a;--text:#c8d8e8;--muted:#506070;--accent:#00c8ff;--green:#00e87a;--red:#ff3a5c;--orange:#ff8c00;--yellow:#ffd600;--purple:#a855f7;--elite:#ff6b00;}
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
-  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,200,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,255,0.018) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;}
-  .app{position:relative;z-index:1;max-width:1500px;margin:0 auto;padding:18px;}
-  .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 0 16px;border-bottom:1px solid var(--border);margin-bottom:18px;flex-wrap:wrap;gap:12px;}
-  .logo{font-family:'Bebas Neue';font-size:30px;letter-spacing:4px;color:#fff;line-height:1;}
-  .logo span{color:var(--accent);}
-  .logo small{display:block;font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:4px;}
-  .top-right{display:flex;align-items:center;gap:18px;font-family:'Space Mono';font-size:10px;color:var(--muted);}
-  .live-dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:6px;animation:pulse 1.5s infinite;}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-  .refresh-btn{background:var(--surface2);border:1px solid var(--border2);color:var(--accent);font-family:'Space Mono';font-size:10px;letter-spacing:1px;padding:8px 14px;cursor:pointer;transition:all .15s;}
-  .refresh-btn:hover{border-color:var(--accent);background:rgba(0,200,255,0.06);}
-  .ticker{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:18px;}
-  .tick{background:var(--surface);border:1px solid var(--border);padding:12px 14px;cursor:pointer;transition:border-color .15s;position:relative;overflow:hidden;}
-  .tick:hover,.tick.sel{border-color:var(--accent);}
-  .tick.sel::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
-  .tick-pair{font-family:'Bebas Neue';font-size:17px;letter-spacing:2px;color:#fff;}
-  .tick-price{font-family:'Space Mono';font-size:13px;font-weight:700;margin-top:3px;}
-  .tick-state{font-family:'Space Mono';font-size:8px;letter-spacing:1px;margin-top:5px;}
-  .tick-dist{font-family:'Space Mono';font-size:8px;color:var(--muted);margin-top:2px;}
-  .c-green{color:var(--green)}.c-red{color:var(--red)}.c-blue{color:var(--accent)}.c-yellow{color:var(--yellow)}.c-orange{color:var(--elite)}.c-muted{color:var(--muted)}
-  .tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:18px;}
-  .tab{font-family:'Space Mono';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 20px;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;user-select:none;}
-  .tab:hover{color:var(--text);}
-  .tab.on{color:var(--accent);border-bottom-color:var(--accent);}
-  .page{display:none;}
-  .page.on{display:block;animation:fadeIn .25s ease;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .grid2{display:grid;grid-template-columns:1fr 320px;gap:16px;}
-  @media(max-width:1080px){.grid2{grid-template-columns:1fr}}
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  @media(max-width:760px){.cards{grid-template-columns:1fr}.ticker{grid-template-columns:repeat(3,1fr)}}
-  .card{background:var(--surface);border:1px solid var(--border);overflow:hidden;transition:border-color .15s;}
-  .card.b-elite{border-color:rgba(255,107,0,.4)}.card.b-sell{border-color:rgba(255,58,92,.25)}.card.b-buy{border-color:rgba(0,232,122,.25)}.card.b-pend{border-color:rgba(0,200,255,.25)}.card.b-warn{border-color:rgba(255,140,0,.5)}
-  .banner{padding:6px 14px;font-family:'Space Mono';font-size:9px;letter-spacing:1px;display:flex;align-items:center;gap:6px;}
-  .bn-green{background:rgba(0,232,122,.07);color:var(--green);border-bottom:1px solid rgba(0,232,122,.2)}
-  .bn-blue{background:rgba(0,200,255,.07);color:var(--accent);border-bottom:1px solid rgba(0,200,255,.2)}
-  .bn-red{background:rgba(255,58,92,.07);color:var(--red);border-bottom:1px solid rgba(255,58,92,.2)}
-  .bn-orange{background:rgba(255,140,0,.08);color:var(--orange);border-bottom:1px solid rgba(255,140,0,.25)}
-  .card-h{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 9px;border-bottom:1px solid var(--border);}
-  .card-pair{font-family:'Bebas Neue';font-size:20px;letter-spacing:3px;color:#fff;}
-  .badges{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
-  .badge{font-family:'Space Mono';font-size:8px;letter-spacing:1.5px;padding:3px 7px;border:1px solid;text-transform:uppercase;}
-  .bd-sell{border-color:var(--red);color:var(--red);background:rgba(255,58,92,.08)}
-  .bd-buy{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.08)}
-  .bd-pend{border-color:var(--accent);color:var(--accent);background:rgba(0,200,255,.08)}
-  .bd-skip{border-color:var(--muted);color:var(--muted)}
-  .bd-rr{border-color:rgba(255,107,0,.4);color:var(--elite)}
-  .card-b{padding:12px 14px;}
-  .lv{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;}
-  .lv-l{font-family:'Space Mono';font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
-  .lv-v{font-family:'Space Mono';font-size:12px;font-weight:700;color:#fff;}
-  .live-strip{display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border:1px solid var(--border);padding:8px 12px;margin-bottom:11px;}
-  .live-price{font-family:'Space Mono';font-size:15px;font-weight:700;color:#fff;}
-  .live-lbl{font-family:'Space Mono';font-size:8px;color:var(--muted);letter-spacing:1px;}
-  .prox{font-family:'Space Mono';font-size:9px;text-align:right;line-height:1.5;}
-  .conf{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
-  .conf-bar{flex:1;height:3px;background:var(--border);}
-  .conf-fill{height:100%;}
-  .conf-pct{font-family:'Space Mono';font-size:10px;font-weight:700;}
-  .note{font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:9px;line-height:1.45;display:flex;gap:7px;}
-  .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px;}
-  .dt-g{background:var(--green)}.dt-b{background:var(--accent)}.dt-y{background:var(--yellow)}.dt-o{background:var(--elite)}.dt-r{background:var(--red)}
-  .side{display:flex;flex-direction:column;gap:14px;}
-  .panel{background:var(--surface);border:1px solid var(--border);}
-  .panel-h{padding:9px 14px;border-bottom:1px solid var(--border);font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between;}
-  .ai{padding:9px 14px;border-bottom:1px solid var(--border);display:flex;gap:11px;}
+
+  :root {
+    --bg: #070b0f;
+    --surface: #0d1318;
+    --surface2: #10171e;
+    --border: #1e2a35;
+    --border2: #2a3a4a;
+    --text: #c8d8e8;
+    --muted: #506070;
+    --accent: #00c8ff;
+    --green: #00e87a;
+    --red: #ff3a5c;
+    --orange: #ff8c00;
+    --yellow: #ffd600;
+    --purple: #a855f7;
+    --elite: #ff6b00;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.018) 1px, transparent 1px);
+    background-size: 44px 44px;
+    pointer-events:none; z-index:0;
+  }
+
+  .app { position:relative; z-index:1; max-width:1500px; margin:0 auto; padding:18px; }
+
+  /* ===== TOP BAR ===== */
+  .topbar {
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 0 16px; border-bottom:1px solid var(--border); margin-bottom:18px;
+    flex-wrap:wrap; gap:12px;
+  }
+  .logo { font-family:'Bebas Neue'; font-size:30px; letter-spacing:4px; color:#fff; line-height:1; }
+  .logo span { color:var(--accent); }
+  .logo small { display:block; font-family:'Space Mono'; font-size:9px; letter-spacing:2px; color:var(--muted); margin-top:4px; }
+  .top-right { display:flex; align-items:center; gap:18px; font-family:'Space Mono'; font-size:10px; color:var(--muted); }
+  .live-dot { display:inline-block; width:7px; height:7px; background:var(--green); border-radius:50%; margin-right:6px; animation:pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+  .refresh-btn {
+    background:var(--surface2); border:1px solid var(--border2); color:var(--accent);
+    font-family:'Space Mono'; font-size:10px; letter-spacing:1px; padding:8px 14px;
+    cursor:pointer; transition:all .15s;
+  }
+  .refresh-btn:hover { border-color:var(--accent); background:rgba(0,200,255,0.06); }
+
+  /* ===== TICKER ===== */
+  .ticker {
+    display:grid; grid-template-columns:repeat(7,1fr); gap:10px; margin-bottom:18px;
+  }
+  .tick {
+    background:var(--surface); border:1px solid var(--border); padding:12px 14px;
+    cursor:pointer; transition:border-color .15s; position:relative; overflow:hidden;
+  }
+  .tick:hover, .tick.sel { border-color:var(--accent); }
+  .tick.sel::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--accent); }
+  .tick-pair { font-family:'Bebas Neue'; font-size:17px; letter-spacing:2px; color:#fff; }
+  .tick-price { font-family:'Space Mono'; font-size:13px; font-weight:700; margin-top:3px; }
+  .tick-state { font-family:'Space Mono'; font-size:8px; letter-spacing:1px; margin-top:5px; }
+  .tick-dist { font-family:'Space Mono'; font-size:8px; color:var(--muted); margin-top:2px; }
+
+  .c-green{color:var(--green)} .c-red{color:var(--red)} .c-blue{color:var(--accent)}
+  .c-yellow{color:var(--yellow)} .c-orange{color:var(--elite)} .c-muted{color:var(--muted)}
+
+  /* ===== TABS ===== */
+  .tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:18px; }
+  .tab {
+    font-family:'Space Mono'; font-size:10px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--muted); padding:10px 20px; cursor:pointer; border-bottom:2px solid transparent;
+    transition:all .15s; user-select:none;
+  }
+  .tab:hover { color:var(--text); }
+  .tab.on { color:var(--accent); border-bottom-color:var(--accent); }
+
+  .page { display:none; }
+  .page.on { display:block; animation:fadeIn .25s ease; }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none} }
+
+  /* ===== EXECUTION GRID ===== */
+  .grid2 { display:grid; grid-template-columns:1fr 320px; gap:16px; }
+  @media(max-width:1080px){ .grid2{grid-template-columns:1fr} }
+  .cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:760px){ .cards{grid-template-columns:1fr} .ticker{grid-template-columns:repeat(3,1fr)} }
+
+  .card {
+    background:var(--surface); border:1px solid var(--border); overflow:hidden;
+    transition:border-color .15s;
+  }
+  .card.b-elite{border-color:rgba(255,107,0,.4)} .card.b-sell{border-color:rgba(255,58,92,.25)}
+  .card.b-buy{border-color:rgba(0,232,122,.25)} .card.b-pend{border-color:rgba(0,200,255,.25)}
+  .card.b-warn{border-color:rgba(255,140,0,.5)}
+
+  .banner {
+    padding:6px 14px; font-family:'Space Mono'; font-size:9px; letter-spacing:1px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .bn-green{background:rgba(0,232,122,.07); color:var(--green); border-bottom:1px solid rgba(0,232,122,.2)}
+  .bn-blue{background:rgba(0,200,255,.07); color:var(--accent); border-bottom:1px solid rgba(0,200,255,.2)}
+  .bn-red{background:rgba(255,58,92,.07); color:var(--red); border-bottom:1px solid rgba(255,58,92,.2)}
+  .bn-orange{background:rgba(255,140,0,.08); color:var(--orange); border-bottom:1px solid rgba(255,140,0,.25)}
+
+  .card-h { display:flex; align-items:center; justify-content:space-between; padding:12px 14px 9px; border-bottom:1px solid var(--border); }
+  .card-pair { font-family:'Bebas Neue'; font-size:20px; letter-spacing:3px; color:#fff; }
+  .badges { display:flex; flex-direction:column; gap:4px; align-items:flex-end; }
+  .badge {
+    font-family:'Space Mono'; font-size:8px; letter-spacing:1.5px; padding:3px 7px;
+    border:1px solid; text-transform:uppercase;
+  }
+  .bd-sell{border-color:var(--red); color:var(--red); background:rgba(255,58,92,.08)}
+  .bd-buy{border-color:var(--green); color:var(--green); background:rgba(0,232,122,.08)}
+  .bd-pend{border-color:var(--accent); color:var(--accent); background:rgba(0,200,255,.08)}
+  .bd-skip{border-color:var(--muted); color:var(--muted)}
+  .bd-rr{border-color:rgba(255,107,0,.4); color:var(--elite)}
+
+  .card-b { padding:12px 14px; }
+  .lv { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:11px; }
+  .lv-l { font-family:'Space Mono'; font-size:8px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin-bottom:2px; }
+  .lv-v { font-family:'Space Mono'; font-size:12px; font-weight:700; color:#fff; }
+
+  /* live price strip inside card */
+  .live-strip {
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--surface2); border:1px solid var(--border); padding:8px 12px; margin-bottom:11px;
+  }
+  .live-price { font-family:'Space Mono'; font-size:15px; font-weight:700; color:#fff; }
+  .live-lbl { font-family:'Space Mono'; font-size:8px; color:var(--muted); letter-spacing:1px; }
+  .prox { font-family:'Space Mono'; font-size:9px; text-align:right; line-height:1.5; }
+
+  .conf { display:flex; align-items:center; gap:9px; margin-bottom:9px; }
+  .conf-bar { flex:1; height:3px; background:var(--border); }
+  .conf-fill { height:100%; }
+  .conf-pct { font-family:'Space Mono'; font-size:10px; font-weight:700; }
+
+  .note { font-size:11px; color:var(--muted); border-top:1px solid var(--border); padding-top:9px; line-height:1.45; display:flex; gap:7px; }
+  .dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+  .dt-g{background:var(--green)} .dt-b{background:var(--accent)} .dt-y{background:var(--yellow)} .dt-o{background:var(--elite)} .dt-r{background:var(--red)}
+
+  /* ===== SIDEBAR ===== */
+  .side { display:flex; flex-direction:column; gap:14px; }
+  .panel { background:var(--surface); border:1px solid var(--border); }
+  .panel-h {
+    padding:9px 14px; border-bottom:1px solid var(--border);
+    font-family:'Space Mono'; font-size:9px; letter-spacing:2px; color:var(--muted);
+    text-transform:uppercase; display:flex; justify-content:space-between;
+  }
+  .ai { padding:9px 14px; border-bottom:1px solid var(--border); display:flex; gap:11px; }
   .ai:last-child{border-bottom:none}
-  .ai-n{font-family:'Bebas Neue';font-size:18px;color:var(--border2);width:18px;flex-shrink:0;}
-  .ai-p{font-family:'Space Mono';font-size:10px;font-weight:700;color:#fff;margin-bottom:2px;}
-  .ai-d{font-size:10.5px;color:var(--muted);line-height:1.4;}
-  .ai.u .ai-p,.ai.u .ai-n{color:var(--red)}
-  .ai.g .ai-p,.ai.g .ai-n{color:var(--green)}
-  .rk{padding:10px 14px;}
-  .rk-r{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-family:'Space Mono';font-size:10px;}
+  .ai-n { font-family:'Bebas Neue'; font-size:18px; color:var(--border2); width:18px; flex-shrink:0; }
+  .ai-p { font-family:'Space Mono'; font-size:10px; font-weight:700; color:#fff; margin-bottom:2px; }
+  .ai-d { font-size:10.5px; color:var(--muted); line-height:1.4; }
+  .ai.u .ai-p, .ai.u .ai-n {color:var(--red)}
+  .ai.g .ai-p, .ai.g .ai-n {color:var(--green)}
+
+  .rk { padding:10px 14px; }
+  .rk-r { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border); font-family:'Space Mono'; font-size:10px; }
   .rk-r:last-child{border-bottom:none}
-  .rk-r.tot{color:#fff;font-weight:700;}
-  table{width:100%;border-collapse:collapse;font-family:'Space Mono';font-size:10px;}
-  th{text-align:left;padding:9px 12px;color:var(--muted);letter-spacing:1px;font-size:8px;text-transform:uppercase;border-bottom:1px solid var(--border);}
-  td{padding:9px 12px;border-bottom:1px solid var(--border);}
-  tr:hover td{background:rgba(0,200,255,0.02);}
-  .rules{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .rk-r.tot { color:#fff; font-weight:700; }
+
+  /* ===== HISTORY TABLE ===== */
+  table { width:100%; border-collapse:collapse; font-family:'Space Mono'; font-size:10px; }
+  th { text-align:left; padding:9px 12px; color:var(--muted); letter-spacing:1px; font-size:8px; text-transform:uppercase; border-bottom:1px solid var(--border); }
+  td { padding:9px 12px; border-bottom:1px solid var(--border); }
+  tr:hover td { background:rgba(0,200,255,0.02); }
+
+  /* ===== RULES PAGE ===== */
+  .rules { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   @media(max-width:760px){.rules{grid-template-columns:1fr}}
-  .rule{background:var(--surface);border:1px solid var(--border);padding:14px 16px;}
-  .rule h3{font-family:'Bebas Neue';font-size:16px;letter-spacing:2px;color:var(--accent);margin-bottom:8px;}
-  .rule p,.rule li{font-size:12px;color:var(--text);line-height:1.55;}
-  .rule ul{padding-left:16px;margin-top:4px;}
-  .rule .hl{color:var(--yellow);}
-  .upd-time{font-family:'Space Mono';font-size:9px;color:var(--muted);}
-  .footer{margin-top:28px;padding:14px 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'Space Mono';font-size:9px;color:var(--muted);letter-spacing:1px;}
-  .err-banner{display:none;background:rgba(255,58,92,.08);border:1px solid rgba(255,58,92,.3);color:var(--red);font-family:'Space Mono';font-size:10px;padding:9px 14px;margin-bottom:14px;}
-  .fresh-strip{display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;padding:8px 12px;border:1px solid var(--border);background:var(--surface2);}
-  .fresh-tag{font-family:'Space Mono';font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 9px;border:1px solid;white-space:nowrap;flex-shrink:0;}
-  .fr-enter{color:var(--green);border-color:var(--green);background:rgba(0,232,122,.1);}
-  .fr-cond{color:var(--yellow);border-color:var(--yellow);background:rgba(255,214,0,.1);}
-  .fr-late{color:var(--red);border-color:var(--red);background:rgba(255,58,92,.1);}
-  .fr-no{color:var(--muted);border-color:var(--muted);}
-  .fresh-txt{font-size:10.5px;color:var(--muted);line-height:1.45;}
-  .fresh-lbl{font-family:'Space Mono';font-size:8px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;display:block;}
-  .flat-banner{background:rgba(0,232,122,.06);border:1px solid rgba(0,232,122,.25);padding:9px 16px;margin-bottom:18px;display:flex;align-items:center;gap:10px;font-family:'Space Mono';font-size:10px;letter-spacing:1px;color:var(--green);flex-wrap:wrap;}
-  .flat-banner b{color:#fff;}
-  .arrow-strip{display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;padding:7px 12px;border:1px dashed var(--border2);background:rgba(255,255,255,0.01);}
-  .arrow-tag{font-family:'Space Mono';font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 8px;border:1px solid;white-space:nowrap;flex-shrink:0;}
-  .ar-close{color:var(--green);border-color:var(--green);}
-  .ar-mid{color:var(--yellow);border-color:var(--yellow);}
-  .ar-far{color:var(--red);border-color:var(--red);}
-  .ar-none{color:var(--muted);border-color:var(--muted);}
-  .arrow-txt{font-size:10px;color:var(--muted);line-height:1.45;}
-  .arrow-lbl{font-family:'Space Mono';font-size:8px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;display:block;}
+  .rule { background:var(--surface); border:1px solid var(--border); padding:14px 16px; }
+  .rule h3 { font-family:'Bebas Neue'; font-size:16px; letter-spacing:2px; color:var(--accent); margin-bottom:8px; }
+  .rule p, .rule li { font-size:12px; color:var(--text); line-height:1.55; }
+  .rule ul { padding-left:16px; margin-top:4px; }
+  .rule .hl { color:var(--yellow); }
+
+  .upd-time { font-family:'Space Mono'; font-size:9px; color:var(--muted); }
+
+  .footer {
+    margin-top:28px; padding:14px 0; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-family:'Space Mono'; font-size:9px; color:var(--muted); letter-spacing:1px;
+  }
+
+  .err-banner {
+    display:none; background:rgba(255,58,92,.08); border:1px solid rgba(255,58,92,.3);
+    color:var(--red); font-family:'Space Mono'; font-size:10px; padding:9px 14px; margin-bottom:14px;
+  }
+
+  /* FRESH ENTRY VERDICT */
+  .fresh-strip {
+    display:flex; align-items:flex-start; gap:10px; margin-bottom:11px;
+    padding:8px 12px; border:1px solid var(--border); background:var(--surface2);
+  }
+  .fresh-tag {
+    font-family:'Space Mono'; font-size:10px; font-weight:700; letter-spacing:1px;
+    padding:3px 9px; border:1px solid; white-space:nowrap; flex-shrink:0;
+  }
+  .fr-enter { color:var(--green); border-color:var(--green); background:rgba(0,232,122,.1); }
+  .fr-cond  { color:var(--yellow); border-color:var(--yellow); background:rgba(255,214,0,.1); }
+  .fr-late  { color:var(--red); border-color:var(--red); background:rgba(255,58,92,.1); }
+  .fr-no    { color:var(--muted); border-color:var(--muted); }
+  .fresh-txt { font-size:10.5px; color:var(--muted); line-height:1.45; }
+  .fresh-lbl { font-family:'Space Mono'; font-size:8px; color:var(--muted); letter-spacing:1px; margin-bottom:4px; display:block; }
+
+  .flat-banner {
+    background:rgba(0,232,122,.06); border:1px solid rgba(0,232,122,.25);
+    padding:9px 16px; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+    font-family:'Space Mono'; font-size:10px; letter-spacing:1px; color:var(--green); flex-wrap:wrap;
+  }
+  .flat-banner b { color:#fff; }
+
+  /* ARROW ORIGIN READ */
+  .arrow-strip {
+    display:flex; align-items:flex-start; gap:10px; margin-bottom:11px;
+    padding:7px 12px; border:1px dashed var(--border2); background:rgba(255,255,255,0.01);
+  }
+  .arrow-tag {
+    font-family:'Space Mono'; font-size:9px; font-weight:700; letter-spacing:1px;
+    padding:3px 8px; border:1px solid; white-space:nowrap; flex-shrink:0;
+  }
+  .ar-close { color:var(--green); border-color:var(--green); }
+  .ar-mid   { color:var(--yellow); border-color:var(--yellow); }
+  .ar-far   { color:var(--red); border-color:var(--red); }
+  .ar-none  { color:var(--muted); border-color:var(--muted); }
+  .arrow-txt { font-size:10px; color:var(--muted); line-height:1.45; }
+  .arrow-lbl { font-family:'Space Mono'; font-size:8px; color:var(--muted); letter-spacing:1px; margin-bottom:4px; display:block; }
 </style>
 </head>
 <body>
 <div class="app">
+
+  <!-- TOP BAR -->
   <div class="topbar">
     <div class="logo">FX <span>ENGINE</span><small>EXECUTION PLATFORM · ELLIOTT WAVE ENGINE</small></div>
     <div class="top-right">
       <div><span class="live-dot"></span><span id="clock">--:--:--</span></div>
-      <div>6-PAIR PDF: JUN 29 · GOLD: JUN 29</div>
+      <div>6-PAIR PDF: JUN 25 · GOLD: JUN 19 (2H)</div>
       <button class="refresh-btn" onclick="fetchPrices()">↻ REFRESH PRICES</button>
     </div>
   </div>
@@ -133,52 +258,61 @@
   <div class="err-banner" id="errBanner">⚠ ALL LIVE PRICE SOURCES UNREACHABLE — tried Frankfurter (ECB) + exchangerate.host. Could be weekend/market-closed, a network block, or rate limiting. Levels still valid — verify current price in MT5. Hit ↻ to retry.</div>
 
   <div class="flat-banner">
-    ⚑ <b>FLAT ACCOUNT MODE</b> · Jun 29: XAUUSD — 61.8% Fib (4,157) tested TWICE and failed, Wave (4) deepening toward 78.6% (3,765) — do NOT short, wait for buy signal · EURUSD/GBPUSD: 4th+ consecutive trail SL lower instruction — moves deep in profit · USDJPY: ending diagonal still forming at 161.965 apex, Sell Stop 161.070 unchanged · USDCHF Wave 3 active — re-enter only on dip to 0.80113 · AUDUSD Wave (2) correction continues · USDCAD WXY complex correction ongoing — no setup yet
+    ⚑ <b>FLAT ACCOUNT MODE</b> · Jun 25: AUDUSD re-counted — bullish wave-3 thesis dropped, now corrective wave (2) DOWN (NO TRADE) · USDCHF breakout extended → ONLY ON DIP · USDJPY the lone pending trigger (Sell Stop 161.070), but it's short-USD against a USD-strength backdrop · EUR/GBP sells mature (TOO LATE) · USDCAD still no setup (4th day) · GOLD carried fwd (no new file)
   </div>
 
+  <!-- TICKER -->
   <div class="ticker" id="ticker"></div>
 
+  <!-- TABS -->
   <div class="tabs">
     <div class="tab on" data-page="exec">Execution</div>
     <div class="tab" data-page="history">PDF History</div>
     <div class="tab" data-page="rules">Rulebook</div>
   </div>
 
+  <!-- ===== PAGE: EXECUTION ===== -->
   <div class="page on" id="page-exec">
     <div class="grid2">
       <div class="cards" id="cards"></div>
+
       <div class="side">
         <div class="panel">
           <div class="panel-h"><span>Fresh Entry Shortlist</span><span style="color:var(--green)">FLAT ACCT</span></div>
-          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">USDJPY — ENTER (pending)</div><div class="ai-d">Sell Stop 161.070, SL 161.965 (~90p). Ending diagonal at Wave (B) top — analyst: "wait and see if market reverses." Lone fresh trigger on platform.</div></div></div>
-          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">XAUUSD — WATCH · BUY ZONE</div><div class="ai-d">Jun 29: 61.8% Fib (4,157) tested TWICE and FAILED. Wave (4) deepening toward 78.6% = 3,765. Analyst: "do not short — wait for buying opportunity." Enter long near 3,765 for Wave (5) to 6,000+.</div></div></div>
-          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">USDCHF — ONLY ON DIP</div><div class="ai-d">Big Triangle complete, Wave 3 bullish. Re-enter only on pullback toward 0.80113. Chasing at market = poor RR.</div></div></div>
-          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">EURUSD — TOO LATE / TRAIL SL</div><div class="ai-d">4th consecutive trail SL instruction. Move mature, Wave (3) to 1.11855. Analyst: "trail SL even lower to guarantee profit." Holders follow instruction. No fresh entry.</div></div></div>
-          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">GBPUSD — TOO LATE / TRAIL SL</div><div class="ai-d">4th+ consecutive trail SL instruction. Leading Diagonal complete, ABC correction down. "Trail SL even lower." Target 1.29940. Nothing fresh.</div></div></div>
-          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">AUDUSD — NO TRADE</div><div class="ai-d">Wave (2) corrective pullback continues toward 0.676–0.643. Buy returns only at Fib support. No trade now.</div></div></div>
-          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">USDCAD — NO TRADE</div><div class="ai-d">WXY complex correction still in progress. 61.8%=1.431, 78.6%=1.452 sell zone. Wait for confirmed setup.</div></div></div>
+          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">USDJPY — ENTER (pending)</div><div class="ai-d">Sell Stop 161.070, SL 161.965 (~90p). Lone fresh trigger — but it's short-USD, against today's EUR/GBP/CHF USD-strength theme, and the analyst hedges on the reversal. Don't oversize.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">XAUUSD — WATCH (stale)</div><div class="ai-d">No new gold file. Carried fwd from Jun 19: wait for impulse above ~4,240, inval 4,023.45. Not actionable today.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">USDCHF — ONLY ON DIP</div><div class="ai-d">Breakout ran; only ~100p left to 0.820. Re-enter on a pullback toward 0.801 — market chase ≈ 1:1 RR, skip otherwise.</div></div></div>
+          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">EURUSD — TOO LATE</div><div class="ai-d">~75% of the move to 1.11855 done (~470p captured / ~150p left). Skip.</div></div></div>
+          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">GBPUSD — TOO LATE</div><div class="ai-d">~680p captured, move mature. Nothing fresh.</div></div></div>
+          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">AUDUSD — NO TRADE</div><div class="ai-d">Re-counted: wave (1) done, corrective wave (2) DOWN. Buy returns only near 0.676–0.643. Prior buy-watch dropped.</div></div></div>
+          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">USDCAD — NO TRADE</div><div class="ai-d">Still no labeled setup (4th day). Sell zone forming 1.431–1.452 — watch next file.</div></div></div>
         </div>
+
         <div class="panel">
           <div class="panel-h"><span>Risk Plan (if all valid taken)</span><span style="color:var(--green)">€100/TRADE</span></div>
           <div class="rk">
             <div class="rk-r"><span>USDJPY</span><span class="c-green">ENTER (pending) · €100</span></div>
-            <div class="rk-r"><span>XAUUSD</span><span class="c-yellow">watch (buy zone 3,765)</span></div>
             <div class="rk-r"><span>USDCHF</span><span class="c-yellow">DIP ONLY · €100</span></div>
-            <div class="rk-r"><span>AUDUSD</span><span class="c-muted">no trade (wave 2)</span></div>
-            <div class="rk-r"><span>USDCAD</span><span class="c-muted">no trade (no setup)</span></div>
-            <div class="rk-r"><span>EURUSD / GBPUSD</span><span class="c-red">skip (late) / trail SL</span></div>
+            <div class="rk-r"><span>XAUUSD</span><span class="c-yellow">watch (stale)</span></div>
+            <div class="rk-r"><span>AUDUSD</span><span class="c-muted">no trade (re-count)</span></div>
+            <div class="rk-r"><span>USDCAD</span><span class="c-muted">no trade (reset)</span></div>
+            <div class="rk-r"><span>EURUSD / GBPUSD</span><span class="c-red">skip (late)</span></div>
             <div class="rk-r tot"><span>CURRENT OPEN RISK</span><span class="c-green">€0 (flat)</span></div>
-            <div class="rk-r tot"><span>MAX IF ALL VALID TAKEN</span><span class="c-yellow">€100 now · ≤€200 incl. dip · cap 4.5%</span></div>
+            <div class="rk-r tot"><span>MAX IF ALL VALID TAKEN</span><span class="c-yellow">€100 now (USDJPY) · ≤€200 incl. dip · cap 4.5%</span></div>
           </div>
         </div>
+
         <div class="panel">
           <div class="panel-h"><span>Live Feed</span><span class="upd-time" id="feedTime">—</span></div>
-          <div class="rk" style="font-size:10px;color:var(--muted);font-family:'Space Mono';line-height:1.7;" id="feedNote">Prices via Frankfurter API (ECB reference, updated daily ~16:00 CET). Indicative only — execute on MT5 prices.</div>
+          <div class="rk" style="font-size:10px; color:var(--muted); font-family:'Space Mono'; line-height:1.7;" id="feedNote">
+            Prices via Frankfurter API (ECB reference, updated daily ~16:00 CET). Indicative only — execute on MT5 prices.
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- ===== PAGE: HISTORY ===== -->
   <div class="page" id="page-history">
     <div class="panel">
       <div class="panel-h"><span>PDF Version Timeline — Delta Log</span></div>
@@ -186,174 +320,251 @@
       <table>
         <thead><tr><th>PDF Date</th><th>Pair</th><th>Event</th><th>Old Level</th><th>New Level</th><th>Outcome</th></tr></thead>
         <tbody>
-          <tr><td>JUN 29</td><td class="c-yellow">XAUUSD</td><td>61.8% Fib (4,157) tested TWICE and failed — Wave (4) deeper</td><td>buy zone 3,765</td><td class="c-yellow">78.6% = 3,765 still target · 61.8% failed</td><td class="c-yellow">WATCH — buy near 3,765 on reversal signal</td></tr>
-          <tr><td>JUN 29</td><td class="c-green">EURUSD</td><td>Trail SL lower instruction (4th consecutive)</td><td>&lt; 1.15288</td><td class="c-green">trail even lower</td><td class="c-green">ACTIVE — trailing SL, wave (3) to 1.11855</td></tr>
-          <tr><td>JUN 29</td><td class="c-green">GBPUSD</td><td>Trail SL lower instruction (4th+) — target 1.29940 confirmed</td><td>&lt; 1.32733</td><td class="c-green">trail even lower · TP 1.29940</td><td class="c-green">ACTIVE — trailing SL</td></tr>
-          <tr><td>JUN 29</td><td class="c-yellow">USDJPY</td><td>Ending diagonal apex — Sell Stop 161.070 unchanged</td><td>161.070 conf</td><td class="c-yellow">161.070 (unchanged) · SL 161.965</td><td class="c-green">PENDING — still ENTER · wait for reversal</td></tr>
-          <tr><td>JUN 29</td><td class="c-green">USDCHF</td><td>Wave 3 active — re-enter on dip confirmed</td><td>inval 0.80113</td><td class="c-green">Wave 3 up · inval 0.80113 / 0.79097 (unchanged)</td><td class="c-green">ACTIVE — re-enter on dip to 0.80113</td></tr>
-          <tr><td>JUN 29</td><td class="c-muted">AUDUSD</td><td>Wave (2) correction ongoing — 8H shows Wave A toward 0.67573</td><td>38.2%=0.67580</td><td class="c-muted">38.2%=0.67573 · 50%=0.65957</td><td class="c-muted">NO TRADE — wait at Fib support</td></tr>
-          <tr><td>JUN 29</td><td class="c-muted">USDCAD</td><td>WXY complex correction ongoing — no new setup</td><td>1.43141 / 1.45244</td><td class="c-muted">inval 1.47923 · no change</td><td class="c-muted">NO TRADE — looking for new setup</td></tr>
-          <tr><td>JUN 26</td><td class="c-yellow">XAUUSD</td><td>Wave (4) correction — buy zone 3,765 (78.6% Fib)</td><td>two scenarios / no setup</td><td class="c-yellow">Wave (4) pullback, buy near 3,765</td><td class="c-yellow">WATCH — buy at 78.6% Fib reversal</td></tr>
-          <tr><td>JUN 26</td><td class="c-green">EURUSD</td><td>Trail SL lower instruction (3rd consecutive)</td><td>1.15288</td><td class="c-green">trail below 1.15288</td><td class="c-green">ACTIVE — trailing SL, wave (3) to 1.11855</td></tr>
-          <tr><td>JUN 26</td><td class="c-green">GBPUSD</td><td>Trail SL lower instruction — Leading Diagonal + ABC</td><td>1.32733</td><td class="c-green">trail below 1.32733</td><td class="c-green">ACTIVE — trailing SL, target 1.29540</td></tr>
-          <tr><td>JUN 26</td><td class="c-yellow">USDJPY</td><td>Ending diagonal forming at Wave (B) top</td><td>161.070 conf</td><td class="c-yellow">161.070 (unchanged) · target ~153.810</td><td class="c-green">PENDING — still ENTER · wait for reversal</td></tr>
-          <tr><td>JUN 26</td><td class="c-green">USDCHF</td><td>Big Triangle (A-B-C-D-E) complete — Wave 3 active</td><td>inval 0.80113</td><td class="c-green">Wave 3 up · inval 0.80113 / 0.79097</td><td class="c-green">ACTIVE — re-enter on dip to 0.80113</td></tr>
-          <tr><td>JUN 26</td><td class="c-muted">AUDUSD</td><td>Wave (2) correction continues — Fib zones confirmed</td><td>0.676 / 0.660 / 0.643</td><td class="c-muted">38.2%=0.67580 · 50%=0.65964 · 61.8%=0.64348</td><td class="c-muted">NO TRADE — wait at Fib support</td></tr>
-          <tr><td>JUN 26</td><td class="c-muted">USDCAD</td><td>WXY near completion · sell zone 1.431–1.452 tightening</td><td>1.43141 / 1.45244</td><td class="c-muted">inval 1.47923 · target ~1.340</td><td class="c-muted">NO TRADE — looking for new setup</td></tr>
+          <tr><td>MAY 26</td><td class="c-blue">USDJPY</td><td>Pending sell created</td><td>—</td><td>157.942</td><td class="c-muted">Never triggered</td></tr>
+          <tr><td>JUN 01</td><td class="c-blue">USDJPY</td><td>Confirmation revised ↑</td><td>157.942</td><td>158.590</td><td class="c-muted">Never triggered</td></tr>
+          <tr><td>JUN 12</td><td class="c-blue">USDJPY</td><td>Confirmation revised ↑ (2nd)</td><td>158.590</td><td class="c-yellow">160.238</td><td class="c-yellow">PENDING — RR 1:40</td></tr>
+          <tr><td>JUN 01</td><td class="c-red">USDCAD</td><td>Invalidation updated</td><td>1.39304</td><td>1.38706</td><td class="c-red">BROKEN — sell invalidated</td></tr>
+          <tr><td>JUN 12</td><td class="c-red">USDCAD</td><td>New sell structure</td><td>—</td><td class="c-yellow">1.39540 conf</td><td class="c-yellow">PENDING</td></tr>
+          <tr><td>MAY 26</td><td class="c-green">EURUSD</td><td>Sell active, SL → BE</td><td>1.17966</td><td>1.17416 BE</td><td class="c-green">RUNNING</td></tr>
+          <tr><td>JUN 12</td><td class="c-green">EURUSD</td><td>Profit lock instruction</td><td>1.17416</td><td class="c-green">1.16435</td><td class="c-green">+98p GUARANTEED</td></tr>
+          <tr><td>MAY 26</td><td class="c-green">GBPUSD</td><td>Sell active, SL → BE</td><td>1.36529</td><td>1.35424 BE</td><td class="c-green">RUNNING</td></tr>
+          <tr><td>JUN 12</td><td class="c-green">GBPUSD</td><td>Profit lock instruction</td><td>1.35424</td><td class="c-green">1.34831</td><td class="c-green">+59p GUARANTEED</td></tr>
+          <tr><td>JUN 01</td><td class="c-yellow">USDCHF</td><td>Watch — no trigger labeled</td><td>—</td><td>—</td><td class="c-muted">System stayed flat</td></tr>
+          <tr><td>JUN 12</td><td class="c-yellow">USDCHF</td><td>Analyst: 50% profits, SL ↑</td><td>0.77555</td><td>0.79368</td><td class="c-yellow">MISSED (~200p) — by rule</td></tr>
+          <tr><td>MAY 26</td><td class="c-green">AUDUSD</td><td>Buy active above conf</td><td>—</td><td>0.69626</td><td class="c-green">RAN TO ~0.7300</td></tr>
+          <tr><td>JUN 12</td><td class="c-green">AUDUSD</td><td>Wave ii reset, RR 1:30</td><td>0.68765 inv</td><td class="c-yellow">0.69794 inv</td><td class="c-yellow">ENTRY ZONE ACTIVE</td></tr>
+          <tr><td>JUN 11</td><td class="c-yellow">XAUUSD</td><td>New pair added (EWStrategy src)</td><td>—</td><td class="c-yellow">4,146–4,222 zone</td><td class="c-yellow">SELL LIMIT PENDING</td></tr>
+          <tr><td>JUN 16</td><td class="c-yellow">XAUUSD</td><td>BIAS FLIPPED sell→buy (1D)</td><td>SELL 3,936 tgt</td><td class="c-green">BUY ~6,000 tgt</td><td class="c-yellow">WATCH — triangle wave 4</td></tr>
+          <tr><td>JUN 17</td><td class="c-muted">6 PAIRS</td><td>PDF unchanged vs Jun 16</td><td>—</td><td>—</td><td class="c-muted">No level changes — marking time</td></tr>
+          <tr><td>JUN 17</td><td class="c-yellow">XAUUSD</td><td>Bullish confirmed + 4H dip warning</td><td>conf 70%</td><td class="c-green">conf 72%</td><td class="c-yellow">WATCH — wait for dip/breakout</td></tr>
+          <tr><td>JUN 18</td><td class="c-red">USDCAD</td><td>OLD SELL ABANDONED — new WXY count</td><td>Sell 1.39507</td><td class="c-red">FLAT / WAIT</td><td class="c-red">NO TRADE — analyst resetting</td></tr>
+          <tr><td>JUN 18</td><td class="c-blue">USDJPY</td><td>Trigger/invalidation both moved</td><td>160.238 / 160.597</td><td class="c-yellow">160.199 / 161.953</td><td class="c-green">PENDING — still ENTER</td></tr>
+          <tr><td>JUN 18</td><td class="c-green">EURUSD</td><td>Profit lock tightened again</td><td>1.16435</td><td class="c-green">1.16202</td><td class="c-green">+121p locked</td></tr>
+          <tr><td>JUN 18</td><td class="c-green">GBPUSD</td><td>Triangle resolved down, SL tightened</td><td>1.34831</td><td class="c-green">1.34431</td><td class="c-green">"Handled triangle neatly"</td></tr>
+          <tr><td>JUN 18</td><td class="c-yellow">XAUUSD</td><td>3rd consecutive bullish file</td><td>conf 72%</td><td class="c-yellow">conf 72%</td><td class="c-yellow">WATCH — unchanged thesis</td></tr>
+          <tr><td>JUN 19</td><td class="c-yellow">XAUUSD</td><td>4th consecutive bullish file</td><td>conf 72%</td><td class="c-yellow">conf 73%</td><td class="c-muted">WATCH — stagnant, no trigger yet</td></tr>
+          <tr><td>JUN 19</td><td class="c-blue">XAUUSD</td><td>2H follow-up: 1st labeled invalidation</td><td>none labeled</td><td class="c-green">4,023.45</td><td class="c-green">WAIT FOR IMPULSE — conf 76%</td></tr>
+          <tr><td>JUN 19</td><td class="c-green">USDCHF</td><td>BREAKOUT — flat → active buy</td><td>WAIT</td><td class="c-green">ACTIVE, inval 0.79097</td><td class="c-green">FRESH ENTER — first trigger in 4 days</td></tr>
+          <tr><td>JUN 19</td><td class="c-orange">USDJPY</td><td>Levels unchanged, price hit critical zone</td><td>—</td><td class="c-orange">testing right under 161.953</td><td class="c-orange">ENTER — but elevated stop-out risk</td></tr>
+          <tr><td>JUN 19</td><td class="c-green">EURUSD</td><td>Profit lock tightened again</td><td>1.16202</td><td class="c-green">1.15743</td><td class="c-green">+167p locked</td></tr>
+          <tr><td>JUN 19</td><td class="c-green">GBPUSD</td><td>Sharp drop — take 50% profit</td><td>1.34431</td><td class="c-green">1.33249</td><td class="c-green">+217p, partial close advised</td></tr>
+          <tr><td>JUN 19</td><td class="c-muted">USDCAD</td><td>No new setup, count unchanged</td><td>WAIT</td><td class="c-muted">WAIT</td><td class="c-muted">Still searching, 2nd day flat</td></tr>
+          <tr><td>JUN 16</td><td class="c-green">AUDUSD</td><td>Wave (ii) complete, wave 3 starts</td><td>RR 1:30</td><td class="c-green">RR 1:20</td><td class="c-green">ACTIVE / WAVE 3</td></tr>
+          <tr><td>JUN 16</td><td class="c-blue">USDJPY</td><td>Invalidation tightened</td><td>160.723</td><td class="c-green">160.597</td><td class="c-yellow">PENDING — trigger 160.238</td></tr>
+          <tr><td>JUN 16</td><td class="c-red">USDCAD</td><td>Confirmation refined</td><td>1.39540</td><td class="c-yellow">1.39507</td><td class="c-yellow">PENDING — loading</td></tr>
+          <tr><td>JUN 16</td><td class="c-yellow">USDCHF</td><td>Analyst REVERSED → stay out</td><td>long/0.79368</td><td class="c-red">FLAT</td><td class="c-muted">WAIT — system was right</td></tr>
           <tr><td>JUN 25</td><td class="c-red">AUDUSD</td><td>RE-COUNT — wave (1) done, now corrective wave (2)</td><td>BUY wave 3 · inv 0.69794</td><td class="c-red">corrective DOWN 0.676→0.643</td><td class="c-red">ONLY ON DIP → NO TRADE — buy thesis abandoned</td></tr>
           <tr><td>JUN 25</td><td class="c-green">EURUSD</td><td>Profit lock tightened again</td><td>1.15743</td><td class="c-green">1.15288</td><td class="c-green">+213p locked · still TOO LATE</td></tr>
           <tr><td>JUN 25</td><td class="c-green">GBPUSD</td><td>SL tightened again</td><td>1.33249</td><td class="c-green">1.32733</td><td class="c-green">+269p locked · still TOO LATE</td></tr>
           <tr><td>JUN 25</td><td class="c-yellow">USDCHF</td><td>Breakout matured, stop raised</td><td>inval 0.79097</td><td class="c-yellow">inval 0.80113</td><td class="c-yellow">ENTER → ONLY ON DIP (ran to ~0.810)</td></tr>
           <tr><td>JUN 25</td><td class="c-blue">USDJPY</td><td>Confirmation revised ↑ (3rd)</td><td>160.199</td><td class="c-yellow">161.070</td><td class="c-green">PENDING — still ENTER · ~90p risk · RR ~1:20</td></tr>
           <tr><td>JUN 25</td><td class="c-muted">USDCAD</td><td>Wave Y extended, 78.6% level added</td><td>1.43141 top</td><td class="c-yellow">1.45244 added</td><td class="c-muted">NO TRADE — sell zone 1.431–1.452 forming</td></tr>
-          <tr><td>JUN 25</td><td class="c-muted">XAUUSD</td><td>Two correction scenarios — both ugly, no ideal setup</td><td>—</td><td class="c-muted">CORRECTION IN PROGRESS</td><td class="c-muted">WAIT — no short · inval 4,023.45</td></tr>
-          <tr><td>JUN 19</td><td class="c-green">USDCHF</td><td>BREAKOUT — flat → active buy</td><td>WAIT</td><td class="c-green">ACTIVE, inval 0.79097</td><td class="c-green">FRESH ENTER — first trigger in 4 days</td></tr>
-          <tr><td>JUN 19</td><td class="c-orange">USDJPY</td><td>Levels unchanged, price hit critical zone</td><td>—</td><td class="c-orange">testing right under 161.953</td><td class="c-orange">ENTER — but elevated stop-out risk</td></tr>
-          <tr><td>JUN 19</td><td class="c-green">EURUSD</td><td>Profit lock tightened again</td><td>1.16202</td><td class="c-green">1.15743</td><td class="c-green">+167p locked</td></tr>
-          <tr><td>JUN 19</td><td class="c-green">GBPUSD</td><td>Sharp drop — take 50% profit</td><td>1.34431</td><td class="c-green">1.33249</td><td class="c-green">+217p, partial close advised</td></tr>
-          <tr><td>JUN 18</td><td class="c-red">USDCAD</td><td>OLD SELL ABANDONED — new WXY count</td><td>Sell 1.39507</td><td class="c-red">FLAT / WAIT</td><td class="c-red">NO TRADE — analyst resetting</td></tr>
-          <tr><td>JUN 18</td><td class="c-blue">USDJPY</td><td>Trigger/invalidation both moved</td><td>160.238 / 160.597</td><td class="c-yellow">160.199 / 161.953</td><td class="c-green">PENDING — still ENTER</td></tr>
-          <tr><td>JUN 18</td><td class="c-green">EURUSD</td><td>Profit lock tightened again</td><td>1.16435</td><td class="c-green">1.16202</td><td class="c-green">+121p locked</td></tr>
-          <tr><td>JUN 18</td><td class="c-green">GBPUSD</td><td>Triangle resolved down, SL tightened</td><td>1.34831</td><td class="c-green">1.34431</td><td class="c-green">"Handled triangle neatly"</td></tr>
-          <tr><td>JUN 12</td><td class="c-green">EURUSD</td><td>Profit lock instruction</td><td>1.17416</td><td class="c-green">1.16435</td><td class="c-green">+98p GUARANTEED</td></tr>
-          <tr><td>JUN 12</td><td class="c-green">GBPUSD</td><td>Profit lock instruction</td><td>1.35424</td><td class="c-green">1.34831</td><td class="c-green">+59p GUARANTEED</td></tr>
-          <tr><td>MAY 26</td><td class="c-green">EURUSD</td><td>Sell active, SL → BE</td><td>1.17966</td><td>1.17416 BE</td><td class="c-green">RUNNING</td></tr>
-          <tr><td>MAY 26</td><td class="c-green">GBPUSD</td><td>Sell active, SL → BE</td><td>1.36529</td><td>1.35424 BE</td><td class="c-green">RUNNING</td></tr>
-          <tr><td>MAY 26</td><td class="c-blue">USDJPY</td><td>Pending sell created</td><td>—</td><td>157.942</td><td class="c-muted">Never triggered</td></tr>
+          <tr><td>JUN 25</td><td class="c-muted">XAUUSD</td><td>No new gold file with 6-pair batch</td><td>Jun 19 (2H)</td><td class="c-muted">carried forward</td><td class="c-muted">WATCH — levels now 6 days stale</td></tr>
         </tbody>
       </table>
       </div>
     </div>
   </div>
 
+  <!-- ===== PAGE: RULEBOOK ===== -->
   <div class="page" id="page-rules">
     <div class="rules">
-      <div class="rule"><h3>Execution States</h3><ul><li><span class="hl">WAIT</span> — structure exists, no confirmation. No entry.</li><li><span class="hl">PENDING</span> — valid setup, waiting trigger. Use pending orders.</li><li><span class="hl">ACTIVE</span> — confirmation broken, trade live. Manage only.</li><li><span class="hl">MANAGE</span> — deep in profit. No fresh entry without new structure.</li></ul></div>
-      <div class="rule"><h3>Confirmation First</h3><p>If a confirmation level exists on the chart, the entry is a pending order at that level. Never enter early. Near trigger ≠ trigger.</p></div>
-      <div class="rule"><h3>Late Entry Filter</h3><p>If price has moved far from optimal entry → <span class="hl">SKIP</span>. Confidence downgraded heavily. Chasing not justified. (See: USDCHF Jun 12.)</p></div>
-      <div class="rule"><h3>Risk Model</h3><p>Fixed <span class="hl">€100 per trade</span>. Lot size derived from SL distance per pair. Total portfolio exposure &lt; <span class="hl">4.5%</span>. Confidence &gt;80% may receive larger allocation.</p></div>
-      <div class="rule"><h3>Duplicate Prevention</h3><p>No automatic re-entry on an already-traded pair unless: new structure, new RR, retracement resets entry quality, or trade moved deep in profit.</p></div>
-      <div class="rule"><h3>Analyst Intent Override</h3><p>"Stay out", "wait", "corrective", "risky" → confidence downgraded regardless of chart attractiveness. Latest PDF always overrides older PDFs.</p></div>
-      <div class="rule"><h3>Confidence Bands</h3><ul><li>90%+ elite · 80–89% high · 70–79% decent · 60–69% caution · &lt;60% skip</li></ul></div>
-      <div class="rule"><h3>Invalidation Is Hard</h3><p>Price crossing invalidation closes the trade rationale entirely. No exceptions, no re-counting hope.</p></div>
-      <div class="rule"><h3>Reading the Arrow</h3><p>Use the arrow's <span class="hl">tail (origin)</span>, not its shape. Tail near current price = move launching now (good timing). Price far along the arrow = <span class="hl">too late</span>.</p><p style="margin-top:6px">Straight vs. bent is a <span class="hl">drawing artifact, NOT a quality signal</span> — hand-drawn projections. Entry is always decided by the labeled confirmation/invalidation levels, never by arrow geometry.</p></div>
+      <div class="rule"><h3>Execution States</h3>
+        <ul>
+          <li><span class="hl">WAIT</span> — structure exists, no confirmation. No entry.</li>
+          <li><span class="hl">PENDING</span> — valid setup, waiting trigger. Use pending orders.</li>
+          <li><span class="hl">ACTIVE</span> — confirmation broken, trade live. Manage only.</li>
+          <li><span class="hl">MANAGE</span> — deep in profit. No fresh entry without new structure.</li>
+        </ul>
+      </div>
+      <div class="rule"><h3>Confirmation First</h3>
+        <p>If a confirmation level exists on the chart, the entry is a pending order at that level. Never enter early. Near trigger ≠ trigger.</p>
+      </div>
+      <div class="rule"><h3>Late Entry Filter</h3>
+        <p>If price has moved far from optimal entry → <span class="hl">SKIP</span>. Confidence downgraded heavily. Chasing not justified. (See: USDCHF Jun 12.)</p>
+      </div>
+      <div class="rule"><h3>Risk Model</h3>
+        <p>Fixed <span class="hl">€100 per trade</span>. Lot size derived from SL distance per pair. Total portfolio exposure &lt; <span class="hl">4.5%</span>. Confidence &gt;80% may receive larger allocation.</p>
+      </div>
+      <div class="rule"><h3>Duplicate Prevention</h3>
+        <p>No automatic re-entry on an already-traded pair unless: new structure, new RR, retracement resets entry quality, or trade moved deep in profit.</p>
+      </div>
+      <div class="rule"><h3>Analyst Intent Override</h3>
+        <p>"Stay out", "wait", "corrective", "risky" → confidence downgraded regardless of chart attractiveness. Latest PDF always overrides older PDFs.</p>
+      </div>
+      <div class="rule"><h3>Confidence Bands</h3>
+        <ul>
+          <li>90%+ elite · 80–89% high · 70–79% decent · 60–69% caution · &lt;60% skip</li>
+        </ul>
+      </div>
+      <div class="rule"><h3>Invalidation Is Hard</h3>
+        <p>Price crossing invalidation closes the trade rationale entirely. No exceptions, no re-counting hope. (See: USDCAD Jun 01 → Jun 12.)</p>
+      </div>
+      <div class="rule"><h3>Reading the Arrow</h3>
+        <p>Use the arrow's <span class="hl">tail (origin)</span>, not its shape. Tail near current price = move launching now (good timing). Price far along the arrow = <span class="hl">too late</span>.</p>
+        <p style="margin-top:6px">Straight vs. bent is a <span class="hl">drawing artifact, NOT a quality signal</span> — hand-drawn projections. Entry is always decided by the labeled confirmation/invalidation levels, never by arrow geometry.</p>
+      </div>
     </div>
   </div>
 
   <div class="footer">
     <div>FX ENGINE EXECUTION PLATFORM · NOT FINANCIAL ADVICE</div>
-    <div>PDF JUN 29 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
+    <div>PDF JUN 12 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
   </div>
 </div>
 
 <script>
+/* ================= DATA — JUN 12 PDF ================= */
 const PAIRS = [
   {
-    id:'EURUSD',base:'EUR',quote:'USD',dir:'SELL',state:'ELITE ACTIVE',stateCls:'bd-sell',
-    cardCls:'b-elite b-sell',banner:'🔒 TRAIL SL LOWER (4TH CONSECUTIVE) — WAVE (3) DOWN IN PROGRESS · TARGET 1.11855',bannerCls:'bn-green',
-    conf:93,confCls:'elite',confColor:'var(--elite)',rr:'RR 1:10',dec:5,
-    levels:[['Entry (triggered)','1.17416','c-blue'],['SL (trail lower)','< 1.15288','c-green'],['Locked profit','≈ 213+ pips','c-green'],['TP target','1.11855','c-green']],
-    keyLevel:1.15288,keyLabel:'SL',tp:1.11855,
-    fresh:'TOO LATE',freshCls:'fr-late',freshNote:'Entry 1.17416 long gone — Wave (3) deeply extended. Analyst says "trail SL even lower to guarantee profit" for the 4th consecutive PDF. Holders: trail the stop. No fresh entry.',
-    arrow:'FAR ALONG',arrowCls:'ar-far',arrowNote:'Arrow tail at the 1.180 wave-2 top — price deep into wave (3). Origin far behind = late. Major ABC correction confirmed targeting 0.93500.',
-    note:'"Move SL even lower to guarantee profit" (Jun 29 — 4th consecutive instruction) · Major ABC correction confirmed targeting 0.93500 by 2027 · Invalidation levels 1.17965 / 1.16288 both well above current price',dotCls:'dt-g'
+    id:'EURUSD', base:'EUR', quote:'USD', dir:'SELL', state:'ELITE ACTIVE', stateCls:'bd-sell',
+    cardCls:'b-elite b-sell', banner:'🔒 PROFIT LOCK TIGHTENED AGAIN — SL → 1.15288', bannerCls:'bn-green',
+    conf:93, confCls:'elite', confColor:'var(--elite)', rr:'RR 1:10', dec:5,
+    levels:[ ['Entry (triggered)','1.17416','c-blue'], ['NEW SL — profit lock','1.15288','c-green'], ['Locked profit','≈ +213 pips','c-green'], ['TP target','1.11855','c-green'] ],
+    keyLevel:1.15288, keyLabel:'SL', tp:1.11855,
+    fresh:'TOO LATE', freshCls:'fr-late', freshNote:'Entry 1.17416 long gone — price ~1.133, the move is ~75% done into 1.11855 (~470p captured vs ~150p left). A fresh short here is poor RR.',
+    arrow:'FAR ALONG', arrowCls:'ar-far', arrowNote:'Arrow tail began at the 1.180 wave-2 top — price now deep into wave (3). Origin far behind = late.',
+    note:'"Move SL even lower to guarantee profit" — management language for holders, not a fresh signal · Bear continuation intact toward 1.11855', dotCls:'dt-g'
   },
   {
-    id:'GBPUSD',base:'GBP',quote:'USD',dir:'SELL',state:'ACTIVE SELL',stateCls:'bd-sell',
-    cardCls:'b-sell',banner:'🔒 TRAIL SL LOWER — LEADING DIAGONAL COMPLETE · ABC CORRECTION · TP 1.29940',bannerCls:'bn-green',
-    conf:90,confCls:'high',confColor:'var(--green)',rr:'',dec:5,
-    levels:[['Entry (triggered)','1.35424','c-blue'],['SL (trail lower)','< 1.32733','c-green'],['Locked profit','≈ 269+ pips','c-green'],['TP zone','1.29940','c-green']],
-    keyLevel:1.32733,keyLabel:'SL',tp:1.2994,
-    fresh:'TOO LATE',freshCls:'fr-late',freshNote:'Entry 1.35424 gone — move mature. Analyst: "trail SL even lower to guarantee profit." Target confirmed at 1.29940. Nothing fresh to enter here.',
-    arrow:'FAR ALONG',arrowCls:'ar-far',arrowNote:'Arrow tail at 1.385 Leading Diagonal top — price well below. Origin far behind = late. Invalidation 1.36929 / 1.32733.',
-    note:'"Move SL even lower to guarantee profit" (Jun 29) · Leading Diagonal (5-wave) complete · ABC correction TP 1.29940 near-term → 1.21138 longer-term · Invalidation 1.36929 (upper) / 1.32733 (trail here)',dotCls:'dt-g'
+    id:'GBPUSD', base:'GBP', quote:'USD', dir:'SELL', state:'ACTIVE SELL', stateCls:'bd-sell',
+    cardCls:'b-sell', banner:'🔒 SL TIGHTENED AGAIN — SL → 1.32733', bannerCls:'bn-green',
+    conf:90, confCls:'high', confColor:'var(--green)', rr:'', dec:5,
+    levels:[ ['Entry (triggered)','1.35424','c-blue'], ['NEW SL — profit lock','1.32733','c-green'], ['Locked profit','≈ +269 pips','c-green'], ['TP zone','1.29500','c-green'] ],
+    keyLevel:1.32733, keyLabel:'SL', tp:1.295,
+    fresh:'TOO LATE', freshCls:'fr-late', freshNote:'Entry 1.35424 gone — price ~1.317, ~680p already captured vs ~220p to TP. The move is mature; nothing fresh to enter.',
+    arrow:'FAR ALONG', arrowCls:'ar-far', arrowNote:'Arrow tail at the 1.385 (C) top — price already deep below. Origin behind = late.',
+    note:'"Move SL even lower to guarantee profit" · Leading-diagonal sell-off intact toward ~1.295', dotCls:'dt-g'
   },
   {
-    id:'USDJPY',base:'USD',quote:'JPY',dir:'SELL',state:'PENDING SELL',stateCls:'bd-pend',
-    cardCls:'b-pend b-warn',banner:'🔵 ENDING DIAGONAL APEX · SELL CONFIRMATION: 161.070 · NEAR-TERM TARGET: ~153.810',bannerCls:'bn-blue',
-    conf:78,confCls:'high',confColor:'var(--green)',rr:'RR 1:20+',dec:3,
-    levels:[['Sell Stop (trigger)','161.070','c-blue'],['Invalidation / SL','161.965','c-red'],['Near-Term TP','~153.810','c-green'],['Long-Term TP (C)','~139.596','c-green']],
-    keyLevel:161.070,keyLabel:'TRIGGER',tp:153.81,
-    fresh:'ENTER',freshCls:'fr-enter',freshNote:'Untriggered pending = on-time. Place Sell Stop 161.070, SL 161.965 (~90p). Fires only on break below 161.070 (reversal confirmation). Ending diagonal apex at Wave (B) top 161.965. ABC Wave (C) targets 139.596.',
-    arrow:'AT ORIGIN',arrowCls:'ar-close',arrowNote:'Ending diagonal forming right under Wave (B) top at 161.965. Price at the apex — do-or-die confirmation zone. Jun 29: unchanged.',
-    note:'Analyst: "There is a chance the market will form an ending diagonal; we need to wait and see if the market reverses" · Lone fresh trigger in the platform · Confirmation level to Sell: 161.070',dotCls:'dt-o'
+    id:'USDJPY', base:'USD', quote:'JPY', dir:'SELL', state:'PENDING SELL', stateCls:'bd-pend',
+    cardCls:'b-pend b-warn', banner:'🔵 CONFIRMATION RAISED → 161.070 · THE LONE FRESH TRIGGER', bannerCls:'bn-blue',
+    conf:78, confCls:'high', confColor:'var(--green)', rr:'RR 1:20+', dec:3,
+    levels:[ ['Sell Stop (raised)','161.070','c-blue'], ['Invalidation / SL','161.965','c-red'], ['SL distance','~90 pips',''], ['TP target','141.000','c-green'] ],
+    keyLevel:161.070, keyLabel:'TRIGGER', tp:141.0,
+    fresh:'ENTER', freshCls:'fr-enter', freshNote:'Untriggered pending = on-time. Place Sell Stop 161.070, SL 161.965 (~90p risk — tighter than Jun 19). Fires only if price breaks back below 161.070, i.e. the reversal confirms.',
+    arrow:'AT ORIGIN', arrowCls:'ar-close', arrowNote:'Arrow tail at the confirmation line — price jammed right under invalidation in the ending-diagonal apex. Do-or-die zone.',
+    note:'⚠ Analyst hedges: "chance of an ending diagonal — wait & see if it reverses." Conf held at 78, not inflated · This short = long-JPY = short-USD — the ONE setup running AGAINST the EUR/GBP/CHF USD-strength theme', dotCls:'dt-o'
   },
   {
-    id:'USDCAD',base:'USD',quote:'CAD',dir:'WAIT',state:'WAIT — NO SETUP',stateCls:'bd-skip',
-    cardCls:'watch',banner:'❌ WXY COMPLEX CORRECTION ONGOING — SELL ZONE 1.431–1.452 · LOOKING FOR NEW SETUP',bannerCls:'bn-red',
-    conf:0,confCls:'mid',confColor:'var(--muted)',rr:'',dec:5,
-    levels:[['Structure','Complex WXY','c-blue'],['61.8% Fib (Y/C end)','1.43141','c-muted'],['78.6% Fib','1.45244','c-muted'],['Invalidation','1.47923','c-red'],['After Y → target','~1.34000','c-muted']],
-    keyLevel:1.431,keyLabel:'—',tp:1.34,
-    fresh:'NO TRADE',freshCls:'fr-no',freshNote:'WXY complex correction still in progress. "Looking for a new setup." No labeled confirmation or entry trigger. Watch for sell setup after Y/C wave completes near 1.431–1.452.',
-    arrow:'NO ARROW',arrowCls:'ar-none',arrowNote:'Projection points down from Y top toward ~1.34, but no trigger line drawn. Last clear impulse was downward — once WXY ends, another decline expected.',
-    note:'Analyst: "looking for a new setup" · WXY correction near Y/C completion · Sell zone 1.431–1.452 · After WXY completes → impulse down toward ~1.34000 · Inval 1.47923',dotCls:'dt-y'
+    id:'USDCAD', base:'USD', quote:'CAD', dir:'WAIT', state:'WAIT — RESET', stateCls:'bd-skip',
+    cardCls:'watch', banner:'❌ STILL NO SETUP — WAVE Y NEARING 1.431–1.452 SELL ZONE', bannerCls:'bn-red',
+    conf:0, confCls:'mid', confColor:'var(--muted)', rr:'', dec:5,
+    levels:[ ['Status','FLAT / WAIT','c-yellow'], ['Structure','WXY correction','c-blue'], ['Wave Y target zone','1.43141–1.45244','c-muted'], ['Next leg (after Y)','~1.334 (down)','c-muted'] ],
+    keyLevel:1.42, keyLabel:'—', tp:1.334,
+    fresh:'NO TRADE', freshCls:'fr-no', freshNote:'Still no labeled confirmation or invalidation. Price has climbed into the upper Y zone — a SELL setup is approaching near 1.431–1.452 — but the analyst still says "I\'m looking for a new setup." Nothing to place yet.',
+    arrow:'NO ARROW (trigger)', arrowCls:'ar-none', arrowNote:'Projection points down from the Y top toward ~1.334, but no trigger line is drawn — still a thesis, not an order.',
+    note:'4th day flat · Added 78.60% (1.45244) above the 61.80% (1.43141) — sell zone firming up · Watch next file for a labeled confirmation', dotCls:'dt-y'
   },
   {
-    id:'AUDUSD',base:'AUD',quote:'USD',dir:'WAIT',state:'WAIT — WAVE 2',stateCls:'bd-skip',
-    cardCls:'watch',banner:'❌ CORRECTIVE WAVE (2) DOWN · 8H WAVE A → 38.2% (0.67573) · NO TRADE',bannerCls:'bn-red',
-    conf:0,confCls:'mid',confColor:'var(--muted)',rr:'',dec:5,
-    levels:[['Wave (1) complete','~0.80105 top','c-blue'],['38.2% Fib (wave 2)','0.67580','c-muted'],['50.0% Fib','0.65964','c-muted'],['61.8% Fib (deep)','0.64348','c-muted'],['8H Wave A target','0.67573','c-muted'],['Then wave (3)','~0.80105+','c-muted']],
-    keyLevel:0.676,keyLabel:'—',tp:0.80,
-    fresh:'NO TRADE',freshCls:'fr-no',freshNote:'Wave (1) impulse completed. Now in corrective Wave (2) down. 8H shows Wave A targeting 38.2% Fib = 0.67573. No trigger, no invalidation for trade. Buy only at Fib support zones.',
-    arrow:'NO ARROW',arrowCls:'ar-none',arrowNote:'Down arrow into wave A/B is a projection — No labeled confirmation to sell. Buy returns far below at 0.676–0.643.',
-    note:'Wave (1) complete at ~0.80105 · Wave (2) correction: 38.2%=0.67580, 50%=0.65964, 61.8%=0.64348 · Buy only returns at Fib support for Wave (3) toward 0.80105',dotCls:'dt-r'
+    id:'AUDUSD', base:'AUD', quote:'USD', dir:'WAIT', state:'WAIT — RE-COUNT', stateCls:'bd-skip',
+    cardCls:'watch', banner:'❌ RE-COUNTED — WAVE (1) DONE, NOW CORRECTIVE WAVE (2) DOWN', bannerCls:'bn-red',
+    conf:0, confCls:'mid', confColor:'var(--muted)', rr:'', dec:5,
+    levels:[ ['Status','FLAT / WAIT','c-yellow'], ['New count','Wave (2) correction','c-blue'], ['Wave (2) targets','0.6758 / 0.6596 / 0.6435','c-muted'], ['Then','wave (3) up to 0.82+','c-muted'] ],
+    keyLevel:0.676, keyLabel:'—', tp:0.82,
+    fresh:'NO TRADE', freshCls:'fr-no', freshNote:'Bullish wave-3 thesis ABANDONED. Analyst now reads the rally as a complete 5-wave (1) and projects a corrective wave (2) DOWN to 0.676 / 0.660 / 0.643 before the next leg up. No trigger, no invalidation, prior 0.69794 line removed. Nothing to place.',
+    arrow:'NO ARROW (trigger)', arrowCls:'ar-none', arrowNote:'Down-arrow into wave A is a projection only — no labeled confirmation to sell. The eventual BUY is far below at 0.676–0.643, not actionable now.',
+    note:'⚠ BIGGEST CHANGE THIS FILE — Jun 19\'s buy-watch pair is now a corrective decline · The buy returns only near 0.676–0.643 · Re-evaluate when wave (2) bottoms', dotCls:'dt-r'
   },
   {
-    id:'USDCHF',base:'USD',quote:'CHF',dir:'BUY',state:'ACTIVE BUY',stateCls:'bd-buy',
-    cardCls:'b-buy',banner:'⬆ BIG TRIANGLE COMPLETE · WAVE 3 UP ACTIVE · INVAL 0.80113 / 0.79097',bannerCls:'bn-green',
-    conf:78,confCls:'high',confColor:'var(--green)',rr:'',dec:5,
-    levels:[['Triangle Low (C)2','~0.75200','c-muted'],['Wave 1 Level','~0.79000','c-muted'],['Invalidation #1','0.80113','c-red'],['Invalidation #2 (hard)','0.79097','c-red'],['Wave (3) Target','~0.82000+','c-green'],['Long-Term Target','~0.86000+','c-green']],
-    keyLevel:0.80113,keyLabel:'SL',tp:0.82,
-    fresh:'ONLY ON DIP',freshCls:'fr-cond',freshNote:'Big Triangle (A-B-C-D-E) complete at ~0.75200. Wave 3 bullish active. Re-enter only on pullback toward 0.80113. Chasing at current price = poor RR. Invalidations: 0.80113 and 0.79097.',
-    arrow:'MID MOVE',arrowCls:'ar-mid',arrowNote:'Arrow tail at triangle breakout zone. Wave 3 extension underway — part of the move already captured. Re-enter on dip only.',
-    note:'Big Triangle pattern complete — high-confidence bullish setup · Wave (3) targeting 0.82000 → 0.86000+ · Valid above 0.80113, hard stop 0.79097 · Jun 29: unchanged',dotCls:'dt-g'
+    id:'USDCHF', base:'USD', quote:'CHF', dir:'BUY', state:'ACTIVE BUY', stateCls:'bd-buy',
+    cardCls:'b-buy', banner:'⬆ STOP RAISED → 0.80113 · BREAKOUT NOW EXTENDED', bannerCls:'bn-green',
+    conf:72, confCls:'mid', confColor:'var(--green)', rr:'', dec:5,
+    levels:[ ['New invalidation','0.80113','c-red'], ['Lower invalidation','0.79097','c-muted'], ['Current zone','~0.8100',''], ['Wave 3 target','0.82000','c-green'] ],
+    keyLevel:0.80113, keyLabel:'SL', tp:0.82,
+    fresh:'ONLY ON DIP', freshCls:'fr-cond', freshNote:'The Jun 19 breakout already ran — price ~0.810, only ~100p left to the 0.820 target. Chasing at market ≈ 1:1 RR. Re-enter only on a pullback toward 0.801 (SL just under). Otherwise skip.',
+    arrow:'MID MOVE', arrowCls:'ar-mid', arrowNote:'Arrow tail at the Jun-19 breakout candle — price has lifted off it. Part of wave 3 already banked.',
+    note:'Analyst raised stop to 0.80113 (managing, not initiating) · Wave 3 toward 0.82 still valid but maturing — verdict downgraded ENTER → ONLY ON DIP as the entry edge has thinned', dotCls:'dt-y'
   },
   {
-    id:'XAUUSD',base:'XAU',quote:'USD',dir:'BUY',state:'WATCH — WAVE 4',stateCls:'bd-pend',
-    cardCls:'b-pend',banner:'⚑ WAVE (4) DEEPER — 61.8% (4,157) FAILED TWICE · TARGETING 78.6% (3,765) · DO NOT SHORT',bannerCls:'bn-blue',
-    conf:72,confCls:'decent',confColor:'var(--yellow)',rr:'',dec:2,noLive:true,
-    levels:[['61.8% Fib (FAILED x2)','4,157','c-red'],['78.6% Fib — Buy Zone','3,765','c-yellow'],['Wave (4) bottom est.','~3,765','c-muted'],['Wave (5) target','6,000–6,400+','c-green'],['Long-term bias','BULLISH','c-green']],
-    keyLevel:3765,keyLabel:'BUY ZONE',tp:5600,
-    fresh:'WATCH',freshCls:'fr-cond',freshNote:'Jun 29: 61.8% Fib at 4,157 tested TWICE and FAILED to hold. Wave (4) correction is deepening toward the 78.6% Fibonacci level at 3,765. Analyst: "Wave (4) may be slightly lower but long-term trend remains bullish. Do not short — wait for a buying opportunity near 3,765."',
-    arrow:'NEAR ORIGIN',arrowCls:'ar-close',arrowNote:'Wave (4) correction still in progress below 61.8% Fib. Wait for reversal confirmation near 3,765 before entering long for Wave (5). Do not buy blindly into the decline.',
-    note:'JUN 29: 61.8% (4,157) tested twice and FAILED — Wave (4) heading toward 78.6% = 3,765 · Analyst: "do not recommend shorting — wait for buying opportunity" · Wave (5) targets 6,000–6,400+ after Wave (4) completes',dotCls:'dt-b'
+    id:'XAUUSD', base:'XAU', quote:'USD', dir:'BUY', state:'WAIT FOR IMPULSE', stateCls:'bd-pend',
+    cardCls:'b-pend', banner:'⏸ NO NEW GOLD FILE · CARRIED FORWARD FROM JUN 19 (2H)', bannerCls:'bn-blue',
+    conf:76, confCls:'high', confColor:'var(--green)', rr:'', dec:2, noLive:true,
+    levels:[ ['Invalidation','4,023.45','c-red'], ['Wave (2) low / 78.6%','4,100.47','c-muted'], ['Confirm zone (mini-1 high)','~4,240','c-blue'], ['TP — wave (3)/(5)','~4,720 / 6,000','c-green'] ],
+    keyLevel:4240, keyLabel:'CONFIRM', tp:4720,
+    fresh:'WATCH — CLOSE', freshCls:'fr-cond', freshNote:'No fresh ElliottWaveStrategy file in the Jun 25 batch — gold runs on its own cadence. Last plan (Jun 19) stands: wait for an impulse above ~4,240 before trusting longs, hard invalidation 4,023.45.',
+    arrow:'NEAR ORIGIN', arrowCls:'ar-close', arrowNote:'Carried-forward 2H read — no update. Treat levels as 6 days stale until a new gold file arrives.',
+    note:'⏸ STALE: source = ElliottWaveStrategy Jun 19 10:54 (2H) · gold is structurally always a separate file — do NOT assume it moved with the 6-pair Jun 25 PDF', dotCls:'dt-b'
   }
 ];
 
-let livePrices={};
-function pip(p){return p.quote==='JPY'?0.01:0.0001;}
+let livePrices = {}; // pair id -> price
+
+/* ================= RENDER ================= */
+function pip(pair){ return pair.quote==='JPY' ? 0.01 : 0.0001; }
 
 function renderTicker(){
-  const t=document.getElementById('ticker');
-  t.innerHTML=PAIRS.map(p=>{
-    const price=livePrices[p.id];
-    const ps=(price&&p.id==='XAUUSD')?price.toFixed(0):(p.noLive?(price?price.toFixed(0):'MT5'):(price?price.toFixed(p.dec):'—'));
-    let dist=(price&&p.id==='XAUUSD')?'spot':(p.noLive?'gold (sep src)':'');
-    if(price&&!p.noLive){const pp=Math.abs(price-p.keyLevel)/pip(p);dist=`${pp.toFixed(0)}p to ${p.keyLabel}`;}
-    const dc=p.dir==='SELL'?'c-red':(p.dir==='BUY'?'c-green':'c-muted');
-    const sc=p.state.includes('PENDING')?'c-blue':dc;
-    return `<div class="tick" onclick="scrollToCard('${p.id}')"><div class="tick-pair">${p.id}</div><div class="tick-price ${dc}">${ps}</div><div class="tick-state ${sc}">${p.state}</div><div class="tick-dist">${dist}</div><div style="margin-top:5px"><span class="fresh-tag ${p.freshCls}" style="font-size:7px;padding:2px 5px;">${p.fresh}</span></div></div>`;
+  const t = document.getElementById('ticker');
+  t.innerHTML = PAIRS.map(p=>{
+    const price = livePrices[p.id];
+    const priceStr = (price && p.id==='XAUUSD') ? price.toFixed(0) : (p.noLive ? 'MT5' : (price ? price.toFixed(p.dec) : '—'));
+    let distStr = (price && p.id==='XAUUSD') ? 'spot' : (p.noLive ? 'gold (sep src)' : '');
+    if(price && !p.noLive){
+      const pips = Math.abs(price - p.keyLevel)/pip(p);
+      distStr = `${pips.toFixed(0)}p to ${p.keyLabel}`;
+    }
+    const dirColor = p.dir==='SELL' ? 'c-red' : (p.dir==='BUY' ? 'c-green' : 'c-muted');
+    const stCls = p.state.includes('PENDING')||p.state.includes('TRIGGER') ? 'c-blue' : dirColor;
+    return `<div class="tick" onclick="scrollToCard('${p.id}')">
+      <div class="tick-pair">${p.id}</div>
+      <div class="tick-price ${dirColor}">${priceStr}</div>
+      <div class="tick-state ${stCls}">${p.state}</div>
+      <div class="tick-dist">${distStr}</div>
+      <div style="margin-top:5px"><span class="fresh-tag ${p.freshCls}" style="font-size:7px; padding:2px 5px;">${p.fresh}</span></div>
+    </div>`;
   }).join('');
 }
 
 function renderCards(){
-  const c=document.getElementById('cards');
-  c.innerHTML=PAIRS.map(p=>{
-    const price=livePrices[p.id];
-    let prox=p.noLive?'<span class="c-muted">gold spot — check MT5<br>for exact fill</span>':'<span class="c-muted">feed offline</span>';
-    if(price&&!p.noLive){const dT=(price-p.keyLevel)/pip(p),dP=Math.abs(price-p.tp)/pip(p),s=dT>0?'+':'';prox=`<span class="${Math.abs(dT)<30?'c-orange':'c-muted'}">${s}${dT.toFixed(0)}p vs ${p.keyLabel}</span><br><span class="c-muted">${dP.toFixed(0)}p to TP</span>`;}
-    else if(price&&p.id==='XAUUSD'){const dT=price-p.keyLevel,dP=Math.abs(price-p.tp),s=dT>0?'+':'';prox=`<span class="c-muted">${s}${dT.toFixed(0)} vs ${p.keyLabel}</span><br><span class="c-muted">${dP.toFixed(0)} to wave5 TP</span>`;}
+  const c = document.getElementById('cards');
+  c.innerHTML = PAIRS.map(p=>{
+    const price = livePrices[p.id];
+    let proxHtml = p.noLive ? '<span class="c-muted">gold spot — check MT5<br>for exact fill</span>' : '<span class="c-muted">feed offline</span>';
+    if(price && !p.noLive){
+      const dTrig = (price - p.keyLevel)/pip(p);
+      const dTp = Math.abs(price - p.tp)/pip(p);
+      const sign = dTrig>0?'+':'';
+      proxHtml = `<span class="${Math.abs(dTrig)<30?'c-orange':'c-muted'}">${sign}${dTrig.toFixed(0)}p vs ${p.keyLabel}</span><br><span class="c-muted">${dTp.toFixed(0)}p to TP</span>`;
+    } else if(price && p.id==='XAUUSD'){
+      const dTrig = price - p.keyLevel;      // dollars/points for gold
+      const dTp = Math.abs(price - p.tp);
+      const sign = dTrig>0?'+':'';
+      proxHtml = `<span class="c-muted">${sign}${dTrig.toFixed(0)} vs ${p.keyLabel}</span><br><span class="c-muted">${dTp.toFixed(0)} to wave5 TP</span>`;
+    }
     return `<div class="card ${p.cardCls}" id="card-${p.id}">
-<div class="banner ${p.bannerCls}">${p.banner}</div>
-<div class="card-h"><span class="card-pair">${p.id}</span><div class="badges"><span class="badge ${p.stateCls}">${p.state}</span>${p.rr?`<span class="badge bd-rr">${p.rr}</span>`:''}</div></div>
-<div class="card-b">
-<div class="live-strip"><div><div class="live-lbl">${p.noLive?(price?'LIVE (XAU SPOT)':'LIVE (USE MT5)'):'LIVE (ECB REF)'}</div><div class="live-price">${price?(p.id==='XAUUSD'?price.toFixed(0):price.toFixed(p.dec)):(p.noLive?'~3,500':'—')}</div></div><div class="prox">${prox}</div></div>
-<div class="fresh-strip"><span class="fresh-tag ${p.freshCls}">${p.fresh}</span><div><span class="fresh-lbl">FRESH ENTRY (FLAT ACCOUNT)</span><span class="fresh-txt">${p.freshNote}</span></div></div>
-<div class="arrow-strip"><span class="arrow-tag ${p.arrowCls}">↗ ${p.arrow}</span><div><span class="arrow-lbl">ARROW ORIGIN vs PRICE</span><span class="arrow-txt">${p.arrowNote}</span></div></div>
-<div class="lv">${p.levels.map(l=>`<div><div class="lv-l">${l[0]}</div><div class="lv-v ${l[2]||''}">${l[1]}</div></div>`).join('')}</div>
-<div class="conf"><span class="lv-l" style="margin:0">CONF</span><div class="conf-bar"><div class="conf-fill" style="width:${p.conf}%;background:${p.confColor}"></div></div><span class="conf-pct" style="color:${p.confColor}">${p.conf===0?'N/A':p.conf+'%'}</span></div>
-<div class="note"><span class="dot ${p.dotCls}"></span><span>${p.note}</span></div>
-</div></div>`;
+      <div class="banner ${p.bannerCls}">${p.banner}</div>
+      <div class="card-h">
+        <span class="card-pair">${p.id}</span>
+        <div class="badges">
+          <span class="badge ${p.stateCls}">${p.state}</span>
+          ${p.rr?`<span class="badge bd-rr">${p.rr}</span>`:''}
+          ${p.skipBadge?'<span class="badge bd-skip">SKIP IF FLAT</span>':''}
+        </div>
+      </div>
+      <div class="card-b">
+        <div class="live-strip">
+          <div><div class="live-lbl">${p.noLive?(price?'LIVE (XAU SPOT)':'LIVE (USE MT5)'):'LIVE (ECB REF)'}</div><div class="live-price">${price?(p.id==='XAUUSD'?price.toFixed(0):price.toFixed(p.dec)):(p.noLive?'~4,200':'—')}</div></div>
+          <div class="prox">${proxHtml}</div>
+        </div>
+        <div class="fresh-strip">
+          <span class="fresh-tag ${p.freshCls}">${p.fresh}</span>
+          <div><span class="fresh-lbl">FRESH ENTRY (FLAT ACCOUNT)</span><span class="fresh-txt">${p.freshNote}</span></div>
+        </div>
+        <div class="arrow-strip">
+          <span class="arrow-tag ${p.arrowCls}">↗ ${p.arrow}</span>
+          <div><span class="arrow-lbl">ARROW ORIGIN vs PRICE</span><span class="arrow-txt">${p.arrowNote}</span></div>
+        </div>
+        <div class="lv">
+          ${p.levels.map(l=>`<div><div class="lv-l">${l[0]}</div><div class="lv-v ${l[2]||''}">${l[1]}</div></div>`).join('')}
+        </div>
+        <div class="conf">
+          <span class="lv-l" style="margin:0">CONF</span>
+          <div class="conf-bar"><div class="conf-fill ${p.confCls}" style="width:${p.conf}%; background:${p.confColor}"></div></div>
+          <span class="conf-pct" style="color:${p.confColor}">${p.conf===0?'N/A':p.conf+'%'}</span>
+        </div>
+        <div class="note"><span class="dot ${p.dotCls}"></span><span>${p.note}</span></div>
+      </div>
+    </div>`;
   }).join('');
 }
 
@@ -361,54 +572,116 @@ function scrollToCard(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
   document.querySelector('[data-page=exec]').classList.add('on');
   showPage('exec');
-  const el=document.getElementById('card-'+id);
-  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.style.borderColor='var(--accent)';setTimeout(()=>el.style.borderColor='',1200);}
+  const el = document.getElementById('card-'+id);
+  if(el){ el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.style.borderColor='var(--accent)'; setTimeout(()=>el.style.borderColor='',1200); }
 }
 
+/* ================= LIVE PRICES — resilient multi-source ================= */
+// FX majors: one base-USD call gives JPY/CAD/CHF directly + EUR/GBP/AUD as reciprocals.
+// Sources tried in order; first success wins. Gold fetched separately (Frankfurter has no XAU).
+
 async function tryJson(url){
-  const ctrl=new AbortController();
-  const t=setTimeout(()=>ctrl.abort(),8000);
-  try{const r=await fetch(url,{signal:ctrl.signal});clearTimeout(t);if(!r.ok)throw new Error('HTTP '+r.status);return await r.json();}
-  catch(e){clearTimeout(t);throw e;}
+  const ctrl = new AbortController();
+  const t = setTimeout(()=>ctrl.abort(), 8000);
+  try{
+    const r = await fetch(url, {signal:ctrl.signal});
+    clearTimeout(t);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return await r.json();
+  }catch(e){ clearTimeout(t); throw e; }
 }
 
 async function fetchFX(){
-  try{const d=await tryJson('https://api.frankfurter.dev/v1/latest?base=USD&symbols=JPY,CAD,CHF,EUR,GBP,AUD');if(d&&d.rates&&d.rates.JPY)return{src:'Frankfurter ECB '+(d.date||''),rates:{USDJPY:d.rates.JPY,USDCAD:d.rates.CAD,USDCHF:d.rates.CHF,EURUSD:1/d.rates.EUR,GBPUSD:1/d.rates.GBP,AUDUSD:1/d.rates.AUD}};}catch(e){}
-  try{const d=await tryJson('https://api.frankfurter.app/latest?from=USD&to=JPY,CAD,CHF,EUR,GBP,AUD');if(d&&d.rates&&d.rates.JPY)return{src:'Frankfurter ECB '+(d.date||''),rates:{USDJPY:d.rates.JPY,USDCAD:d.rates.CAD,USDCHF:d.rates.CHF,EURUSD:1/d.rates.EUR,GBPUSD:1/d.rates.GBP,AUDUSD:1/d.rates.AUD}};}catch(e){}
+  // Source 1: Frankfurter (current .dev host). rates are FROM USD.
+  try{
+    const d = await tryJson('https://api.frankfurter.dev/v1/latest?base=USD&symbols=JPY,CAD,CHF,EUR,GBP,AUD');
+    if(d && d.rates && d.rates.JPY){
+      return { src:'Frankfurter ECB '+(d.date||''), rates:{
+        USDJPY:d.rates.JPY, USDCAD:d.rates.CAD, USDCHF:d.rates.CHF,
+        EURUSD:1/d.rates.EUR, GBPUSD:1/d.rates.GBP, AUDUSD:1/d.rates.AUD
+      }};
+    }
+  }catch(e){ /* fall through */ }
+
+  // Source 2: legacy Frankfurter .app host
+  try{
+    const d = await tryJson('https://api.frankfurter.app/latest?from=USD&to=JPY,CAD,CHF,EUR,GBP,AUD');
+    if(d && d.rates && d.rates.JPY){
+      return { src:'Frankfurter ECB '+(d.date||''), rates:{
+        USDJPY:d.rates.JPY, USDCAD:d.rates.CAD, USDCHF:d.rates.CHF,
+        EURUSD:1/d.rates.EUR, GBPUSD:1/d.rates.GBP, AUDUSD:1/d.rates.AUD
+      }};
+    }
+  }catch(e){ /* fall through */ }
+
+  // Source 3: exchangerate.host (live, free, CORS-enabled)
+  try{
+    const d = await tryJson('https://api.exchangerate.host/latest?base=USD&symbols=JPY,CAD,CHF,EUR,GBP,AUD');
+    if(d && d.rates && d.rates.JPY){
+      return { src:'exchangerate.host '+(d.date||'live'), rates:{
+        USDJPY:d.rates.JPY, USDCAD:d.rates.CAD, USDCHF:d.rates.CHF,
+        EURUSD:1/d.rates.EUR, GBPUSD:1/d.rates.GBP, AUDUSD:1/d.rates.AUD
+      }};
+    }
+  }catch(e){ /* fall through */ }
+
   return null;
 }
 
 async function fetchGold(){
-  try{const d=await tryJson('https://api.gold-api.com/price/XAU');if(d&&d.price)return d.price;}catch(e){}
+  // Gold spot (XAU) — not on Frankfurter. Try a couple of free sources.
+  try{
+    const d = await tryJson('https://api.gold-api.com/price/XAU');
+    if(d && d.price) return d.price;            // USD per oz
+  }catch(e){}
+  try{
+    const d = await tryJson('https://api.exchangerate.host/latest?base=XAU&symbols=USD');
+    if(d && d.rates && d.rates.USD) return d.rates.USD;
+  }catch(e){}
   return null;
 }
 
 async function fetchPrices(){
-  const err=document.getElementById('errBanner');
-  const feedTime=document.getElementById('feedTime');
-  feedTime.textContent='loading…';
-  const fx=await fetchFX();
-  const gold=await fetchGold();
-  livePrices={};
-  if(fx){livePrices={...fx.rates};err.style.display='none';feedTime.textContent=fx.src;}
-  else{err.style.display='block';feedTime.textContent='offline';}
-  if(gold){livePrices.XAUUSD=gold;}
-  renderTicker();renderCards();
+  const err = document.getElementById('errBanner');
+  const feedTime = document.getElementById('feedTime');
+  feedTime.textContent = 'loading…';
+
+  const fx = await fetchFX();
+  const gold = await fetchGold();
+
+  livePrices = {};
+  if(fx){
+    livePrices = {...fx.rates};
+    err.style.display = 'none';
+    feedTime.textContent = fx.src;
+  } else {
+    err.style.display = 'block';
+    feedTime.textContent = 'offline';
+  }
+  if(gold){ livePrices.XAUUSD = gold; }
+
+  renderTicker(); renderCards();
 }
 
+/* ================= TABS / CLOCK ================= */
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.getElementById('page-'+name).classList.add('on');
 }
 document.querySelectorAll('.tab').forEach(t=>{
-  t.addEventListener('click',()=>{
+  t.addEventListener('click', ()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
     t.classList.add('on');
     showPage(t.dataset.page);
   });
 });
-setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-GB');},1000);
-renderTicker();renderCards();fetchPrices();
+setInterval(()=>{
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB');
+},1000);
+
+/* init */
+renderTicker(); renderCards(); fetchPrices();
 </script>
 </body>
 </html>
