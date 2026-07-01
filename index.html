@@ -57,6 +57,8 @@
   .bd-skip{border-color:var(--muted);color:var(--muted)}
   .bd-rr{border-color:rgba(255,107,0,.4);color:var(--elite)}
   .card-b{padding:12px 14px;}
+  .chart-thumb{width:100%;height:110px;object-fit:cover;border-radius:4px;cursor:pointer;margin:8px 0;transition:filter 0.2s;}
+  .chart-thumb:hover{filter:brightness(1.15);}
   .lv{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;}
   .lv-l{font-family:'Space Mono';font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
   .lv-v{font-family:'Space Mono';font-size:12px;font-weight:700;color:#fff;}
@@ -107,7 +109,7 @@
   .fr-no{color:var(--muted);border-color:var(--muted);}
   .fresh-txt{font-size:10.5px;color:var(--muted);line-height:1.45;}
   .fresh-lbl{font-family:'Space Mono';font-size:8px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;display:block;}
-  .flat-banner{background:rgba(0,232,122,.06);border:1px solid rgba(0,232,122,.25);padding:9px 16px;margin-bottom:18px;display:flex;align-items:center;gap:10px;font-family:'Space Mono';font-size:10px;letter-spacing:1px;color:var(--green);flex-wrap:wrap;}
+  .flat-banner{background:rgba(0,200,255,.06);border:1px solid rgba(0,200,255,.25);padding:9px 16px;margin-bottom:18px;display:flex;align-items:center;gap:10px;font-family:'Space Mono';font-size:10px;letter-spacing:1px;color:var(--accent);flex-wrap:wrap;}
   .flat-banner b{color:#fff;}
   .arrow-strip{display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;padding:7px 12px;border:1px dashed var(--border2);background:rgba(255,255,255,0.01);}
   .arrow-tag{font-family:'Space Mono';font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 8px;border:1px solid;white-space:nowrap;flex-shrink:0;}
@@ -117,12 +119,9 @@
   .ar-none{color:var(--muted);border-color:var(--muted);}
   .arrow-txt{font-size:10px;color:var(--muted);line-height:1.45;}
   .arrow-lbl{font-family:'Space Mono';font-size:8px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;display:block;}
-
-  .chart-thumb{width:100%;height:110px;object-fit:cover;object-position:top;border-radius:4px;cursor:pointer;transition:filter .2s;margin:0 0 10px 0;display:block;}
-  .chart-thumb:hover{filter:brightness(1.18);}
-  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;align-items:center;justify-content:center;cursor:pointer;}
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;cursor:pointer;}
   .lightbox.open{display:flex;}
-  .lightbox img{max-width:94vw;max-height:94vh;border-radius:6px;box-shadow:0 0 60px rgba(0,0,0,.8);}
+  .lightbox img{max-width:92vw;max-height:92vh;border-radius:6px;}
 </style>
 </head>
 <body>
@@ -131,7 +130,7 @@
     <div class="logo">FX <span>ENGINE</span><small>EXECUTION PLATFORM · ELLIOTT WAVE ENGINE</small></div>
     <div class="top-right">
       <div><span class="live-dot"></span><span id="clock">--:--:--</span></div>
-      <div>6-PAIR PDF: JUN 30 · GOLD: JUN 30</div>
+      <div>6-PAIR PDF: JUL 01 · GOLD: JUL 01</div>
       <button class="refresh-btn" onclick="fetchPrices()">↻ REFRESH PRICES</button>
     </div>
   </div>
@@ -139,7 +138,7 @@
   <div class="err-banner" id="errBanner">⚠ ALL LIVE PRICE SOURCES UNREACHABLE — tried Frankfurter (ECB) + exchangerate.host. Could be weekend/market-closed, a network block, or rate limiting. Levels still valid — verify current price in MT5. Hit ↻ to retry.</div>
 
   <div class="flat-banner">
-    ⚑ <b>FLAT ACCOUNT MODE</b> · Jun 30: XAUUSD — 3 attempts to fall in June, new lows each time but NO significant decline. New reversal pattern forming — stay patient, do NOT short · EURUSD/GBPUSD: 5th consecutive trail SL lower — analyst confirms ABC correction ENDED, long-term decline forming · USDJPY: Sell Stop 161.070 unchanged at ending diagonal apex — still ENTER · USDCHF Wave 3 active — re-enter only on dip to 0.80113 · AUDUSD Wave (2) correction continues · USDCAD WXY complex correction ongoing — no setup yet
+    ⚑ <b>JUL 01 UPDATE</b> · EURUSD: ABC correction confirmed — existing sell active, trail SL lower per analyst · GBPUSD: Leading Diagonal complete, Confirmation level to Sell ~1.3200 (Sell Stop) · USDJPY: Wait for ending diagonal confirmation below 161.75 · USDCAD: WXY complex correction, no setup yet · AUDUSD: Wave (1) complete, corrective Wave (2) dip to 0.675–0.659 — no trade · USDCHF: Big Triangle + Wave 3 buy active, invalidation 0.80111 / 0.79097 · XAUUSD: Wave (4) near bottom, new pattern forming — keep close eye
   </div>
 
   <div class="ticker" id="ticker"></div>
@@ -155,26 +154,25 @@
       <div class="cards" id="cards"></div>
       <div class="side">
         <div class="panel">
-          <div class="panel-h"><span>Fresh Entry Shortlist</span><span style="color:var(--green)">FLAT ACCT</span></div>
-          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">USDJPY — ENTER (pending)</div><div class="ai-d">Sell Stop 161.070, SL 161.965 (~90p). Ending diagonal at Wave (B) top — analyst: "wait and see if market reverses." Lone fresh trigger. Jun 30: unchanged.</div></div></div>
-          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">XAUUSD — WATCH · NEW PATTERN</div><div class="ai-d">Jun 30: 3 attempts to fall in June — new lows each time but no significant decline. New reversal pattern forming that could end Wave (4). Analyst: "let's keep a close eye on it." Do not short.</div></div></div>
-          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">USDCHF — ONLY ON DIP</div><div class="ai-d">Big Triangle complete, Wave 3 bullish. Re-enter only on pullback toward 0.80113. Chasing at market = poor RR.</div></div></div>
-          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">EURUSD — TOO LATE / TRAIL SL</div><div class="ai-d">5th consecutive trail SL instruction. Analyst confirms ABC correction ENDED — long-term decline forming. Holders: trail the stop. No fresh entry.</div></div></div>
-          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">GBPUSD — TOO LATE / TRAIL SL</div><div class="ai-d">5th consecutive trail SL. Analyst: "trail SL even lower." Holders: follow instruction. Nothing fresh.</div></div></div>
-          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">AUDUSD — NO TRADE</div><div class="ai-d">Corrective wave (2) down toward 0.676–0.643. Buy returns only at Fib support. No change Jun 30.</div></div></div>
-          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">USDCAD — NO TRADE</div><div class="ai-d">WXY correction ongoing — sell zone 1.431–1.452. Wait for labeled confirmation before entering.</div></div></div>
+          <div class="panel-h"><span>Fresh Entry Shortlist</span><span style="color:var(--accent)">JUL 01</span></div>
+          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">GBPUSD — ENTER (Sell Stop)</div><div class="ai-d">Sell Stop at Confirmation level ~1.3200, Invalidation 1.32771 (~57p risk). Leading Diagonal 5-wave complete. ABC correction targeting 1.21. "Confirmation level to Sell" shown explicitly on chart.</div></div></div>
+          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">USDCHF — ENTER (Buy)</div><div class="ai-d">Big Triangle complete, Wave 3 up active. Buy at market, invalidation 0.80111 / 0.79097. Target ~0.82000. Pattern confirmed on 8h chart.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">USDJPY — WATCH (Sell)</div><div class="ai-d">Possible ending diagonal forming at Wave (B) top near 161.965. "Wait and see if market reverses." Confirmation to Sell at ~161.75. Not triggered yet.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">XAUUSD — WATCH · NEW PATTERN</div><div class="ai-d">Wave (4) near bottom (~3,930 area). "New pattern forming that could reverse the market." Long-term bullish Wave (5) toward $6,200+. Keep close eye for reversal signal.</div></div></div>
+          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">EURUSD — ACTIVE / TRAIL SL</div><div class="ai-d">ABC correction confirmed — long-term decline to 0.935. Existing sell running. "Move SL even lower to guarantee profit." RR 1:10. No fresh entry.</div></div></div>
+          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">AUDUSD — NO TRADE (Wave 2)</div><div class="ai-d">Wave (1) complete. Corrective Wave (2) down to 0.675–0.659 Fib zone. Buy returns only at support. No trade now.</div></div></div>
+          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">USDCAD — NO TRADE</div><div class="ai-d">Complex WXY correction still in progress near completion. "Looking for a new setup." No labeled confirmation or entry trigger.</div></div></div>
         </div>
         <div class="panel">
           <div class="panel-h"><span>Risk Plan (if all valid taken)</span><span style="color:var(--green)">€100/TRADE</span></div>
           <div class="rk">
-            <div class="rk-r"><span>USDJPY</span><span class="c-green">ENTER (pending) · €100</span></div>
+            <div class="rk-r"><span>GBPUSD</span><span class="c-green">ENTER · Sell Stop ~1.3200 · €100</span></div>
+            <div class="rk-r"><span>USDCHF</span><span class="c-green">ENTER · Buy · inval 0.79097 · €100</span></div>
+            <div class="rk-r"><span>USDJPY</span><span class="c-yellow">watch (conf below 161.75)</span></div>
             <div class="rk-r"><span>XAUUSD</span><span class="c-yellow">watch (new pattern forming)</span></div>
-            <div class="rk-r"><span>USDCHF</span><span class="c-yellow">DIP ONLY · €100</span></div>
-            <div class="rk-r"><span>AUDUSD</span><span class="c-muted">no trade (wave 2)</span></div>
-            <div class="rk-r"><span>USDCAD</span><span class="c-muted">no trade (no setup)</span></div>
-            <div class="rk-r"><span>EURUSD / GBPUSD</span><span class="c-red">skip (late) / trail SL</span></div>
-            <div class="rk-r tot"><span>CURRENT OPEN RISK</span><span class="c-green">€0 (flat)</span></div>
-            <div class="rk-r tot"><span>MAX IF ALL VALID TAKEN</span><span class="c-yellow">€100 now · ≤€200 incl. dip · cap 4.5%</span></div>
+            <div class="rk-r"><span>EURUSD</span><span class="c-red">active / trail SL only</span></div>
+            <div class="rk-r"><span>AUDUSD / USDCAD</span><span class="c-muted">no trade</span></div>
+            <div class="rk-r tot"><span>MAX IF BOTH TAKEN</span><span class="c-yellow">€200 · cap ~4%</span></div>
           </div>
         </div>
         <div class="panel">
@@ -192,13 +190,13 @@
       <table>
         <thead><tr><th>PDF Date</th><th>Pair</th><th>Event</th><th>Old Level</th><th>New Level</th><th>Outcome</th></tr></thead>
         <tbody>
-          <tr><td>JUN 30</td><td class="c-yellow">XAUUSD</td><td>3 attempts to fall in June — new lows each time, no significant decline. New reversal pattern forming.</td><td>buy zone 3,765</td><td class="c-yellow">New pattern forming — possible Wave (4) end, reversal imminent</td><td class="c-yellow">WATCH — new reversal pattern, stay patient, no short</td></tr>
-          <tr><td>JUN 30</td><td class="c-green">EURUSD</td><td>Trail SL lower (5th consecutive) — analyst: ABC correction ENDED, long-term decline forming</td><td>&lt; 1.15288</td><td class="c-green">trail even lower · target 1.11855</td><td class="c-green">ACTIVE — ABC correction confirmed ended per analyst</td></tr>
-          <tr><td>JUN 30</td><td class="c-green">GBPUSD</td><td>Trail SL lower (5th consecutive) — TP 1.29940 confirmed</td><td>&lt; 1.32733</td><td class="c-green">trail even lower · TP 1.29940</td><td class="c-green">ACTIVE — trailing SL</td></tr>
-          <tr><td>JUN 30</td><td class="c-yellow">USDJPY</td><td>Ending diagonal apex — Sell Stop 161.070 unchanged</td><td>161.070 conf</td><td class="c-yellow">161.070 (unchanged) · SL 161.965</td><td class="c-green">PENDING — still ENTER · wait for reversal</td></tr>
-          <tr><td>JUN 30</td><td class="c-green">USDCHF</td><td>Wave 3 active — re-enter on dip (unchanged)</td><td>inval 0.80113</td><td class="c-green">Wave 3 up · inval 0.80113 / 0.79097 (unchanged)</td><td class="c-green">ACTIVE — re-enter on dip to 0.80113</td></tr>
-          <tr><td>JUN 30</td><td class="c-muted">AUDUSD</td><td>Wave (2) correction ongoing — Fib zones unchanged</td><td>38.2%=0.67580</td><td class="c-muted">38.2%=0.67580 · 50%=0.65964 · 61.8%=0.64348 (unchanged)</td><td class="c-muted">NO TRADE — wait at Fib support</td></tr>
-          <tr><td>JUN 30</td><td class="c-muted">USDCAD</td><td>WXY complex correction ongoing — no new setup</td><td>1.43141 / 1.45244</td><td class="c-muted">inval 1.47923 · no change</td><td class="c-muted">NO TRADE — looking for new setup</td></tr>
+          <tr><td>JUL 01</td><td class="c-blue">GBPUSD</td><td>Confirmation level to Sell — Leading Diagonal complete</td><td>TOO LATE / trail SL</td><td class="c-green">Sell Stop ~1.3200 · inval 1.32771 · target 1.21138</td><td class="c-green">ENTER — Sell Stop pending</td></tr>
+          <tr><td>JUL 01</td><td class="c-green">USDCHF</td><td>Big Triangle + Wave 3 buy — invalidation confirmed</td><td>DIP ONLY 0.80113</td><td class="c-green">Buy · inval 0.80111 / 0.79097 · target ~0.82000</td><td class="c-green">ENTER — buy active</td></tr>
+          <tr><td>JUL 01</td><td class="c-green">EURUSD</td><td>ABC correction confirmed — major decline to 0.935 by 2027</td><td>trail SL below 1.15288</td><td class="c-green">trail SL lower · target 1.11855 → 0.93500</td><td class="c-green">ACTIVE — trail SL, RR 1:10</td></tr>
+          <tr><td>JUL 01</td><td class="c-yellow">USDJPY</td><td>Possible ending diagonal — wait for reversal confirmation</td><td>Sell Stop 161.070</td><td class="c-yellow">Conf to Sell ~161.75 · wait for reversal</td><td class="c-yellow">WATCH — not triggered</td></tr>
+          <tr><td>JUL 01</td><td class="c-yellow">XAUUSD</td><td>New pattern forming — Wave (4) near bottom</td><td>buy zone 3,765</td><td class="c-yellow">new reversal pattern forming ~3,930 · keep eye</td><td class="c-yellow">WATCH — monitor closely</td></tr>
+          <tr><td>JUL 01</td><td class="c-muted">AUDUSD</td><td>Wave (1) complete, Wave (2) correction down</td><td>no trade</td><td class="c-muted">38.2%=0.67580 · 50%=0.65957 · no trade</td><td class="c-muted">NO TRADE — wait at Fib support</td></tr>
+          <tr><td>JUL 01</td><td class="c-muted">USDCAD</td><td>WXY correction continuing — looking for new setup</td><td>no trade</td><td class="c-muted">WXY near top 1.431–1.452 · target ~1.340 after</td><td class="c-muted">NO TRADE — no setup yet</td></tr>
           <tr><td>JUN 26</td><td class="c-yellow">XAUUSD</td><td>Wave (4) correction — buy zone 3,765 (78.6% Fib)</td><td>two scenarios / no setup</td><td class="c-yellow">Wave (4) pullback, buy near 3,765</td><td class="c-yellow">WATCH — buy at 78.6% Fib reversal</td></tr>
           <tr><td>JUN 26</td><td class="c-green">EURUSD</td><td>Trail SL lower instruction (3rd consecutive)</td><td>1.15288</td><td class="c-green">trail below 1.15288</td><td class="c-green">ACTIVE — trailing SL, wave (3) to 1.11855</td></tr>
           <tr><td>JUN 26</td><td class="c-green">GBPUSD</td><td>Trail SL lower instruction — Leading Diagonal + ABC</td><td>1.32733</td><td class="c-green">trail below 1.32733</td><td class="c-green">ACTIVE — trailing SL, target 1.29540</td></tr>
@@ -248,81 +246,88 @@
 
   <div class="footer">
     <div>FX ENGINE EXECUTION PLATFORM · NOT FINANCIAL ADVICE</div>
-    <div>PDF JUN 30 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
+    <div>PDF JUL 01 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
   </div>
 </div>
 
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <script>
+function openChart(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('open');}
+
+const BASE='https://bamdadx.github.io/fx-engine/';
 const PAIRS = [
   {
-    id:'EURUSD',img:'eurusd.png',base:'EUR',quote:'USD',dir:'SELL',state:'ELITE ACTIVE',stateCls:'bd-sell',
-    cardCls:'b-elite b-sell',banner:'🔒 TRAIL SL LOWER (5TH CONSECUTIVE) — ABC CORRECTION ENDED · LONG-TERM DECLINE FORMING · TARGET 1.11855',bannerCls:'bn-green',
-    conf:93,confCls:'elite',confColor:'var(--elite)',rr:'RR 1:10',dec:5,
-    levels:[['Entry (triggered)','1.17416','c-blue'],['SL (trail lower)','< 1.15288','c-green'],['Locked profit','≈ 213+ pips','c-green'],['TP target','1.11855','c-green']],
+    id:'EURUSD',base:'EUR',quote:'USD',dir:'SELL',state:'ACTIVE SELL',stateCls:'bd-sell',
+    cardCls:'b-elite b-sell',banner:'🔒 ABC CORRECTION CONFIRMED — TRAIL SL LOWER · WAVE (3) DOWN · TARGET 1.11855 → 0.93500',bannerCls:'bn-green',
+    conf:93,confColor:'var(--elite)',rr:'RR 1:10',dec:5,img:'eurusd.png',
+    levels:[['Entry (triggered)','1.17416','c-blue'],['SL (trail lower)','< 1.15288','c-green'],['Locked profit','213+ pips','c-green'],['TP target','1.11855','c-green']],
     keyLevel:1.15288,keyLabel:'SL',tp:1.11855,
-    fresh:'TOO LATE',freshCls:'fr-late',freshNote:'Entry 1.17416 long gone — Wave (3) deeply extended. 5th consecutive "trail SL even lower" instruction. Analyst Jun 30: "major ABC correction has ended, market preparing for long-term decline." Holders: trail the stop. No fresh entry.',
-    arrow:'FAR ALONG',arrowCls:'ar-far',arrowNote:'Arrow tail at the 1.180 wave-2 top — price deep into wave (3). Origin far behind = late. Jun 30: analyst confirms ABC correction ended, long-term decline forming to 0.93500.',
-    note:'"Move SL even lower to guarantee profit" (Jun 30 — 5th consecutive instruction) · Analyst confirms: major ABC correction ENDED, market preparing long-term decline · Target 1.11855 near-term → 0.93500 by 2027 · Invalidation 1.17966 (upper) / 1.15288 (trail here)',dotCls:'dt-g'
+    fresh:'ACTIVE',freshCls:'fr-late',freshNote:'ABC correction end confirmed. "Move SL even lower to guarantee profit." RR 1:10. Wave (3) target 1.11855, long-term to 0.93500 by 2027. Holders trail SL — no fresh entry.',
+    arrow:'FAR ALONG',arrowCls:'ar-far',arrowNote:'Wave (3) down deep in progress from 1.18 top. Arrow origin far behind current price. Management only.',
+    note:'"Move SL even lower to guarantee profit on this trade" — RR 1:10 · Major ABC correction confirmed, long-term target 0.93500 · Bear continuation intact',dotCls:'dt-g'
   },
   {
-    id:'GBPUSD',img:'gbpusd.png',base:'GBP',quote:'USD',dir:'SELL',state:'ACTIVE SELL',stateCls:'bd-sell',
-    cardCls:'b-sell',banner:'🔒 TRAIL SL LOWER (5TH CONSECUTIVE) — LEADING DIAGONAL COMPLETE · ABC CORRECTION · TP 1.29940',bannerCls:'bn-green',
-    conf:90,confCls:'high',confColor:'var(--green)',rr:'',dec:5,
-    levels:[['Entry (triggered)','1.35424','c-blue'],['SL (trail lower)','< 1.32733','c-green'],['Locked profit','≈ 269+ pips','c-green'],['TP zone','1.29940','c-green']],
-    keyLevel:1.32733,keyLabel:'SL',tp:1.2994,
-    fresh:'TOO LATE',freshCls:'fr-late',freshNote:'Entry 1.35424 gone — move mature. 5th consecutive "trail SL even lower to guarantee profit" instruction. Target confirmed at 1.29940. Nothing fresh to enter here.',
-    arrow:'FAR ALONG',arrowCls:'ar-far',arrowNote:'Arrow tail at 1.385 Leading Diagonal top — price well below. Origin far behind = late. Invalidation 1.36529 / 1.32733.',
-    note:'"Move SL even lower to guarantee profit" (Jun 30 — 5th consecutive) · Leading Diagonal (5-wave) complete · ABC correction TP 1.29940 near-term → 1.21138 longer-term · Invalidation 1.36529 (upper) / 1.32733 (trail here)',dotCls:'dt-g'
+    id:'GBPUSD',base:'GBP',quote:'USD',dir:'SELL',state:'ENTER — SELL STOP',stateCls:'bd-sell',
+    cardCls:'b-sell b-warn',banner:'🔵 LEADING DIAGONAL COMPLETE · SELL STOP AT CONFIRMATION ~1.3200 · INVAL 1.32771',bannerCls:'bn-blue',
+    conf:85,confColor:'var(--green)',rr:'',dec:5,img:'gbpusd.png',
+    levels:[['Sell Stop (trigger)','~1.3200','c-blue'],['Invalidation / SL','1.32771','c-red'],['TP1 target','~1.2940','c-green'],['Long-Term TP','1.21138','c-green']],
+    keyLevel:1.3200,keyLabel:'TRIGGER',tp:1.2940,
+    fresh:'ENTER',freshCls:'fr-enter',freshNote:'Leading Diagonal (5-wave up) complete. Analyst shows "Confirmation level to Sell" at ~1.3200 on 4h chart. Place Sell Stop below 1.3200. SL above invalidation 1.32771 (~57p risk). ABC correction targets 1.21138.',
+    arrow:'AT ORIGIN',arrowCls:'ar-close',arrowNote:'Price at the confirmation zone on the 4h chart. Arrow tail at current price — entry timing is now. Wait for break of confirmation level.',
+    note:'"Confirmation level to Sell" — labeled explicitly on 4h chart · Leading Diagonal complete (5 waves) · ABC correction targets 1.29540 → 1.21138 longer-term',dotCls:'dt-o'
   },
   {
-    id:'USDJPY',img:'usdjpy.png',base:'USD',quote:'JPY',dir:'SELL',state:'PENDING SELL',stateCls:'bd-pend',
-    cardCls:'b-pend b-warn',banner:'🔵 ENDING DIAGONAL APEX · SELL CONFIRMATION: 161.070 · NEAR-TERM TARGET: ~153.810',bannerCls:'bn-blue',
-    conf:78,confCls:'high',confColor:'var(--green)',rr:'RR 1:20+',dec:3,
-    levels:[['Sell Stop (trigger)','161.070','c-blue'],['Invalidation / SL','161.965','c-red'],['Near-Term TP','~153.810','c-green'],['Long-Term TP (C)','~139.596','c-green']],
-    keyLevel:161.070,keyLabel:'TRIGGER',tp:153.81,
-    fresh:'ENTER',freshCls:'fr-enter',freshNote:'Untriggered pending = on-time. Place Sell Stop 161.070, SL 161.965 (~90p). Fires only on break below 161.070 (reversal confirmation). ABC structure: Wave (B) top at 161.965, Wave (C) targets 139.596. Jun 30: unchanged.',
-    arrow:'AT ORIGIN',arrowCls:'ar-close',arrowNote:'Ending diagonal forming right under Wave (B) top at 161.965. Price at the apex — do-or-die confirmation zone. Jun 30: analyst "wait and see if the market reverses" — unchanged.',
-    note:'Analyst: "There is a chance the market will form an ending diagonal; we need to wait and see if the market reverses" · Lone fresh trigger in the platform · Confirmation level to Sell: 161.070 · Jun 30: unchanged',dotCls:'dt-o'
+    id:'USDJPY',base:'USD',quote:'JPY',dir:'SELL',state:'WATCH — CONFIRM',stateCls:'bd-pend',
+    cardCls:'b-pend',banner:'⏳ POSSIBLE ENDING DIAGONAL · WAIT FOR REVERSAL BELOW ~161.75 · DO NOT CHASE',bannerCls:'bn-blue',
+    conf:65,confColor:'var(--yellow)',rr:'',dec:3,img:'usdjpy.png',
+    levels:[['Current wave','(B) Wave 5 top','c-blue'],['Confirmation to Sell','~161.75','c-yellow'],['Invalidation','161.965','c-red'],['Long-Term TP (C)','~140.000','c-green']],
+    keyLevel:161.75,keyLabel:'CONFIRM',tp:153.81,
+    fresh:'WATCH',freshCls:'fr-cond',freshNote:'Analyst: "Chance market forms ending diagonal — wait and see if market reverses." Confirmation to Sell shown at ~161.75. "No point buying at such high price." Watch for reversal only.',
+    arrow:'AT APEX',arrowCls:'ar-close',arrowNote:'Price at Wave (B)/5 apex near 161.965. Analyst waiting for ending diagonal completion before selling. Not triggered.',
+    note:'"Wait and see if market reverses" · Ending diagonal possible at Wave (B) top · "No point buying at such a high price" · Sell only on confirmed break below ~161.75',dotCls:'dt-y'
   },
   {
-    id:'USDCAD',img:'usdcad.png',base:'USD',quote:'CAD',dir:'WAIT',state:'WAIT — NO SETUP',stateCls:'bd-skip',
-    cardCls:'watch',banner:'❌ WXY CORRECTION NEARING COMPLETION — SELL ZONE 1.431–1.452',bannerCls:'bn-red',
-    conf:0,confCls:'mid',confColor:'var(--muted)',rr:'',dec:5,
-    levels:[['Structure','Complex WXY','c-blue'],['61.8% Fib (Y/C end)','1.43141','c-muted'],['78.6% Fib','1.45244','c-muted'],['Invalidation','1.47923','c-red'],['After Y → target','~1.34000','c-muted']],
+    id:'USDCAD',base:'USD',quote:'CAD',dir:'WAIT',state:'WAIT — NO SETUP',stateCls:'bd-skip',
+    cardCls:'',banner:'❌ WXY COMPLEX CORRECTION — LOOKING FOR NEW SETUP · NO ENTRY YET',bannerCls:'bn-red',
+    conf:0,confColor:'var(--muted)',rr:'',dec:5,img:'usdcad.png',
+    levels:[['Structure','Complex WXY','c-blue'],['61.8% Fib (Y end)','1.43141','c-muted'],['78.6% Fib','1.45244','c-muted'],['Invalidation','1.47923','c-red'],['Post-WXY target','~1.34000','c-muted']],
     keyLevel:1.431,keyLabel:'—',tp:1.34,
-    fresh:'NO TRADE',freshCls:'fr-no',freshNote:'Still no labeled confirmation or invalidation for entry. WXY correction completing near 1.431–1.452 sell zone — "looking for a new setup." Watch next file. Jun 30: unchanged.',
-    arrow:'NO ARROW',arrowCls:'ar-none',arrowNote:'Projection points down from Y top toward ~1.34, but no trigger line drawn. Thesis, not an order. Jun 30: unchanged.',
-    note:'Analyst: "looking for a new setup" · Wave Y/C completing in 1.431–1.452 zone · After WXY completes → impulse down toward ~1.34000 · Jun 30: unchanged',dotCls:'dt-y'
+    fresh:'NO TRADE',freshCls:'fr-no',freshNote:'Analyst: "Looking for a new setup." WXY complex correction near completion. No labeled confirmation or invalidation trigger for entry. Watch next PDF.',
+    arrow:'NO ARROW',arrowCls:'ar-none',arrowNote:'Down projection from WXY top but no trigger drawn. Thesis, not an order.',
+    note:'"Looking for a new setup" · WXY complex correction near top · Once WXY completes → impulse down toward ~1.34000',dotCls:'dt-y'
   },
   {
-    id:'AUDUSD',img:'audusd.png',base:'AUD',quote:'USD',dir:'WAIT',state:'WAIT — WAVE 2',stateCls:'bd-skip',
-    cardCls:'watch',banner:'❌ CORRECTIVE WAVE (2) DOWN · NO TRADE · WAIT FOR FIB SUPPORT',bannerCls:'bn-red',
-    conf:0,confCls:'mid',confColor:'var(--muted)',rr:'',dec:5,
-    levels:[['Wave (1) complete','~0.80105 target','c-blue'],['38.2% Fib (wave 2)','0.67580','c-muted'],['50.0% Fib','0.65964','c-muted'],['61.8% Fib (deep)','0.64348','c-muted'],['8H Wave A target','0.67573','c-muted'],['Then wave (3)','~0.80105+','c-muted']],
+    id:'AUDUSD',base:'AUD',quote:'USD',dir:'WAIT',state:'WAIT — WAVE 2',stateCls:'bd-skip',
+    cardCls:'',banner:'❌ WAVE (1) COMPLETE · CORRECTIVE WAVE (2) DOWN · BUY AT FIB SUPPORT ONLY',bannerCls:'bn-red',
+    conf:0,confColor:'var(--muted)',rr:'',dec:5,img:'audusd.png',
+    levels:[['Wave (1) complete','~0.73500','c-blue'],['38.2% Fib buy zone','0.67580','c-yellow'],['50.0% Fib','0.65957','c-yellow'],['Wave (3) target','~0.82000','c-muted']],
     keyLevel:0.676,keyLabel:'—',tp:0.80,
-    fresh:'NO TRADE',freshCls:'fr-no',freshNote:'Wave (1) impulse completed. Now in corrective Wave (2) down. 8H shows Wave A targeting 38.2% Fib = 0.67573. No trigger, no invalidation for trade. Buy only returns at Fib support zones. Jun 30: unchanged.',
-    arrow:'NO ARROW',arrowCls:'ar-none',arrowNote:'Down-arrow into wave A/B is a projection — No labeled confirmation to sell. Buy returns far below at 0.676–0.643. Jun 30: unchanged.',
-    note:'Wave (1) complete · Wave (2) corrective pullback in progress · 38.2%=0.67580, 50%=0.65964, 61.8%=0.64348 · 8H Wave A target 0.67573 · Buy re-enters at Fib support for Wave (3) toward 0.80105 · Jun 30: unchanged',dotCls:'dt-r'
+    fresh:'NO TRADE',freshCls:'fr-no',freshNote:'Wave (1) complete at ~0.735. Now in corrective Wave (2) down targeting 0.67580 / 0.65957. No trade until Fib support zone. Buy for Wave (3) toward 0.82 only after Wave (2) completes.',
+    arrow:'CORRECTION',arrowCls:'ar-none',arrowNote:'Wave A down in progress on 8h chart. Target: 38.2% at 0.675 or 50% at 0.659. Wait.',
+    note:'Wave (1) complete · Wave (2) ABC correction down toward 0.675–0.659 · Buy Wave (3) toward 0.82 only after Fib support holds',dotCls:'dt-r'
   },
   {
-    id:'USDCHF',img:'usdchf.png',base:'USD',quote:'CHF',dir:'BUY',state:'ACTIVE BUY',stateCls:'bd-buy',
-    cardCls:'b-buy',banner:'⬆ BIG TRIANGLE COMPLETE · WAVE 3 UP · INVAL 0.80113 / 0.79097',bannerCls:'bn-green',
-    conf:78,confCls:'high',confColor:'var(--green)',rr:'',dec:5,
-    levels:[['Triangle Low (C)2','~0.75200','c-muted'],['Wave 1 Level','~0.79000','c-muted'],['Invalidation #1','0.80113','c-red'],['Invalidation #2 (hard)','0.79097','c-red'],['Wave (3) Target','~0.82000+','c-green'],['Long-Term Target','~0.86000+','c-green']],
-    keyLevel:0.80113,keyLabel:'SL',tp:0.82,
-    fresh:'ONLY ON DIP',freshCls:'fr-cond',freshNote:'Big Triangle (A-B-C-D-E) complete at ~0.75200. Wave 3 bullish now active. Re-enter only on pullback toward 0.80113. Chasing at current price = poor RR. Invalidations: 0.80113 and 0.79097. Jun 30: unchanged.',
-    arrow:'MID MOVE',arrowCls:'ar-mid',arrowNote:'Arrow tail at triangle breakout zone. Wave 3 extension underway — part of the move already captured. Re-enter on dip only. Jun 30: unchanged.',
-    note:'Big Triangle pattern complete — high-confidence bullish setup · Wave (3) targeting 0.82000 → 0.86000+ · Valid above 0.80113, hard stop 0.79097 · Jun 30: unchanged',dotCls:'dt-g'
+    id:'USDCHF',base:'USD',quote:'CHF',dir:'BUY',state:'ENTER — BUY',stateCls:'bd-buy',
+    cardCls:'b-buy b-warn',banner:'⬆ BIG TRIANGLE COMPLETE · WAVE 3 UP ACTIVE · BUY · INVAL 0.80111 / 0.79097',bannerCls:'bn-green',
+    conf:80,confColor:'var(--green)',rr:'',dec:5,img:'usdchf.png',
+    levels:[['Buy entry','~0.80000','c-green'],['Invalidation #1','0.80111','c-red'],['Invalidation #2 (hard)','0.79097','c-red'],['Wave (3) Target','~0.82000','c-green']],
+    keyLevel:0.80111,keyLabel:'INVAL',tp:0.82,
+    fresh:'ENTER',freshCls:'fr-enter',freshNote:'Big Triangle (A-B-C-D-E) complete. Wave 3 impulse up confirmed on 8h chart. Buy at market, SL below 0.79097. Target Wave (3) at ~0.82000. Two invalidation levels shown — hard stop is 0.79097.',
+    arrow:'AT ORIGIN',arrowCls:'ar-close',arrowNote:'8h chart arrow tail at current price (~0.80). Wave 3 launching now. Entry is timely.',
+    note:'Big Triangle complete at ~0.752 low · Wave 3 up confirmed — 8h count clear · Two invalidation levels: 0.80111 (soft) and 0.79097 (hard) · Target ~0.82000',dotCls:'dt-g'
   },
   {
-    id:'XAUUSD',img:'xauusd.png',base:'XAU',quote:'USD',dir:'BUY',state:'WATCH — WAVE 4',stateCls:'bd-pend',
-    cardCls:'b-pend',banner:'⚑ WAVE (4) — THREE ATTEMPTS TO FALL · NEW REVERSAL PATTERN FORMING · DO NOT SHORT',bannerCls:'bn-blue',
-    conf:72,confCls:'decent',confColor:'var(--yellow)',rr:'',dec:2,noLive:true,
-    levels:[['3 June attempts','new lows, no decline','c-yellow'],['Wave (4) bottom','~3,765 or slightly lower','c-muted'],['New pattern forming','possible reversal','c-yellow'],['Wave (5) target','6,000–6,400+','c-green'],['Long-term bias','BULLISH','c-green']],
-    keyLevel:3765,keyLabel:'BUY ZONE',tp:5600,
-    fresh:'WATCH',freshCls:'fr-cond',freshNote:'JUN 30: In June the market made 3 attempts to fall — each time making new lows but with no significant decline. Analyst sees a new pattern forming that could reverse the market. Wave (4) may be slightly lower, but long-term trend remains bullish. Watch closely — do NOT short.',
-    arrow:'NEAR ORIGIN',arrowCls:'ar-close',arrowNote:'JUN 30: Three attempts to fall in June, new lows each time, no significant decline. New reversal pattern forming. Analyst: "let\'s keep a close eye on it." Wave (4) may end near current levels. Do not buy blindly — wait for reversal confirmation.',
-    note:'JUN 30: 3 attempts to fall in June — each new low with no significant decline. New reversal pattern forming that could end Wave (4). Analyst: "wave (4) may be slightly lower but long-term trend bullish — I see a new pattern forming that could reverse the market." Wave (5) targets 6,000–6,400+ after Wave (4) completes.',dotCls:'dt-b'
+    id:'XAUUSD',base:'XAU',quote:'USD',dir:'BUY',state:'WATCH — WAVE 4',stateCls:'bd-pend',
+    cardCls:'b-pend',banner:'⚑ WAVE (4) NEAR BOTTOM · NEW PATTERN FORMING · KEEP CLOSE EYE · LONG-TERM BULLISH',bannerCls:'bn-blue',
+    conf:70,confColor:'var(--yellow)',rr:'',dec:2,noLive:true,img:'xauusd.png',
+    levels:[['Wave (4) area','~3,930','c-yellow'],['Long-term trend','Bullish','c-green'],['Wave (5) target','$6,200+','c-green'],['Watch note','New pattern forming','c-blue']],
+    keyLevel:3930,keyLabel:'WATCH',tp:6200,
+    fresh:'WATCH',freshCls:'fr-cond',freshNote:'"New pattern forming that could reverse the market. Keep a close eye on it." Wave (4) correction may be slightly lower but long-term remains bullish. Wave (5) targets $6,200+. No entry trigger yet.',
+    arrow:'NEAR ORIGIN',arrowCls:'ar-close',arrowNote:'Wave (4) correction near bottom on 1D chart. Bullish Wave (5) arrow projected up to $6,200. Wait for reversal confirmation.',
+    note:'"New pattern forming — could reverse the market. Keep close eye." · Wave (4) near bottom · Long-term bullish Wave (5) toward $6,200+ · "Wave (4) may be slightly lower but trend remains bullish"',dotCls:'dt-b'
   }
 ];
 
@@ -337,7 +342,7 @@ function renderTicker(){
     let dist=(price&&p.id==='XAUUSD')?'spot':(p.noLive?'gold (sep src)':'');
     if(price&&!p.noLive){const pp=Math.abs(price-p.keyLevel)/pip(p);dist=`${pp.toFixed(0)}p to ${p.keyLabel}`;}
     const dc=p.dir==='SELL'?'c-red':(p.dir==='BUY'?'c-green':'c-muted');
-    const sc=p.state.includes('PENDING')?'c-blue':dc;
+    const sc=p.state.includes('ENTER')||p.state.includes('WATCH')?'c-blue':dc;
     return `<div class="tick" onclick="scrollToCard('${p.id}')"><div class="tick-pair">${p.id}</div><div class="tick-price ${dc}">${ps}</div><div class="tick-state ${sc}">${p.state}</div><div class="tick-dist">${dist}</div><div style="margin-top:5px"><span class="fresh-tag ${p.freshCls}" style="font-size:7px;padding:2px 5px;">${p.fresh}</span></div></div>`;
   }).join('');
 }
@@ -349,13 +354,14 @@ function renderCards(){
     let prox=p.noLive?'<span class="c-muted">gold spot — check MT5<br>for exact fill</span>':'<span class="c-muted">feed offline</span>';
     if(price&&!p.noLive){const dT=(price-p.keyLevel)/pip(p),dP=Math.abs(price-p.tp)/pip(p),s=dT>0?'+':'';prox=`<span class="${Math.abs(dT)<30?'c-orange':'c-muted'}">${s}${dT.toFixed(0)}p vs ${p.keyLabel}</span><br><span class="c-muted">${dP.toFixed(0)}p to TP</span>`;}
     else if(price&&p.id==='XAUUSD'){const dT=price-p.keyLevel,dP=Math.abs(price-p.tp),s=dT>0?'+':'';prox=`<span class="c-muted">${s}${dT.toFixed(0)} vs ${p.keyLabel}</span><br><span class="c-muted">${dP.toFixed(0)} to wave5 TP</span>`;}
+    const imgUrl=BASE+p.img;
     return `<div class="card ${p.cardCls}" id="card-${p.id}">
 <div class="banner ${p.bannerCls}">${p.banner}</div>
-<img class="chart-thumb" src="https://bamdadx.github.io/fx-engine/${p.img}" onclick="openChart(this.src)" alt="${p.id} chart" loading="lazy">
 <div class="card-h"><span class="card-pair">${p.id}</span><div class="badges"><span class="badge ${p.stateCls}">${p.state}</span>${p.rr?`<span class="badge bd-rr">${p.rr}</span>`:''}</div></div>
 <div class="card-b">
-<div class="live-strip"><div><div class="live-lbl">${p.noLive?(price?'LIVE (XAU SPOT)':'LIVE (USE MT5)'):'LIVE (ECB REF)'}</div><div class="live-price">${price?(p.id==='XAUUSD'?price.toFixed(0):price.toFixed(p.dec)):(p.noLive?'~3,800':'—')}</div></div><div class="prox">${prox}</div></div>
-<div class="fresh-strip"><span class="fresh-tag ${p.freshCls}">${p.fresh}</span><div><span class="fresh-lbl">FRESH ENTRY (FLAT ACCOUNT)</span><span class="fresh-txt">${p.freshNote}</span></div></div>
+<img class="chart-thumb" src="${imgUrl}" onclick="openChart('${imgUrl}')" alt="${p.id} chart Jul 01">
+<div class="live-strip"><div><div class="live-lbl">${p.noLive?(price?'LIVE (XAU SPOT)':'LIVE (USE MT5)'):'LIVE (ECB REF)'}</div><div class="live-price">${price?(p.id==='XAUUSD'?price.toFixed(0):price.toFixed(p.dec)):(p.noLive?'~3,930':'—')}</div></div><div class="prox">${prox}</div></div>
+<div class="fresh-strip"><span class="fresh-tag ${p.freshCls}">${p.fresh}</span><div><span class="fresh-lbl">FRESH ENTRY (JUL 01)</span><span class="fresh-txt">${p.freshNote}</span></div></div>
 <div class="arrow-strip"><span class="arrow-tag ${p.arrowCls}">↗ ${p.arrow}</span><div><span class="arrow-lbl">ARROW ORIGIN vs PRICE</span><span class="arrow-txt">${p.arrowNote}</span></div></div>
 <div class="lv">${p.levels.map(l=>`<div><div class="lv-l">${l[0]}</div><div class="lv-v ${l[2]||''}">${l[1]}</div></div>`).join('')}</div>
 <div class="conf"><span class="lv-l" style="margin:0">CONF</span><div class="conf-bar"><div class="conf-fill" style="width:${p.conf}%;background:${p.confColor}"></div></div><span class="conf-pct" style="color:${p.confColor}">${p.conf===0?'N/A':p.conf+'%'}</span></div>
@@ -416,13 +422,6 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-GB');},1000);
 renderTicker();renderCards();fetchPrices();
-function openChart(src){
-  document.getElementById('lightbox-img').src=src;
-  document.getElementById('lightbox').classList.add('open');
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('lightbox').classList.remove('open');});
 </script>
-
-<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightbox-img" src="" alt="chart fullscreen"></div>
 </body>
 </html>
