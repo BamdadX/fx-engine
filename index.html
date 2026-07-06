@@ -149,7 +149,7 @@ tr:hover td{background:rgba(0,200,255,0.02);}
   <div class="logo">FX <span>ENGINE</span><small>EXECUTION PLATFORM · ELLIOTT WAVE ENGINE</small></div>
   <div class="top-right">
     <div><span class="live-dot"></span><span id="clock">--:--:--</span></div>
-    <div>6-PAIR PDF: JUL 03 · GOLD: JUL 03</div>
+    <div>6-PAIR PDF: JUL 06 · GOLD: JUL 06</div>
     <button class="refresh-btn" onclick="fetchPrices()">&#x21BB; REFRESH PRICES</button>
   </div>
 </div>
@@ -157,7 +157,7 @@ tr:hover td{background:rgba(0,200,255,0.02);}
 <div class="err-banner" id="errBanner">&#9888; ALL LIVE PRICE SOURCES UNREACHABLE — tried Frankfurter (ECB) + exchangerate.host. Could be weekend/market-closed, a network block, or rate limiting. Levels still valid — verify current price in MT5. Hit &#x21BB; to retry.</div>
 
 <div class="flat-banner">
-  &#9873; <b>JUL 03 — 3 FRESH ENTERS</b> &middot; GBPUSD Buy Limit 1.32341&ndash;1.32634 (Wave 2) &middot; USDCHF Buy Limit 0.79973&ndash;0.80246 (Wave 2) &middot; USDJPY Breakdown Sell SL 162.931 &middot; EURUSD: MANAGE &mdash; trail SL &lt;1.15284 (RR 1:10) &middot; AUDUSD/USDCAD: no trade &middot; XAUUSD: watch (C) bottom
+  &#9873; <b>JUL 06 — 2 FRESH ENTERS · 2 CLOSE TO ENTER</b> &middot; GBPUSD Buy Limit 1.32341&ndash;1.32634 (Wave 2) &middot; USDCHF Buy Limit 0.79973&ndash;0.80246 (Wave 2 50% Fib) &middot; USDJPY Sell Stop: trendline retest ~162.35 SL 162.857 TP 153.710 &middot; XAUUSD: Wave (4) bottoming &mdash; DIP buy 3,900&ndash;4,050 Wave (5) launch &middot; EURUSD: MANAGE &mdash; wave (3) down, trail SL lower (RR 1:10) &middot; AUDUSD/USDCAD: no trade
 </div>
 
 <div class="schema-banner" id="schemaBanner"></div>
@@ -201,6 +201,9 @@ tr:hover td{background:rgba(0,200,255,0.02);}
     <table>
       <thead><tr><th>PDF Date</th><th>Pair</th><th>Event</th><th>Old Level</th><th>New Level</th><th>Outcome</th></tr></thead>
       <tbody>
+        <tr><td>JUL 06</td><td class="c-green">EURUSD</td><td>Wave (3) down now active &mdash; trail SL lower</td><td>MANAGE &middot; wave (2) bounce &middot; SL &lt;1.15284</td><td class="c-green">Wave (3) down confirmed &middot; trail SL below structure</td><td class="c-green">MANAGE &mdash; no fresh entry &middot; RR 1:10</td></tr>
+        <tr><td>JUL 06</td><td class="c-red">USDJPY</td><td>Trendline retest entry &mdash; SL updated to previous high</td><td>Breakdown sell &middot; SL 162.931 &middot; TP ~152.800</td><td class="c-red">Sell Stop ~162.0 &middot; retest 162.348 &middot; SL 162.857 &middot; TP 153.710</td><td class="c-red">ENTER &mdash; Sell Stop below trendline retest</td></tr>
+        <tr><td>JUL 06</td><td class="c-green">XAUUSD</td><td>Wave (4) bottom confirmed &mdash; Wave (5) launch</td><td>WATCH &middot; (C) forming ~3,900-4,050</td><td class="c-green">ONLY ON DIP &middot; wave (4) low ~3,860 &middot; DIP zone 3,900-4,050 &middot; TP ~6,200</td><td class="c-green">ONLY ON DIP &mdash; buy dips to 3,900-4,050 for Wave (5)</td></tr>
         <tr><td>JUL 02</td><td class="c-red">GBPUSD</td><td>DATA HOLD &mdash; Schema Guard: SELL geometry violation (SL 1.3296 &lt; entry 1.3310)</td><td>ACTIVE SELL &middot; SL ~1.32733</td><td class="c-red">DATA HOLD &middot; levels unverifiable</td><td class="c-red">NO TRADE &mdash; verify source PDF</td></tr>
         <tr><td>JUL 02</td><td class="c-green">EURUSD</td><td>State &rarr; ANALYST: MANAGE &middot; RE-ARM ARMED at 1.15400</td><td>ELITE ACTIVE &middot; SL &lt;1.15288</td><td class="c-green">RE-ARM ARMED &middot; zone 1.15400 &middot; SL 1.15743 &middot; TP 1.12000</td><td class="c-green">TOO LATE fresh &middot; RE-ARM 9.9:1 RR passive sell limit</td></tr>
         <tr><td>JUL 02</td><td class="c-blue">USDJPY</td><td>Confirmation levels updated</td><td>161.070 trigger &middot; 161.965 SL</td><td class="c-blue">161.353 trigger &middot; 162.357 SL (~100p)</td><td class="c-green">ENTER &mdash; Sell Stop 161.353 &middot; sole fresh trigger</td></tr>
@@ -260,7 +263,7 @@ const PAIRS = [
   {
     id:'EURUSD', base:'EUR', quote:'USD', dir:'SELL',
     state:'ANALYST: MANAGE', stateCls:'bd-sell', cardCls:'b-sell',
-    banner:'LOCK  ANALYST: MANAGE - TRAIL SL LOWER - WAVE (1) DOWN - TP 1.11855 - RR 1:10', bannerCls:'bn-green',
+    banner:'LOCK  ANALYST: MANAGE - WAVE (3) DOWN ACTIVE - TRAIL SL LOWER - TP 1.11855 - RR 1:10', bannerCls:'bn-green',
     conf:88, confColor:'var(--green)', rr:'RR 1:10', dec:5, img:'eurusd.png',
     levels:[
       ['Analyst entry','~1.17416','c-blue'],
@@ -270,12 +273,12 @@ const PAIRS = [
     ],
     keyLevel:1.15284, keyLabel:'SL', tp:1.11855,
     fresh:'TOO LATE', freshCls:'fr-late',
-    freshNote:'ANALYST: MANAGE - wave (1) down active. Analyst: "Move the stop-loss even lower to guarantee a profit on this trade." Trail SL below 1.15284. Wave (2) bounce in progress, then wave (3) to 1.11855. No fresh entry - holders manage only.',
+    freshNote:'ANALYST: MANAGE - wave (3) down now active per JUL 06 PDF. Analyst: "Move the stop-loss even lower to guarantee a profit on this trade." Wave (2) correction complete. Wave (3) extension to 1.11855 in progress. Trail SL below current structure. No fresh entry - holders manage only.',
     shortNote:'MANAGE - trail SL below 1.15284 - wave (3) to 1.11855',
     arrow:'FAR ALONG', arrowCls:'ar-far',
-    arrowNote:'Wave (1) down confirmed. In wave (2) bounce, then wave (3) extension to 1.11855. Manage existing position only.',
+    arrowNote:'Wave (3) down now active per JUL 06 PDF. Wave (2) complete. Trending toward 1.11855. Analyst: trail SL even lower to lock profit. Manage only.',
     reentry:{status:'NO VALID ZONE',cls:'re-none',note:'Wave (2) bounce in progress. No re-entry zone drawn by analyst. Wait for wave (3) launch confirmation.'},
-    note:'ANALYST: MANAGE - trail SL even lower to guarantee profit. Wave (1) down complete, wave (2) bounce, wave (3) to 1.11855. Major ABC correction targets 0.93500 by 2027.', dotCls:'dt-g'
+    note:'ANALYST: MANAGE - wave (3) down confirmed JUL 06. Trail SL lower per analyst instruction. TP 1.11855. RR 1:10. Major ABC correction targets 0.93500 by 2027.', dotCls:'dt-g'
   },
   {
     id:'GBPUSD', base:'GBP', quote:'USD', dir:'BUY',
@@ -300,24 +303,24 @@ const PAIRS = [
   },
   {
     id:'USDJPY', base:'USD', quote:'JPY', dir:'SELL',
-    state:'ENTER - BREAKDOWN', stateCls:'bd-sell', cardCls:'b-sell b-elite',
-    banner:'RED  ENTER - ENDING DIAGONAL BREAKDOWN - SELL - SL 162.931 - TP ~152.800', bannerCls:'bn-red',
+    state:'ENTER - TRENDLINE RETEST', stateCls:'bd-sell', cardCls:'b-sell b-elite',
+    banner:'RED  ENTER - SELL - TRENDLINE RETEST ~162.35 - SL 162.857 - TP 153.710', bannerCls:'bn-red',
     conf:78, confColor:'var(--green)', rr:'', dec:3, img:'usdjpy.png',
     levels:[
-      ['Breakdown level','~161.965','c-red'],
-      ['Invalidation / SL','162.931','c-red'],
-      ['Near-Term TP','~152.800','c-green'],
+      ['Sell at retest (78.6%)','162.348','c-red'],
+      ['Invalidation / SL','162.857','c-red'],
+      ['TP1 (near-term)','153.710','c-green'],
       ['Wave (C) target','~139.596','c-green']
     ],
-    keyLevel:162.931, keyLabel:'INVAL', tp:152.8,
-    entry:161.965, sl:162.931,
+    keyLevel:162.857, keyLabel:'INVAL', tp:153.71,
+    entry:162.0, sl:162.857,
     fresh:'ENTER', freshCls:'fr-enter',
-    freshNote:'Ending diagonal at Wave (B) apex complete. Breakdown confirmed. Fresh sell. SL 162.931 (~97p). TP1 ~152.800, TP2 (Wave C) ~139.596. Analyst: "There is no point in buying at such a high price - let us wait for a sell setup." Sell now.',
-    shortNote:'Breakdown sell - SL 162.931 (~97p) - TP1 ~152.800',
+    freshNote:'Trendline broken. Market retesting broken trendline from below at ~162.348 (78.6% Fib). Analyst: "The market is testing the broken trend line - stop set at the previous high." Sell Stop below retest ~162.0. Hard SL 162.857 (previous high). TP1 153.710, TP2 ~139.596.',
+    shortNote:'Sell Stop ~162.0 - retest 162.348 - SL 162.857 - TP1 153.710',
     arrow:'AT ORIGIN', arrowCls:'ar-close',
-    arrowNote:'Arrow tail at breakdown point. Ending diagonal complete. Sell move launching now - verify breakdown on MT5 before placing.',
+    arrowNote:'Trendline retest at 78.6% (162.348). Sell Stop below retest. Analyst: stop at previous high 162.857. TP1 153.710, TP2 ~139.596.',
     reentry:{status:'NO VALID ZONE',cls:'re-none',note:'Breakdown entry IS the primary trade. No re-entry zone needed.'},
-    note:'Ending diagonal breakdown at Wave (B) apex. SL 162.931. TP1 ~152.800, TP2 ~139.596. Analyst: "I still think the market is preparing for a big decline."', dotCls:'dt-r'
+    note:'Trendline broken and retesting at 78.6% (162.348). Analyst: "testing the broken trend line - stop at the previous high." Sell Stop ~162.0. SL 162.857. TP1 153.710, TP2 ~139.596.', dotCls:'dt-r'
   },
   {
     id:'USDCAD', base:'USD', quote:'CAD', dir:'WAIT',
@@ -382,23 +385,23 @@ const PAIRS = [
   },
   {
     id:'XAUUSD', base:'XAU', quote:'USD', dir:'WAIT',
-    state:'WATCH - WAVE (4)', stateCls:'bd-pend', cardCls:'b-pend', noLive:true,
-    banner:'BLUE  WATCH - WAVE (4) (C) COMPLETING - WAIT FOR REVERSAL - WAVE (5) TO 6,200+', bannerCls:'bn-blue',
-    conf:70, confColor:'var(--yellow)', rr:'', dec:2, img:'xauusd.png',
+    state:'ONLY ON DIP - WAVE (5)', stateCls:'bd-buy', cardCls:'b-buy', noLive:true,
+    banner:'UP  ONLY ON DIP - WAVE (4) BOTTOM ~3,860 - WAVE (5) LAUNCH - TP 6,200+', bannerCls:'bn-green',
+    conf:75, confColor:'var(--yellow)', rr:'', dec:2, img:'xauusd.png',
     levels:[
-      ['Status','WATCH - (C) forming','c-muted'],
-      ['(C) completion zone','~3,900-4,050','c-yellow'],
-      ['Wave (5) target','~6,200+','c-green'],
-      ['Action','wait for reversal','c-blue']
+      ['Wave (4) low','~3,860','c-red'],
+      ['DIP buy zone','3,900-4,050','c-blue'],
+      ['Hard SL','below 3,860','c-red'],
+      ['Wave (5) target','~6,200+','c-green']
     ],
-    keyLevel:3900, keyLabel:'WATCH', tp:6200,
-    fresh:'WATCH', freshCls:'fr-cond',
-    freshNote:'Wave (4) correction with (C) wave completing near 3,900-4,050. Wait for reversal candles before entering long. Wave (5) targets 6,200+. Do not buy into the falling correction - wait for confirmation.',
-    shortNote:'Watch (C) completing ~3,900-4,050 - buy on reversal for Wave (5)',
+    keyLevel:3900, keyLabel:'DIP BUY', tp:6200,
+    fresh:'ONLY ON DIP', freshCls:'fr-cond',
+    freshNote:'Wave (4) WXY correction completed ~3,860 per JUL 06 PDF. Wave (5) launch in progress. BUY ONLY ON DIP to 3,900-4,050 zone. Hard SL below wave (4) low ~3,860. TP wave (5) ~6,200+. Do not chase - only enter on confirmed pullback to zone.',
+    shortNote:'DIP buy 3,900-4,050 - SL below 3,860 - Wave (5) TP ~6,200',
     arrow:'NEAR ORIGIN', arrowCls:'ar-close',
-    arrowNote:'Wave (4) (C) wave nearing bottom. Wait for reversal signal before entering long. Arrow launch at (C) end.',
+    arrowNote:'Wave (4) completed at ~3,860. Wave (5) launch confirmed per JUL 06 chart. Buy only on dips to 3,900-4,050 zone. Not a chase entry.',
     reentry:{status:'NO VALID ZONE',cls:'re-none',note:'Wave (5) thesis intact but (C) still forming. No invalidation drawn - thesis only. Wait for reversal confirmation.'},
-    note:'Wave (4) correction. (C) completing near 3,900-4,050. Wait for reversal before buying. Wave (5) projects to 6,200+. Long-term bullish intact.', dotCls:'dt-b'
+    note:'Wave (4) WXY bottom ~3,860 confirmed JUL 06. Wave (5) up beginning. Buy on dip to 3,900-4,050. SL below 3,860. TP ~6,200+. Long-term bullish intact.', dotCls:'dt-b'
   }
 ];
 
