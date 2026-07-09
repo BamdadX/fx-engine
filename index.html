@@ -149,7 +149,7 @@ tr:hover td{background:rgba(0,200,255,0.02);}
   <div class="logo">FX <span>ENGINE</span><small>EXECUTION PLATFORM · ELLIOTT WAVE ENGINE</small></div>
   <div class="top-right">
     <div><span class="live-dot"></span><span id="clock">--:--:--</span></div>
-    <div>6-PAIR PDF: JUL 07 · GOLD: JUL 07</div>
+    <div>6-PAIR PDF: JUL 08 · GOLD: JUL 08</div>
     <button class="refresh-btn" onclick="fetchPrices()">&#x21BB; REFRESH PRICES</button>
   </div>
 </div>
@@ -157,7 +157,7 @@ tr:hover td{background:rgba(0,200,255,0.02);}
 <div class="err-banner" id="errBanner">&#9888; ALL LIVE PRICE SOURCES UNREACHABLE — tried Frankfurter (ECB) + exchangerate.host. Could be weekend/market-closed, a network block, or rate limiting. Levels still valid — verify current price in MT5. Hit &#x21BB; to retry.</div>
 
 <div class="flat-banner">
-  &#9873; <b>JUL 07 — 2 FRESH ENTERS · 1 ACTIVE</b> &middot; GBPUSD Buy Limit 1.32393&ndash;1.32702 (Wave 2) &middot; USDJPY Sell Stop: 78.6% retest 162.348 rejected &middot; SL 162.850 TP 153.660 &middot; USDCHF: ACTIVE &mdash; 50% Fib 0.80246 held, wave (3) to ~0.82000 &middot; XAUUSD: DIP buy 3,900&ndash;4,050 Wave (5) &middot; EURUSD: MANAGE &mdash; wave (3) down, trail SL lower (RR 1:10) &middot; AUDUSD/USDCAD: no trade
+  &#9873; <b>JUL 08 — 1 FRESH ENTER &middot; 2 WATCH &middot; 1 ACTIVE &middot; 1 MANAGE</b> &middot; GBPUSD: Buy Limit 1.32393&ndash;1.32702 Wave (2) &middot; USDJPY: Sell Stop &mdash; 78.6% retest 162.348 still testing &middot; SL 162.850 TP 153.660 &middot; XAUUSD: DIP buy 3,900&ndash;4,050 Wave (4) bottom ~3,780 &middot; USDCHF: ACTIVE &mdash; wave (3) up ~0.82000 &middot; EURUSD: MANAGE &mdash; wave (3) down, trail SL lower &middot; AUDUSD/USDCAD: no trade
 </div>
 
 <div class="schema-banner" id="schemaBanner"></div>
@@ -201,6 +201,11 @@ tr:hover td{background:rgba(0,200,255,0.02);}
     <table>
       <thead><tr><th>PDF Date</th><th>Pair</th><th>Event</th><th>Old Level</th><th>New Level</th><th>Outcome</th></tr></thead>
       <tbody>
+        <tr><td>JUL 08</td><td class="c-green">GBPUSD</td><td>Wave (2) buy zone maintained &mdash; Buy Limit unchanged</td><td>Buy Limit 1.32393&ndash;1.32702 &middot; SL 1.31405 &middot; TP ~1.37000</td><td class="c-green">Buy Limit 1.32393&ndash;1.32702 &middot; SL 1.31405 &middot; TP ~1.37000</td><td class="c-green">ENTER &mdash; Buy Limit in zone 1.32393&ndash;1.32702 only</td></tr>
+        <tr><td>JUL 08</td><td class="c-red">USDJPY</td><td>78.6% retest 162.348 still testing &mdash; not yet rejected</td><td>Sell Stop ~162.0 &middot; SL 162.850 &middot; TP 153.660</td><td class="c-red">78.6% retest 162.348 still testing &middot; SL 162.850 &middot; TP 153.660</td><td class="c-red">WATCH &mdash; Sell Stop below retest when rejected</td></tr>
+        <tr><td>JUL 08</td><td class="c-yellow">USDCHF</td><td>Wave (3) up active &mdash; holders manage position</td><td>ACTIVE &middot; 50% (0.80246) held &middot; SL 0.79097 &middot; TP ~0.82000+</td><td class="c-yellow">ACTIVE &middot; wave (3) in progress &middot; SL 0.79097 &middot; TP ~0.82000+</td><td class="c-yellow">ACTIVE &mdash; no fresh entry &middot; holders manage</td></tr>
+        <tr><td>JUL 08</td><td class="c-green">EURUSD</td><td>Wave (3) down continues &mdash; trail SL lower</td><td>MANAGE &middot; trail SL &lt;1.15288 &middot; TP 1.11855</td><td class="c-green">MANAGE &middot; trail SL lower &middot; TP 1.11855</td><td class="c-green">MANAGE &mdash; no fresh entry &middot; trail SL lower</td></tr>
+        <tr><td>JUL 08</td><td class="c-blue">XAUUSD</td><td>Wave (4) bottom revised ~3,780 &mdash; DIP zone intact</td><td>DIP zone 3,900&ndash;4,050 &middot; SL below ~3,860</td><td class="c-blue">DIP zone 3,900&ndash;4,050 &middot; Wave (4) bottom ~3,780 &middot; TP ~6,200+</td><td class="c-blue">ONLY ON DIP &mdash; buy 3,900&ndash;4,050 for Wave (5)</td></tr>
         <tr><td>JUL 07</td><td class="c-green">GBPUSD</td><td>Wave (2) buy zone refreshed &mdash; Fib levels updated</td><td>Buy Limit 1.32341&ndash;1.32634</td><td class="c-green">Buy Limit 1.32393&ndash;1.32702 &middot; SL 1.31405 &middot; TP ~1.37000</td><td class="c-green">ENTER &mdash; Buy Limit in zone only</td></tr>
         <tr><td>JUL 07</td><td class="c-red">USDJPY</td><td>78.6% retest 162.348 rejected &mdash; SL refined</td><td>Sell Stop ~162.0 &middot; SL 162.857 &middot; TP 153.710</td><td class="c-red">Sell below rejection &middot; SL 162.850 &middot; TP 153.660</td><td class="c-red">ENTER &mdash; Sell Stop below retest rejection</td></tr>
         <tr><td>JUL 07</td><td class="c-yellow">USDCHF</td><td>Buy Limit filled at 50% Fib &mdash; wave (3) resuming</td><td>ENTER &middot; Buy Limit 0.79973&ndash;0.80246</td><td class="c-yellow">ACTIVE &middot; 50% (0.80246) held &middot; SL 0.79097 &middot; TP ~0.82000+</td><td class="c-yellow">TOO LATE fresh &mdash; holders manage</td></tr>
@@ -256,7 +261,7 @@ tr:hover td{background:rgba(0,200,255,0.02);}
 
 <div class="footer">
   <div>FX ENGINE EXECUTION PLATFORM &middot; NOT FINANCIAL ADVICE</div>
-  <div>PDF JUL 07 2026 &middot; ANALYST: BAMDAD AHMADIPOUR</div>
+  <div>PDF JUL 08 2026 &middot; ANALYST: BAMDAD AHMADIPOUR</div>
 </div>
 </div>
 
@@ -277,12 +282,12 @@ const PAIRS = [
     ],
     keyLevel:1.15288, keyLabel:'SL', tp:1.11855,
     fresh:'TOO LATE', freshCls:'fr-late',
-    freshNote:'ANALYST: MANAGE - wave (3) down continues per JUL 07 PDF. Analyst: "Move the stop-loss even lower to guarantee a profit on this trade." Wave (2) correction complete. Wave (3) extension to 1.11855 in progress. Trail SL below current structure. No fresh entry - holders manage only.',
+    freshNote:'ANALYST: MANAGE - wave (3) down continues per JUL 08 PDF. Analyst: "Move the stop-loss even lower to guarantee a profit on this trade." Wave (2) correction complete. Wave (3) extension to 1.11855 in progress. Trail SL below current structure. No fresh entry - holders manage only.',
     shortNote:'MANAGE - trail SL below 1.15288 - wave (3) to 1.11855',
     arrow:'FAR ALONG', arrowCls:'ar-far',
-    arrowNote:'Wave (3) down per JUL 07 PDF. Wave (2) complete. Trending toward 1.11855. Analyst: trail SL even lower to lock profit. Manage only.',
+    arrowNote:'Wave (3) down per JUL 08 PDF. Wave (2) complete. Trending toward 1.11855. Analyst: trail SL even lower to lock profit. Manage only.',
     reentry:{status:'NO VALID ZONE',cls:'re-none',note:'Wave (2) bounce in progress. No re-entry zone drawn by analyst. Wait for wave (3) launch confirmation.'},
-    note:'ANALYST: MANAGE - wave (3) down confirmed JUL 07. Trail SL lower per analyst instruction. TP 1.11855. RR 1:10. Major ABC correction targets 0.93500 by 2027.', dotCls:'dt-g'
+    note:'ANALYST: MANAGE - wave (3) down confirmed JUL 08. Trail SL lower per analyst instruction. TP 1.11855. RR 1:10. Major ABC correction targets 0.93500 by 2027.', dotCls:'dt-g'
   },
   {
     id:'GBPUSD', base:'GBP', quote:'USD', dir:'BUY',
@@ -298,7 +303,7 @@ const PAIRS = [
     keyLevel:1.32393, keyLabel:'BUY ZONE', tp:1.37,
     entry:1.32393, sl:1.31405,
     fresh:'ENTER', freshCls:'fr-enter',
-    freshNote:'Wave (2) corrective pullback to 50-61.8% Fib: 1.32393-1.32702 (updated JUL 07). Place Buy Limit in zone. Hard SL 1.31405. Wave (3) targets ~1.37000. Fresh pending - do not chase above the zone.',
+    freshNote:'Wave (2) corrective pullback to 50-61.8% Fib: 1.32393-1.32702 (updated JUL 08). Place Buy Limit in zone. Hard SL 1.31405. Wave (3) targets ~1.37000. Fresh pending - do not chase above the zone.',
     shortNote:'Buy Limit 1.32393-1.32702 - SL 1.31405 - TP ~1.37000',
     arrow:'AT ORIGIN', arrowCls:'ar-close',
     arrowNote:'Wave (2) correction entering buy zone. Arrow tail at correction bottom. Wave (3) launch imminent once correction completes.',
@@ -319,12 +324,12 @@ const PAIRS = [
     keyLevel:162.850, keyLabel:'INVAL', tp:153.66,
     entry:162.0, sl:162.850,
     fresh:'ENTER', freshCls:'fr-enter',
-    freshNote:'JUL 07: retest of broken trendline at 78.6% (162.348) rejected. Analyst: "The market is testing the broken trend line - the stop is set at the previous high." Sell Stop below rejection ~162.0. Hard SL 162.850 (previous high). TP1 153.660, TP2 ~139.596.',
+    freshNote:'JUL 08: retest of broken trendline at 78.6% (162.348) still testing. Analyst: "The market is testing the broken trend line - the stop is set at the previous high." Sell Stop below rejection ~162.0. Hard SL 162.850 (previous high). TP1 153.660, TP2 ~139.596.',
     shortNote:'Sell Stop ~162.0 - retest rejected 162.348 - SL 162.850 - TP1 153.660',
     arrow:'AT ORIGIN', arrowCls:'ar-close',
     arrowNote:'Retest at 78.6% (162.348) rejected. Sell Stop below rejection. Analyst: stop at previous high 162.850. TP1 153.660, TP2 ~139.596.',
     reentry:{status:'NO VALID ZONE',cls:'re-none',note:'Breakdown entry IS the primary trade. No re-entry zone needed.'},
-    note:'Retest at 78.6% (162.348) rejected JUL 07. Analyst: "testing the broken trend line - stop at the previous high." Sell Stop ~162.0. SL 162.850. TP1 153.660, TP2 ~139.596.', dotCls:'dt-r'
+    note:'Retest at 78.6% (162.348) still testing JUL 08. Analyst: "testing the broken trend line - stop at the previous high." Sell Stop ~162.0. SL 162.850. TP1 153.660, TP2 ~139.596.', dotCls:'dt-r'
   },
   {
     id:'USDCAD', base:'USD', quote:'CAD', dir:'WAIT',
@@ -380,12 +385,12 @@ const PAIRS = [
     keyLevel:0.80246, keyLabel:'ENTRY', tp:0.82,
     entry:0.80246, sl:0.79097,
     fresh:'TOO LATE', freshCls:'fr-late',
-    freshNote:'JUL 07: Buy Limit filled - price dipped to 50% Fib (0.80246), held, and wave (3) up is resuming. Hard SL 0.79097 unchanged. TP ~0.82000+. No fresh entry above the zone - holders manage.',
+    freshNote:'JUL 08: wave (3) up active. Buy filled - price dipped to 50% Fib (0.80246) on JUL 07, held. Hard SL 0.79097 unchanged. TP ~0.82000+. No fresh entry - holders manage.',
     shortNote:'ACTIVE - filled 0.80246 - SL 0.79097 - TP ~0.82000',
     arrow:'AT ORIGIN', arrowCls:'ar-close',
     arrowNote:'Wave (2) dip to 50% Fib complete. Price moving up along wave (3) arrow - entry origin behind price. Manage, do not chase.',
     reentry:{status:'NO VALID ZONE',cls:'re-none',note:'Renewed dip to 0.80246 zone would be below the 2:1 RR gate (RR ~1.5 to 0.82000). Skip or half-risk only.'},
-    note:'Big Triangle complete. Buy filled at 50% Fib 0.80246 (JUL 07). Hard SL 0.79097. Wave (3) to ~0.82000 then 0.86000+.', dotCls:'dt-g'
+    note:'Big Triangle complete. Buy filled at 50% Fib 0.80246 (JUL 07). Wave (3) active JUL 08. Hard SL 0.79097. TP ~0.82000 then 0.86000+.', dotCls:'dt-g'
   },
   {
     id:'XAUUSD', base:'XAU', quote:'USD', dir:'WAIT',
@@ -400,12 +405,12 @@ const PAIRS = [
     ],
     keyLevel:3900, keyLabel:'DIP BUY', tp:6200,
     fresh:'ONLY ON DIP', freshCls:'fr-cond',
-    freshNote:'Wave (4) WXY correction completed ~3,860 - breakout from corrective wedge confirmed per JUL 07 chart. Wave (5) launch in progress. BUY ONLY ON DIP to 3,900-4,050 zone. Hard SL below wave (4) low ~3,860. TP wave (5) ~6,200+. Do not chase - only enter on confirmed pullback to zone.',
+    freshNote:'Wave (4) WXY correction extended lower - bottom ~3,780 per JUL 08 chart. Wave (5) pending. BUY ONLY ON DIP to 3,900-4,050 zone. Hard SL below wave (4) low ~3,780. TP wave (5) ~6,200+. Do not chase - only enter on confirmed pullback to zone.',
     shortNote:'DIP buy 3,900-4,050 - SL below 3,860 - Wave (5) TP ~6,200',
     arrow:'NEAR ORIGIN', arrowCls:'ar-close',
-    arrowNote:'Wave (4) completed at ~3,860. Wave (5) launch confirmed per JUL 07 chart. Buy only on dips to 3,900-4,050 zone. Not a chase entry.',
+    arrowNote:'Wave (4) bottom revised to ~3,780 per JUL 08 chart. Wave (5) pending. Buy only on dips to 3,900-4,050 zone. Not a chase entry.',
     reentry:{status:'NO VALID ZONE',cls:'re-none',note:'Wave (5) thesis intact but (C) still forming. No invalidation drawn - thesis only. Wait for reversal confirmation.'},
-    note:'Wave (4) WXY bottom ~3,860 confirmed - wedge breakout JUL 07. Wave (5) up beginning. Buy on dip to 3,900-4,050. SL below 3,860. TP ~6,200+. Long-term bullish intact.', dotCls:'dt-b'
+    note:'Wave (4) WXY bottom ~3,780 per JUL 08 chart. Wave (5) pending. Buy on dip to 3,900-4,050. SL below 3,780. TP ~6,200+. Long-term bullish intact.', dotCls:'dt-b'
   }
 ];
 
@@ -594,7 +599,7 @@ function renderCards() {
       + '<div class="live-price">' + priceStr + '</div>'
       + '</div><div class="prox">' + prox + '</div></div>'
       + '<div class="fresh-strip"><span class="fresh-tag ' + p.freshCls + '">' + p.fresh + '</span>'
-      + '<div><span class="fresh-lbl">JUL 07 2026</span>'
+      + '<div><span class="fresh-lbl">JUL 08 2026</span>'
       + '<span class="fresh-txt">' + p.freshNote + '</span></div></div>'
       + '<div class="arrow-strip"><span class="arrow-tag ' + p.arrowCls + '">ARW ' + p.arrow + '</span>'
       + '<div><span class="arrow-lbl">ARROW ORIGIN vs PRICE</span>'
