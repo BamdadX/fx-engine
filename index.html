@@ -234,12 +234,17 @@
     <div>FX ENGINE EXECUTION PLATFORM · NOT FINANCIAL ADVICE</div>
     <div>PDF JUL 14 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
   </div>
+
+<div id="lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.93);z-index:9999;cursor:zoom-out;align-items:center;justify-content:center;flex-direction:column">
+  <img id="lb-img" style="max-width:95vw;max-height:88vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.9)"/>
+  <div style="font-family:'Space Mono';font-size:9px;color:rgba(255,255,255,0.35);margin-top:14px;letter-spacing:2px">CLICK TO CLOSE</div>
+</div>
 </div>
 
 <script>
 const PAIRS = [
   {
-    id:'EURUSD',base:'EUR',quote:'USD',dir:'SELL',state:'ELITE ACTIVE',stateCls:'bd-sell',
+    id:'EURUSD',img:'eurusd.png',base:'EUR',quote:'USD',dir:'SELL',state:'ELITE ACTIVE',stateCls:'bd-sell',
     cardCls:'b-elite b-sell',banner:'🔒 TRAIL SL LOWER — WAVE (3) DOWN IN PROGRESS · TARGET 1.11855 · RR 1:10',bannerCls:'bn-green',
     conf:93,confCls:'elite',confColor:'var(--elite)',rr:'RR 1:10',dec:5,
     levels:[['Entry (triggered)','1.17416','c-blue'],['SL (trail lower)','< 1.15288','c-green'],['Locked profit','≈ 300+ pips','c-green'],['TP target','1.11855','c-green']],
@@ -249,7 +254,7 @@ const PAIRS = [
     note:'JUL 14 (5th consecutive trail instruction): "Move the stop-loss even lower." Wave (3) continues down to 1.11855. Major ABC correction targeting 0.93500 intact.',dotCls:'dt-g'
   },
   {
-    id:'GBPUSD',base:'GBP',quote:'USD',dir:'BUY',state:'CAUTION — NEAR INVAL',stateCls:'bd-pend',
+    id:'GBPUSD',img:'gbpusd.png',base:'GBP',quote:'USD',dir:'BUY',state:'CAUTION — NEAR INVAL',stateCls:'bd-pend',
     cardCls:'b-pend b-warn',banner:'⚠ BELOW BUY ZONE — PRICE 1.31588 · 18P ABOVE INVALIDATION 1.31405 · EXTREME CAUTION',bannerCls:'bn-orange',
     conf:55,confCls:'mid',confColor:'var(--yellow)',rr:'RR ~1:8',dec:5,
     levels:[['Wave (1) top / Fib 0%','1.34516','c-blue'],['Buy zone 50.0%','1.32961','c-yellow'],['Buy zone 61.8%','1.32593','c-yellow'],['CURRENT PRICE (JUL 14)','~1.31588','c-red'],['Invalidation (hard)','1.31405','c-red'],['TP — Wave (3)','~1.37000','c-green']],
@@ -259,7 +264,7 @@ const PAIRS = [
     note:'JUL 14: CAUTION — price dropped below 61.8% Fib (1.32593) to 1.31588. Analyst still bullish (message unchanged). Hard invalidation: 1.31405. No fresh buy recommended this close to invalidation — wait for stabilization above 1.32593.',dotCls:'dt-y'
   },
   {
-    id:'USDJPY',base:'USD',quote:'JPY',dir:'SELL',state:'ENTERING — AT 162.345',stateCls:'bd-sell',
+    id:'USDJPY',img:'usdjpy.png',base:'USD',quote:'JPY',dir:'SELL',state:'ENTERING — AT 162.345',stateCls:'bd-sell',
     cardCls:'b-sell b-warn',banner:'🟢 78.6% RETEST REACHED — PRICE NOW AT 162.345 · SELL ON REJECTION · SL 162.850 · TP 153.040',bannerCls:'bn-green',
     conf:78,confCls:'high',confColor:'var(--green)',rr:'RR 1:12+',dec:3,
     levels:[['Wave (B) top / hard SL','162.850','c-red'],['78.6% retest / SELL ZONE','162.345','c-yellow'],['0.00% base level','160.467','c-blue'],['TP1 (Wave C)','~153.040','c-green'],['TP2 long-term','~139.596','c-green']],
@@ -269,7 +274,7 @@ const PAIRS = [
     note:'JUL 14: 78.6% retest (162.345) reached. Wave (C) of decline launching from here. SL: 162.850. TP: ~153.040. Second target: ~139.596 (full Wave C). Enter on rejection candle — do not market sell blindly.',dotCls:'dt-o'
   },
   {
-    id:'USDCAD',base:'USD',quote:'CAD',dir:'WAIT',state:'WAIT — NO SETUP',stateCls:'bd-skip',
+    id:'USDCAD',img:'usdcad.png',base:'USD',quote:'CAD',dir:'WAIT',state:'WAIT — NO SETUP',stateCls:'bd-skip',
     cardCls:'watch',banner:'❌ WXY CORRECTION UNRESOLVED — NO CLEAR REVERSAL YET',bannerCls:'bn-red',
     conf:0,confCls:'mid',confColor:'var(--muted)',rr:'',dec:5,
     levels:[['Structure','Complex WXY','c-blue'],['61.8% Fib (Y/C end)','1.43141','c-muted'],['50.0% Fib','1.41663','c-muted'],['Invalidation','1.47923','c-red'],['After WXY → target','~1.34000','c-muted']],
@@ -279,7 +284,7 @@ const PAIRS = [
     note:'Analyst still searching for clean setup. WXY correction may extend further. Watch next PDF for confirmation.',dotCls:'dt-y'
   },
   {
-    id:'AUDUSD',base:'AUD',quote:'USD',dir:'SELL',state:'PENDING SELL',stateCls:'bd-pend',
+    id:'AUDUSD',img:'audusd.png',base:'AUD',quote:'USD',dir:'SELL',state:'PENDING SELL',stateCls:'bd-pend',
     cardCls:'b-pend b-sell',banner:'🔵 SELL STOP 0.69066 — SUB-WAVE 5 WEDGE · CONFIRMATION TO SELL',bannerCls:'bn-blue',
     conf:75,confCls:'high',confColor:'var(--green)',rr:'RR ~1:6',dec:5,
     levels:[['Sell Stop (trigger)','0.69066','c-blue'],['Invalidation / SL','0.69702','c-red'],['TP (38.2% Fib / Wave A)','0.67573','c-green'],['Longer-term 50%','0.65964','c-muted'],['Wave (2) deep 61.8%','0.64348','c-muted']],
@@ -289,7 +294,7 @@ const PAIRS = [
     note:'JUL 14: Sell Stop 0.69066 (minor level tweak). Corrective channel / wedge consolidating at confirmation zone. Break below triggers the next down-leg of Wave (2). TP at 38.2% Fib = 0.67573.',dotCls:'dt-o'
   },
   {
-    id:'USDCHF',base:'USD',quote:'CHF',dir:'BUY',state:'ACTIVE — WAVE 3',stateCls:'bd-buy',
+    id:'USDCHF',img:'usdchf.png',base:'USD',quote:'CHF',dir:'BUY',state:'ACTIVE — WAVE 3',stateCls:'bd-buy',
     cardCls:'b-buy',banner:'⬆ WAVE (3) OF (3) RUNNING · ACTIVE HOLD · TRAIL SL: 0.80098 · HARD STOP: 0.79097 · TP: 0.82000+',bannerCls:'bn-green',
     conf:76,confCls:'high',confColor:'var(--green)',rr:'RR ~1:5',dec:5,
     levels:[['Price ~now (JUL 14)','~0.81300','c-blue'],['Re-entry zone (50% Fib)','0.80266','c-yellow'],['Trail SL / invalidation','0.80098','c-red'],['Hard invalidation','0.79097','c-red'],['Wave (3)/(3) Target','~0.82000+','c-green']],
@@ -299,7 +304,7 @@ const PAIRS = [
     note:'JUL 14: Wave (3) of (3) now clearly running. Big Triangle complete at 0.75200. WXY Wave (2) done. Sub-wave 2 of (3) complete. Now in wave 3 of (3) — trail SL to 0.80098. Hard invalidation 0.79097.',dotCls:'dt-g'
   },
   {
-    id:'XAUUSD',base:'XAU',quote:'USD',dir:'BUY',state:'ENTERING — WAVE (2) BASE',stateCls:'bd-buy',
+    id:'XAUUSD',img:'xauusd.png',base:'XAU',quote:'USD',dir:'BUY',state:'ENTERING — WAVE (2) BASE',stateCls:'bd-buy',
     cardCls:'b-buy b-elite',banner:'🟢 COUNT REVISED: WAVE (2) AT 78.6% (3,999) · BUY ~3,999–4,050 · SL 3,942 · TP 4,717 · RR 1:8',bannerCls:'bn-green',
     conf:76,confCls:'high',confColor:'var(--green)',rr:'RR 1:8',dec:2,noLive:true,
     levels:[['Entry zone (Wave 2 base)','~3,999–4,050','c-yellow'],['78.6% Fib / Wave (2) C','3,999.114','c-yellow'],['Invalidation (hard SL)','3,942.651','c-red'],['Wave (3) target','~4,717.666','c-green'],['Ultimate bull target','~6,200+','c-muted']],
@@ -343,6 +348,7 @@ function renderCards(){
 <div class="lv">${p.levels.map(l=>`<div><div class="lv-l">${l[0]}</div><div class="lv-v ${l[2]||''}">${l[1]}</div></div>`).join('')}</div>
 <div class="conf"><span class="lv-l" style="margin:0">CONF</span><div class="conf-bar"><div class="conf-fill" style="width:${p.conf}%;background:${p.confColor}"></div></div><span class="conf-pct" style="color:${p.confColor}">${p.conf===0?'N/A':p.conf+'%'}</span></div>
 <div class="note"><span class="dot ${p.dotCls}"></span><span>${p.note}</span></div>
+${p.img?`<div style="margin-top:10px;cursor:zoom-in;overflow:hidden;border:1px solid var(--border);border-radius:4px;" onclick="openLightbox('${p.img}')"><img src="${p.img}" style="width:100%;display:block;opacity:0.88;transition:opacity .15s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.88"/></div>`:''}
 </div></div>`;
   }).join('');
 }
@@ -399,6 +405,7 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-GB');},1000);
 renderTicker();renderCards();fetchPrices();
+function openLightbox(src){const lb=document.getElementById('lightbox');document.getElementById('lb-img').src=src;lb.style.display='flex';}
 </script>
 </body>
 </html>
