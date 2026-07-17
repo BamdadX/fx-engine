@@ -125,7 +125,7 @@
     <div class="logo">FX <span>ENGINE</span><small>EXECUTION PLATFORM · ELLIOTT WAVE ENGINE</small></div>
     <div class="top-right">
       <div><span class="live-dot"></span><span id="clock">--:--:--</span></div>
-      <div>6-PAIR PDF: JUL 14 · GOLD: JUL 14</div>
+      <div>6-PAIR PDF: JUL 17 · GOLD: JUL 17</div>
       <button class="refresh-btn" onclick="fetchPrices()">↻ REFRESH PRICES</button>
     </div>
   </div>
@@ -133,7 +133,7 @@
   <div class="err-banner" id="errBanner">⚠ ALL LIVE PRICE SOURCES UNREACHABLE — tried Frankfurter (ECB) + exchangerate.host. Could be weekend/market-closed, a network block, or rate limiting. Levels still valid — verify current price in MT5. Hit ↻ to retry.</div>
 
   <div class="flat-banner">
-    ⚑ <b>JUL 14 UPDATE</b> · USDJPY: ENTERING — price NOW AT 78.6% (162.345), sell on rejection, SL 162.850 · XAUUSD: COUNT REVISED — Wave (2) completing at 3,999, buy zone, TP Wave (3) = 4,717, RR 1:8 · USDCHF: ACTIVE — Wave 3 running ~0.81300, trail SL 0.80098 · AUDUSD: Sell Stop 0.69066 pending · GBPUSD: CAUTION — price 1.31588 below buy zone, 18p above invalidation · EURUSD: trail SL lower (5th repeat) · USDCAD: no setup
+    ⚑ <b>JUL 17 UPDATE</b> · USDJPY: STILL ENTER SELL at 162.349 · XAUUSD: ENTER BUY ~3,960–3,980, SL 3,942.651, TP 4,717 · GBPUSD: UPGRADED — Wave (2) buy zone 1.33213 · USDCAD: UPGRADED — uptrend broken, sell setup forming · AUDUSD: Sell Stop CANCELLED — staying out · USDCHF: ACTIVE Wave 3 running
   </div>
 
   <div class="ticker" id="ticker"></div>
@@ -150,27 +150,30 @@
       <div class="side">
         <div class="panel">
           <div class="panel-h"><span>Fresh Entry Shortlist</span><span style="color:var(--green)">JUL 14</span></div>
-          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">USDJPY — ENTERING · Sell at 78.6% (162.345)</div><div class="ai-d">Price NOW AT 78.6% retest zone. Sell on rejection or Sell Stop below 162.345. SL 162.850. TP ~153.040. Wave (C) launching.</div></div></div>
-          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">XAUUSD — ENTER · Buy ~3,999–4,050</div><div class="ai-d">COUNT REVISED: Wave (2) ABC completing at 78.6% (3,999.114). Buy at market. SL 3,942.651. TP Wave (3) = ~4,717.666. RR 1:8.</div></div></div>
-          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">AUDUSD — ENTER · Sell Stop 0.69066</div><div class="ai-d">SL 0.69702 (~64p). Corrective wedge at confirmation level — break below 0.69066 confirms next leg down. TP 0.67573.</div></div></div>
-          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">GBPUSD — CAUTION · Near Invalidation</div><div class="ai-d">Price at 1.31588, BELOW buy zone (1.32593–1.32961), 18p above invalidation (1.31405). Thesis unchanged — extreme caution only.</div></div></div>
-          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">USDCHF — ACTIVE · Trail SL 0.80098</div><div class="ai-d">Wave (3) of (3) running at ~0.81300. Manage SL at 0.80098. Hard stop 0.79097. Fresh buyers wait for dip to 0.80266 (may not come).</div></div></div>
-          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">EURUSD — MANAGE · Trail SL lower</div><div class="ai-d">Analyst (5th repeat): "Move the stop-loss even lower to guarantee a profit." Trail below 1.15288. Wave (3) to 1.11855. No fresh entry.</div></div></div>
-          <div class="ai u"><div class="ai-n">⊘</div><div><div class="ai-p" style="color:var(--muted)">USDCAD — NO TRADE</div><div class="ai-d">WXY correction still unresolved. Analyst: "no clear reversal yet — another wave of growth still possible."</div></div></div>
+          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">USDJPY — ENTER · Sell at 78.6% (162.349)</div><div class="ai-d">Still in 78.6% retest zone. Sell Stop just below 162.349. SL: 162.850. TP1: ~155.500. TP2: ~139.596. Wave (C) launching.</div></div></div>
+          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">XAUUSD — ENTER · Buy ~3,960–3,980</div><div class="ai-d">Wave (2) deeper now at ~3,960–3,980. SL: 3,942.651. TP Wave (3): ~4,717.666. RR 1:8. Same count, lower entry zone vs JUL 14.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">GBPUSD — CLOSE TO ENTER · Wave (2) ~1.33213</div><div class="ai-d">UPGRADED: Wave (1) completed to 1.35450. Wave (2) pullback now — buy around 1.33213. SL: 1.31405. TP Wave (3): ~1.38500.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">USDCAD — CLOSE TO ENTER · Sell after retest 1.41363–1.41626</div><div class="ai-d">UPGRADED: Uptrend broken. Waiting for correction retest before selling. SL: 1.42478. TP: ~1.36000.</div></div></div>
+          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">AUDUSD — WATCH · Sell Stop CANCELLED</div><div class="ai-d">Previous Sell Stop 0.69066 withdrawn. Analyst: "not confirmed yet, staying out." Will re-enter if breaks below consolidation.</div></div></div>
+          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">USDCHF — ACTIVE · Trail SL 0.80098</div><div class="ai-d">Wave (3) of (3) running. Manage SL at 0.80098. Hard stop 0.79097. Re-entry dip at 0.80266 possible.</div></div></div>
+          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">EURUSD — MANAGE · Trail SL (6th repeat)</div><div class="ai-d">JUL 17 (6th): "Move the stop-loss even lower." Trail below 1.15288. Wave (3) to 1.11855. No fresh entry.</div></div></div>
         </div>
         <div class="panel">
           <div class="panel-h"><span>Risk Plan (if all valid taken)</span><span style="color:var(--green)">€100/TRADE</span></div>
           <div class="rk">
-            <div class="rk-r"><span>USDJPY</span><span class="c-green">ENTERING — sell at 162.345 · €100</span></div>
-            <div class="rk-r"><span>XAUUSD</span><span class="c-green">ENTER (wave 2 base ~3,999) · €100*</span></div>
-            <div class="rk-r"><span>AUDUSD</span><span class="c-green">ENTER (pending, stop 0.69066) · €100</span></div>
-            <div class="rk-r"><span>GBPUSD</span><span class="c-red">CAUTION — near invalidation (1.31405)</span></div>
+            <div class="rk-r"><span>USDJPY</span><span class="c-green">ENTER — sell at 162.349 · €100</span></div>
+            <div class="rk-r"><span>XAUUSD</span><span class="c-green">ENTER — buy ~3,960–3,980 · €100*</span></div>
+            <div class="rk-r"><span>GBPUSD</span><span class="c-yellow">CLOSE — Wave (2) ~1.33213 · watch €100</span></div>
+            <div class="rk-r"><span>USDCAD</span><span class="c-yellow">CLOSE — sell after retest 1.41363 · watch €100</span></div>
+            <div class="rk-r"><span>AUDUSD</span><span class="c-muted">WATCH — Sell Stop cancelled</span></div>
             <div class="rk-r"><span>USDCHF</span><span class="c-red">ACTIVE — manage only (trail SL 0.80098)</span></div>
             <div class="rk-r"><span>EURUSD</span><span class="c-red">MANAGE / trail SL only</span></div>
-            <div class="rk-r"><span>USDCAD</span><span class="c-muted">no trade (no setup)</span></div>
-            <div class="rk-r tot"><span>OPEN RISK NOW</span><span class="c-yellow">€100 USDJPY (if triggered) + pending</span></div>
-            <div class="rk-r tot"><span>MAX IF ALL TRIGGERED</span><span class="c-yellow">≤€300 · cap 4.5% · *size XAUUSD small</span></div>
+            <div class="rk-r tot"><span>OPEN RISK</span><span class="c-yellow">€100 USDJPY + XAUUSD if triggered</span></div>
+            <div class="rk-r tot"><span>MAX IF ALL TRIGGERED</span><span class="c-yellow">≤€400 · cap 4.5% · *size XAUUSD small</span></div>
           </div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><span>Live Feed</span><span class="upd-time" id="feedTime">—</span></div></div>
         </div>
         <div class="panel">
           <div class="panel-h"><span>Live Feed</span><span class="upd-time" id="feedTime">—</span></div>
@@ -187,6 +190,13 @@
       <table>
         <thead><tr><th>PDF Date</th><th>Pair</th><th>Event</th><th>Old Level</th><th>New Level</th><th>Outcome</th></tr></thead>
         <tbody>
+          <tr><td>JUL 17</td><td class="c-green">USDJPY</td><td>78.6% zone still active — sell setup ongoing</td><td class="c-green">ENTER at 162.345</td><td class="c-green">ENTER at 162.349 · SL 162.850 · TP1 ~155.500</td><td class="c-green">ENTERING — sell zone persists</td></tr>
+          <tr><td>JUL 17</td><td class="c-green">XAUUSD</td><td>Wave (2) deepened — lower entry zone</td><td class="c-green">Buy ~3,999–4,050 · SL 3,942.651</td><td class="c-green">Buy ~3,960–3,980 · SL 3,942.651 · TP 4,717.666</td><td class="c-green">ENTERING — Wave (2) deeper, same count</td></tr>
+          <tr><td>JUL 17</td><td class="c-green">GBPUSD</td><td>UPGRADED — Wave (1) complete, Wave (2) dip = buy zone</td><td class="c-red">CAUTION — near invalidation 1.31405</td><td class="c-green">Wave (2) buy zone ~1.33213 · SL 1.31405 · TP ~1.38500</td><td class="c-yellow">CLOSE TO ENTER — buy on Wave (2)</td></tr>
+          <tr><td>JUL 17</td><td class="c-yellow">USDCAD</td><td>FIRST SELL SETUP — uptrend broken, correction forming</td><td class="c-muted">NO TRADE (WXY unresolved)</td><td class="c-yellow">Sell after correction 1.41363–1.41626 · SL 1.42478 · TP ~1.36000</td><td class="c-yellow">CLOSE TO ENTER — monitoring retest</td></tr>
+          <tr><td>JUL 17</td><td class="c-red">AUDUSD</td><td>Sell Stop CANCELLED — bearish not confirmed</td><td class="c-green">Sell Stop 0.69066 · SL 0.69702</td><td class="c-muted">WATCH — waiting for consolidation break</td><td class="c-muted">NO ENTRY — staying out</td></tr>
+          <tr><td>JUL 17</td><td class="c-green">EURUSD</td><td>Trail SL lower (6th consecutive)</td><td class="c-green">trail below 1.15288</td><td class="c-green">trail below 1.15288 (6th repeat)</td><td class="c-green">ACTIVE — Wave (3) continuing</td></tr>
+          <tr><td>JUL 17</td><td class="c-green">USDCHF</td><td>Wave (3) of (3) still running — no change</td><td class="c-green">trail SL 0.80098</td><td class="c-green">trail SL 0.80098 (unchanged)</td><td class="c-green">ACTIVE — Wave 3 running</td></tr>
           <tr><td>JUL 14</td><td class="c-green">USDJPY</td><td>78.6% retest REACHED — price now AT 162.345, sell on rejection</td><td class="c-yellow">CLOSE TO ENTER (watch 162.348)</td><td class="c-green">ENTER — price at 162.345 · SL 162.850 · TP 153.040</td><td class="c-green">ENTERING — sell zone active</td></tr>
           <tr><td>JUL 14</td><td class="c-green">XAUUSD</td><td>COUNT REVISED — Ending Diagonal Wave (4), now sub-wave (2) completing at 3,999</td><td class="c-green">ENTER wave 5 toward 6,200 · SL 3,860</td><td class="c-green">ENTER · Buy ~3,999–4,050 · SL 3,942.651 · TP 4,717.666</td><td class="c-green">ENTERING — Wave (2) base · RR 1:8</td></tr>
           <tr><td>JUL 14</td><td class="c-green">USDCHF</td><td>Wave (3) of (3) active — price above 50% zone, trail SL updated</td><td class="c-yellow">DIP ONLY at 0.80266</td><td class="c-green">ACTIVE — trail SL to 0.80098 · hard stop 0.79097 · TP 0.82000+</td><td class="c-green">ACTIVE — Wave 3 running ~0.81300</td></tr>
@@ -232,7 +242,7 @@
 
   <div class="footer">
     <div>FX ENGINE EXECUTION PLATFORM · NOT FINANCIAL ADVICE</div>
-    <div>PDF JUL 14 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
+    <div>PDF JUL 17 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
   </div>
 
 <div id="lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.93);z-index:9999;cursor:zoom-out;align-items:center;justify-content:center;flex-direction:column">
@@ -245,73 +255,73 @@
 const PAIRS = [
   {
     id:'EURUSD',img:'eurusd.png',base:'EUR',quote:'USD',dir:'SELL',state:'ELITE ACTIVE',stateCls:'bd-sell',
-    cardCls:'b-elite b-sell',banner:'🔒 TRAIL SL LOWER — WAVE (3) DOWN IN PROGRESS · TARGET 1.11855 · RR 1:10',bannerCls:'bn-green',
+    cardCls:'b-elite b-sell',banner:'🔒 TRAIL SL LOWER (6TH REPEAT) — WAVE (3) DOWN IN PROGRESS · TARGET 1.11855 · RR 1:10',bannerCls:'bn-green',
     conf:93,confCls:'elite',confColor:'var(--elite)',rr:'RR 1:10',dec:5,
     levels:[['Entry (triggered)','1.17416','c-blue'],['SL (trail lower)','< 1.15288','c-green'],['Locked profit','≈ 300+ pips','c-green'],['TP target','1.11855','c-green']],
     keyLevel:1.15288,keyLabel:'SL',tp:1.11855,
-    fresh:'TOO LATE',freshCls:'fr-late',freshNote:'Entry 1.17416 long gone. JUL 14 (5th repeat): "Move the stop-loss even lower to guarantee a profit on this trade." Trail SL below 1.15288. No fresh entry.',
-    arrow:'FAR ALONG',arrowCls:'ar-far',arrowNote:'Wave (3) in progress toward 1.11855. Price deep into the move. Two invalidation lines on chart: 1.17966 (hard top) and 1.15288 (current SL). Manage only.',
-    note:'JUL 14 (5th consecutive trail instruction): "Move the stop-loss even lower." Wave (3) continues down to 1.11855. Major ABC correction targeting 0.93500 intact.',dotCls:'dt-g'
+    fresh:'TOO LATE',freshCls:'fr-late',freshNote:'JUL 17 (6th repeat): "Move the stop-loss even lower to guarantee a profit on this trade." Trail SL below 1.15288. No fresh entry — trade already deep in profit.',
+    arrow:'FAR ALONG',arrowCls:'ar-far',arrowNote:'Wave (3) in progress toward 1.11855. Two invalidation lines: 1.17966 (hard top) and 1.15288 (current SL). Manage only.',
+    note:'JUL 17: 6th consecutive trail instruction. ABC correction visible on 8H. Wave (3) continues down. Major ABC targeting 0.93500 intact. SL must be trailed below 1.15288.',dotCls:'dt-g'
   },
   {
-    id:'GBPUSD',img:'gbpusd.png',base:'GBP',quote:'USD',dir:'BUY',state:'CAUTION — NEAR INVAL',stateCls:'bd-pend',
-    cardCls:'b-pend b-warn',banner:'⚠ BELOW BUY ZONE — PRICE 1.31588 · 18P ABOVE INVALIDATION 1.31405 · EXTREME CAUTION',bannerCls:'bn-orange',
-    conf:55,confCls:'mid',confColor:'var(--yellow)',rr:'RR ~1:8',dec:5,
-    levels:[['Wave (1) top / Fib 0%','1.34516','c-blue'],['Buy zone 50.0%','1.32961','c-yellow'],['Buy zone 61.8%','1.32593','c-yellow'],['CURRENT PRICE (JUL 14)','~1.31588','c-red'],['Invalidation (hard)','1.31405','c-red'],['TP — Wave (3)','~1.37000','c-green']],
-    keyLevel:1.31405,keyLabel:'INVAL',tp:1.37,
-    fresh:'CLOSE TO ENTER',freshCls:'fr-cond',freshNote:'JUL 14: Price at 1.31588 — BELOW buy zone (1.32593–1.32961), only 18p above hard invalidation (1.31405). Analyst message unchanged: "wait for correction and buy." Thesis still intact but RISKY. Do NOT enter this close to invalidation. Wait for price to reclaim 1.32593 or accept near-zero RR risk.',
-    arrow:'NEAR ORIGIN',arrowCls:'ar-close',arrowNote:'Bullish thesis intact — Wave (3) to 1.37000 still the projection. But price overshot the 61.8% buy zone and is approaching invalidation (1.31405). Must bounce here or count is invalid.',
-    note:'JUL 14: CAUTION — price dropped below 61.8% Fib (1.32593) to 1.31588. Analyst still bullish (message unchanged). Hard invalidation: 1.31405. No fresh buy recommended this close to invalidation — wait for stabilization above 1.32593.',dotCls:'dt-y'
+    id:'GBPUSD',img:'gbpusd.png',base:'GBP',quote:'USD',dir:'BUY',state:'CLOSE TO ENTER — WAVE (2) DIP',stateCls:'bd-pend',
+    cardCls:'b-pend b-buy',banner:'🟡 WAVE (2) PULLBACK IN PROGRESS · BUY ZONE 1.33213 · SL 1.31405 · TP WAVE (3) ~1.38500',bannerCls:'bn-blue',
+    conf:72,confCls:'high',confColor:'var(--green)',rr:'RR ~1:8',dec:5,
+    levels:[['Wave (1) top','~1.35450','c-blue'],['Wave (2) / Buy zone','~1.33213','c-yellow'],['Hard Invalidation','1.31405','c-red'],['TP — Wave (3)','~1.38500','c-green']],
+    keyLevel:1.33213,keyLabel:'BUY ZONE',tp:1.385,
+    fresh:'CLOSE TO ENTER',freshCls:'fr-cond',freshNote:'JUL 17: Wave (1) completed to ~1.35450 (JUL 9-10). Now in Wave (2) pullback — buy zone at ~1.33213. SL: 1.31405 (hard inval). TP Wave (3): ~1.38500. RR ~1:8. Buy Limit around 1.33213 or wait for stabilization. Do NOT enter if price falls below 1.33213.',
+    arrow:'NEAR ORIGIN',arrowCls:'ar-close',arrowNote:'Wave (2) dip in progress toward 1.33213 support. Wave (3) arrow projects to ~1.38500. Good entry timing if Wave (2) completes near 1.33213.',
+    note:'JUL 17: MAJOR UPGRADE from "caution near invalidation." Wave (1) of new bullish impulse completed to ~1.35450. Wave (2) correction now pulling back — buy zone at 1.33213. Hard SL: 1.31405. TP: ~1.38500 (Wave 3).',dotCls:'dt-b'
   },
   {
-    id:'USDJPY',img:'usdjpy.png',base:'USD',quote:'JPY',dir:'SELL',state:'ENTERING — AT 162.345',stateCls:'bd-sell',
-    cardCls:'b-sell b-warn',banner:'🟢 78.6% RETEST REACHED — PRICE NOW AT 162.345 · SELL ON REJECTION · SL 162.850 · TP 153.040',bannerCls:'bn-green',
+    id:'USDJPY',img:'usdjpy.png',base:'USD',quote:'JPY',dir:'SELL',state:'ENTER — SELL AT 162.349',stateCls:'bd-sell',
+    cardCls:'b-sell b-warn',banner:'🟢 78.6% RETEST ZONE · SELL AT 162.349 · SL 162.850 · TP ~155.500 (NEAR-TERM)',bannerCls:'bn-green',
     conf:78,confCls:'high',confColor:'var(--green)',rr:'RR 1:12+',dec:3,
-    levels:[['Wave (B) top / hard SL','162.850','c-red'],['78.6% retest / SELL ZONE','162.345','c-yellow'],['0.00% base level','160.467','c-blue'],['TP1 (Wave C)','~153.040','c-green'],['TP2 long-term','~139.596','c-green']],
-    keyLevel:162.345,keyLabel:'SELL ZONE',tp:153.04,
-    fresh:'ENTER',freshCls:'fr-enter',freshNote:'JUL 14: Price NOW AT 78.6% retest level (162.345). Sell on rejection confirmation or place Sell Stop just below 162.345. SL: 162.850 (absolute invalidation — do NOT hold above). TP: ~153.040. Wave (C) down launching. Do not enter above 162.500.',
-    arrow:'AT ORIGIN',arrowCls:'ar-close',arrowNote:'Price reached 78.6% retest at 162.345 (JUL 14 chart time 08:48 UTC+3). Wave (C) arrow launches from this exact zone. Best entry timing — execute sell on rejection candle.',
-    note:'JUL 14: 78.6% retest (162.345) reached. Wave (C) of decline launching from here. SL: 162.850. TP: ~153.040. Second target: ~139.596 (full Wave C). Enter on rejection candle — do not market sell blindly.',dotCls:'dt-o'
+    levels:[['Hard SL / Invalidation','162.850','c-red'],['78.6% Sell Zone','162.349','c-yellow'],['0.00% Base','160.489','c-blue'],['TP1 (near-term)','~155.500','c-green'],['TP2 (Wave C)','~139.596','c-green']],
+    keyLevel:162.349,keyLabel:'SELL ZONE',tp:155.5,
+    fresh:'ENTER',freshCls:'fr-enter',freshNote:'JUL 17: Price still in 78.6% retest zone (162.349). Sell on rejection or Sell Stop just below 162.349. SL: 162.850 (absolute — do NOT hold above). TP1: ~155.500 (near-term). TP2: ~139.596 (full Wave C). Wave (C) of decline confirmed launching.',
+    arrow:'AT ORIGIN',arrowCls:'ar-close',arrowNote:'Price oscillating around 78.6% (162.349) sell zone. Wave (C) arrow launches from here. Sell on rejection candle — do not market sell blindly. SL 162.850 is tight (50p).',
+    note:'JUL 17: 78.6% retest (162.349) zone still active. (B)/C/5 topping at 162.850 hard SL. Wave (C) of major decline launching toward 139.596. Near-term TP ~155.500. Sell Stop just below 162.349 valid.',dotCls:'dt-o'
   },
   {
-    id:'USDCAD',img:'usdcad.png',base:'USD',quote:'CAD',dir:'WAIT',state:'WAIT — NO SETUP',stateCls:'bd-skip',
-    cardCls:'watch',banner:'❌ WXY CORRECTION UNRESOLVED — NO CLEAR REVERSAL YET',bannerCls:'bn-red',
-    conf:0,confCls:'mid',confColor:'var(--muted)',rr:'',dec:5,
-    levels:[['Structure','Complex WXY','c-blue'],['61.8% Fib (Y/C end)','1.43141','c-muted'],['50.0% Fib','1.41663','c-muted'],['Invalidation','1.47923','c-red'],['After WXY → target','~1.34000','c-muted']],
-    keyLevel:1.431,keyLabel:'—',tp:1.34,
-    fresh:'NO TRADE',freshCls:'fr-no',freshNote:'JUL 13: "In recent days, I\'ve noticed resistance, but there hasn\'t been a clear reversal yet, so another wave of growth is still possible. I\'m looking for a new setup." No entry levels drawn.',
-    arrow:'NO ARROW',arrowCls:'ar-none',arrowNote:'No trigger or confirmation line drawn. Analyst watching for a setup. Thesis still forming.',
-    note:'Analyst still searching for clean setup. WXY correction may extend further. Watch next PDF for confirmation.',dotCls:'dt-y'
+    id:'USDCAD',img:'usdcad.png',base:'USD',quote:'CAD',dir:'SELL',state:'CLOSE TO ENTER — SELL SETUP',stateCls:'bd-pend',
+    cardCls:'b-pend b-sell',banner:'🟡 UPTREND LINE BROKEN · WAITING FOR CORRECTION RETEST (1.41363–1.41626) BEFORE SELLING · SL 1.42478',bannerCls:'bn-orange',
+    conf:68,confCls:'mid',confColor:'var(--yellow)',rr:'RR ~1:6',dec:5,
+    levels:[['Invalidation (hard)','1.42478','c-red'],['Y/(C) top (broken)','~1.42000','c-muted'],['Correction 61.8%','1.41626','c-yellow'],['Correction 50.0%','1.41363','c-yellow'],['Base / trigger 0%','1.40247','c-blue'],['TP (after WXY)','~1.36000','c-green']],
+    keyLevel:1.41363,keyLabel:'ENTRY ZONE',tp:1.36,
+    fresh:'CLOSE TO ENTER',freshCls:'fr-cond',freshNote:'JUL 17: UPGRADED from NO TRADE. Uptrend line broken. WXY correction complete. Analyst: "waiting for outside-the-trend correction (retest 1.41363–1.41626) before selling." Sell when correction completes near 1.41363–1.41626. SL: 1.42478. TP: ~1.36000. Do NOT enter before the correction retest.',
+    arrow:'NEAR ORIGIN',arrowCls:'ar-close',arrowNote:'WXY complete. Uptrend broken. Analyst waiting for a retrace to 1.41363–1.41626 before initiating sell. Big drop to ~1.36 projected after that retest.',
+    note:'JUL 17: First real sell setup on USDCAD. Uptrend line broken on 8H. Waiting for correction to 50–61.8% zone (1.41363–1.41626) to enter sell. SL: 1.42478. TP: ~1.36000. Monitor closely — this could trigger soon.',dotCls:'dt-y'
   },
   {
-    id:'AUDUSD',img:'audusd.png',base:'AUD',quote:'USD',dir:'SELL',state:'PENDING SELL',stateCls:'bd-pend',
-    cardCls:'b-pend b-sell',banner:'🔵 SELL STOP 0.69066 — SUB-WAVE 5 WEDGE · CONFIRMATION TO SELL',bannerCls:'bn-blue',
-    conf:75,confCls:'high',confColor:'var(--green)',rr:'RR ~1:6',dec:5,
-    levels:[['Sell Stop (trigger)','0.69066','c-blue'],['Invalidation / SL','0.69702','c-red'],['TP (38.2% Fib / Wave A)','0.67573','c-green'],['Longer-term 50%','0.65964','c-muted'],['Wave (2) deep 61.8%','0.64348','c-muted']],
-    keyLevel:0.69066,keyLabel:'TRIGGER',tp:0.67573,
-    fresh:'ENTER',freshCls:'fr-enter',freshNote:'JUL 14: Place Sell Stop at 0.69066 (confirmation level, minor tweak from 0.69068). SL: 0.69702 (~64p risk). TP: 0.67573 (38.2% Fib / Wave A). Corrective channel (sub-wave 5 wedge) still forming. Break below 0.69066 confirms next leg down. Pending order only — DO NOT market sell.',
-    arrow:'AT ORIGIN',arrowCls:'ar-close',arrowNote:'Sub-wave 5 wedge completing at the confirmation level (0.69066). Corrective channel intact. Arrow just beginning — good timing for fresh entry if stop is triggered.',
-    note:'JUL 14: Sell Stop 0.69066 (minor level tweak). Corrective channel / wedge consolidating at confirmation zone. Break below triggers the next down-leg of Wave (2). TP at 38.2% Fib = 0.67573.',dotCls:'dt-o'
+    id:'AUDUSD',img:'audusd.png',base:'AUD',quote:'USD',dir:'SELL',state:'WATCH — AWAITING BREAK',stateCls:'bd-skip',
+    cardCls:'watch',banner:'⏸ BEARISH NOT CONFIRMED — STAYING OUT · SELL IF BREAKS BELOW CONSOLIDATION RANGE · TARGET 0.67573',bannerCls:'bn-red',
+    conf:58,confCls:'mid',confColor:'var(--muted)',rr:'',dec:5,
+    levels:[['Consolidation range (high)','~0.70000','c-muted'],['Confirmation level (trigger)','below consolidation','c-blue'],['TP (38.2% Wave A)','0.67573','c-muted'],['50% Fib','0.65964','c-muted'],['61.8% Fib','0.64348','c-muted']],
+    keyLevel:0.69066,keyLabel:'—',tp:0.67573,
+    fresh:'WATCH',freshCls:'fr-no',freshNote:'JUL 17: Previous Sell Stop 0.69066 CANCELLED. Analyst: "market hasn't confirmed the bearish setup yet, staying out. If it breaks below the consolidation range, we'll sell." No pending order. Wait for break below consolidation before entering.',
+    arrow:'NO ARROW',arrowCls:'ar-none',arrowNote:'Consolidation (wedge/triangle) still forming on 8H. No confirmed break yet. Sell setup only activates on a clean break below the range. Long-term bearish structure intact.',
+    note:'JUL 17: Previous Sell Stop 0.69066 withdrawn. Sub-wave 5 wedge still forming. Analyst holding off — "not confirmed yet." Re-enter watch mode. Will sell only if consolidation breaks to downside. TP still 0.67573.',dotCls:'dt-r'
   },
   {
     id:'USDCHF',img:'usdchf.png',base:'USD',quote:'CHF',dir:'BUY',state:'ACTIVE — WAVE 3',stateCls:'bd-buy',
     cardCls:'b-buy',banner:'⬆ WAVE (3) OF (3) RUNNING · ACTIVE HOLD · TRAIL SL: 0.80098 · HARD STOP: 0.79097 · TP: 0.82000+',bannerCls:'bn-green',
     conf:76,confCls:'high',confColor:'var(--green)',rr:'RR ~1:5',dec:5,
-    levels:[['Price ~now (JUL 14)','~0.81300','c-blue'],['Re-entry zone (50% Fib)','0.80266','c-yellow'],['Trail SL / invalidation','0.80098','c-red'],['Hard invalidation','0.79097','c-red'],['Wave (3)/(3) Target','~0.82000+','c-green']],
+    levels:[['Price ~now','~0.81000','c-blue'],['Re-entry zone (50% Fib)','0.80266','c-yellow'],['Trail SL','0.80098','c-red'],['Hard invalidation','0.79097','c-red'],['Wave (3) Target','~0.82000+','c-green']],
     keyLevel:0.80098,keyLabel:'TRAIL SL',tp:0.82,
-    fresh:'MID MOVE',freshCls:'fr-late',freshNote:'JUL 14: Wave (3) of (3) active. Price now ~0.81300, well above 50% re-entry zone (0.80266). Active holders: trail SL to 0.80098 (close invalidation). Hard stop: 0.79097. Fresh buyers: price too far above re-entry — wait for dip to 0.80266 (may not come). TP: ~0.82000+.',
-    arrow:'MID MOVE',arrowCls:'ar-mid',arrowNote:'Wave (3) of (3) well underway. Price at ~0.81300. Arrow toward 0.82000 is mid-journey. Existing holders manage; fresh entry not ideal at this price.',
-    note:'JUL 14: Wave (3) of (3) now clearly running. Big Triangle complete at 0.75200. WXY Wave (2) done. Sub-wave 2 of (3) complete. Now in wave 3 of (3) — trail SL to 0.80098. Hard invalidation 0.79097.',dotCls:'dt-g'
+    fresh:'MID MOVE',freshCls:'fr-late',freshNote:'JUL 17: Wave (3) of (3) ongoing. Active holders: trail SL to 0.80098. Hard stop 0.79097. 50% re-entry dip at 0.80266 possible but may not come. Fresh buyers: price too far from optimal — wait for dip or skip.',
+    arrow:'MID MOVE',arrowCls:'ar-mid',arrowNote:'Wave (3) of (3) running. Price ~0.81000. Arrow toward 0.82000+ is mid-journey. Manage existing position; fresh entry at 0.80266 dip only.',
+    note:'JUL 17: No change. Big Triangle → Wave 3 active. WXY Wave (2) complete. Sub-wave 2 done. Wave 3 of (3) toward ~0.82000+. Trail SL 0.80098. Hard inval 0.79097.',dotCls:'dt-g'
   },
   {
-    id:'XAUUSD',img:'xauusd.png',base:'XAU',quote:'USD',dir:'BUY',state:'ENTERING — WAVE (2) BASE',stateCls:'bd-buy',
-    cardCls:'b-buy b-elite',banner:'🟢 COUNT REVISED: WAVE (2) AT 78.6% (3,999) · BUY ~3,999–4,050 · SL 3,942 · TP 4,717 · RR 1:8',bannerCls:'bn-green',
+    id:'XAUUSD',img:'xauusd.png',base:'XAU',quote:'USD',dir:'BUY',state:'ENTER — WAVE (2) BASE',stateCls:'bd-buy',
+    cardCls:'b-buy b-elite',banner:'🟢 WAVE (2) DEEPENING — BUY ~3,960–3,980 · SL 3,942.651 · TP 4,717.666 · RR 1:8',bannerCls:'bn-green',
     conf:76,confCls:'high',confColor:'var(--green)',rr:'RR 1:8',dec:2,noLive:true,
-    levels:[['Entry zone (Wave 2 base)','~3,999–4,050','c-yellow'],['78.6% Fib / Wave (2) C','3,999.114','c-yellow'],['Invalidation (hard SL)','3,942.651','c-red'],['Wave (3) target','~4,717.666','c-green'],['Ultimate bull target','~6,200+','c-muted']],
-    keyLevel:3999,keyLabel:'ENTRY',tp:4717,
-    fresh:'ENTER',freshCls:'fr-enter',freshNote:'JUL 14: COUNT REVISED. Ending Diagonal completed Wave (4). Sub-wave (1) up done. Wave (2) ABC correction completing at C / 78.6% Fib (3,999.114). Buy at market ~3,999–4,050. SL: 3,942.651 (hard invalidation). TP Wave (3): ~4,717.666. RR: 1:8. Note: differs from JUL 13 "Wave (5) to 6,200" — this is a tighter near-term sub-wave target. Longer-term 6,200 still possible as (3)-(4)-(5) unfold.',
-    arrow:'NEAR ORIGIN',arrowCls:'ar-close',arrowNote:'Wave (2) ending at C/78.6% support (~3,999). Big Wave (3) arrow launching toward 4,717. Near origin = ideal entry timing.',
-    note:'JUL 14: Count revised — Ending Diagonal closed Wave (4). Sub-wave (1) up, then (2) ABC correcting at 78.6% ~3,999. Wave (3) launching toward ~4,717.666. Bigger picture still bullish toward 6,200+ as (3)-(4)-(5) unfold. SL: 3,942.651.',dotCls:'dt-g'
+    levels:[['Entry zone (Wave 2 base)','~3,960–3,980','c-yellow'],['Invalidation (hard SL)','3,942.651','c-red'],['Wave (3) target','~4,717.666','c-green'],['Ultimate bull target','~6,200+','c-muted']],
+    keyLevel:3960,keyLabel:'ENTRY',tp:4717,
+    fresh:'ENTER',freshCls:'fr-enter',freshNote:'JUL 17: Wave (2) ABC correction still in progress, now deeper at ~3,960–3,980 (vs 3,999 on JUL 14). SL: 3,942.651 (hard inval — unchanged). TP Wave (3): ~4,717.666. RR: 1:8. Buy at market ~3,960–3,980. Ending Diagonal + Wave (4)/(2) structure intact.',
+    arrow:'NEAR ORIGIN',arrowCls:'ar-close',arrowNote:'Wave (2) correcting lower. Big Wave (3) arrow still projects toward 4,717.666. Near origin = valid entry. SL tight at 3,942.651.',
+    note:'JUL 17: Same count as JUL 14. Wave (2) deeper now at ~3,960–3,980 (was 3,999). SL 3,942.651 unchanged. TP 4,717.666. Longer-term still targeting 6,200+ as (3)-(4)-(5) unfold. Buy zone valid.',dotCls:'dt-g'
   }
 ];
 
