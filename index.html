@@ -125,7 +125,7 @@
     <div class="logo">FX <span>ENGINE</span><small>EXECUTION PLATFORM · ELLIOTT WAVE ENGINE</small></div>
     <div class="top-right">
       <div><span class="live-dot"></span><span id="clock">--:--:--</span></div>
-      <div>6-PAIR PDF: JUL 17 · GOLD: JUL 17</div>
+      <div>6-PAIR PDF: JUL 20 · GOLD: JUL 20</div>
       <button class="refresh-btn" onclick="fetchPrices()">↻ REFRESH PRICES</button>
     </div>
   </div>
@@ -133,7 +133,7 @@
   <div class="err-banner" id="errBanner">⚠ ALL LIVE PRICE SOURCES UNREACHABLE — tried Frankfurter (ECB) + exchangerate.host. Could be weekend/market-closed, a network block, or rate limiting. Levels still valid — verify current price in MT5. Hit ↻ to retry.</div>
 
   <div class="flat-banner">
-    ⚑ <b>JUL 17 UPDATE</b> · USDJPY: STILL ENTER SELL at 162.349 · XAUUSD: ENTER BUY ~3,960–3,980, SL 3,942.651, TP 4,717 · GBPUSD: UPGRADED — Wave (2) buy zone 1.33213 · USDCAD: UPGRADED — uptrend broken, sell setup forming · AUDUSD: Sell Stop CANCELLED — staying out · USDCHF: ACTIVE Wave 3 running
+    ⚑ <b>JUL 20 UPDATE</b> · XAUUSD: COUNT UPGRADED — Wave (4) complete ~3,810, Wave (5) BUY targeting 6,200+ · USDJPY: Sell confirmation 161.978 (rising wedge, very close) · GBPUSD: Wave (2) buy zone 1.33213 still valid · USDCAD: Correction zone 1.41255–1.41544 before sell · EURUSD: Trail SL below 1.15288 (7th time)
   </div>
 
   <div class="ticker" id="ticker"></div>
@@ -149,27 +149,27 @@
       <div class="cards" id="cards"></div>
       <div class="side">
         <div class="panel">
-          <div class="panel-h"><span>Fresh Entry Shortlist</span><span style="color:var(--green)">JUL 14</span></div>
-          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">USDJPY — ENTER · Sell at 78.6% (162.349)</div><div class="ai-d">Still in 78.6% retest zone. Sell Stop just below 162.349. SL: 162.850. TP1: ~155.500. TP2: ~139.596. Wave (C) launching.</div></div></div>
-          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">XAUUSD — ENTER · Buy ~3,960–3,980</div><div class="ai-d">Wave (2) deeper now at ~3,960–3,980. SL: 3,942.651. TP Wave (3): ~4,717.666. RR 1:8. Same count, lower entry zone vs JUL 14.</div></div></div>
-          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">GBPUSD — CLOSE TO ENTER · Wave (2) ~1.33213</div><div class="ai-d">UPGRADED: Wave (1) completed to 1.35450. Wave (2) pullback now — buy around 1.33213. SL: 1.31405. TP Wave (3): ~1.38500.</div></div></div>
-          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">USDCAD — CLOSE TO ENTER · Sell after retest 1.41363–1.41626</div><div class="ai-d">UPGRADED: Uptrend broken. Waiting for correction retest before selling. SL: 1.42478. TP: ~1.36000.</div></div></div>
-          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">AUDUSD — WATCH · Sell Stop CANCELLED</div><div class="ai-d">Previous Sell Stop 0.69066 withdrawn. Analyst: "not confirmed yet, staying out." Will re-enter if breaks below consolidation.</div></div></div>
+          <div class="panel-h"><span>Fresh Entry Shortlist</span><span style="color:var(--green)">JUL 20</span></div>
+          <div class="ai g"><div class="ai-n">✓</div><div><div class="ai-p" style="color:var(--green)">XAUUSD — ENTER · COUNT UPGRADED — Wave (5) launching</div><div class="ai-d">Wave (4) WXY complete at ~3,810. Wave (5) now launching toward 6,200+. Buy at market ~4,000–4,100. SL below 3,810. RR 1:20+.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">GBPUSD — CLOSE TO ENTER · Wave (2) buy ~1.33213</div><div class="ai-d">Wave (2) pullback ongoing from ~1.35300. Buy zone 1.33213. SL: 1.31405. TP Wave (3): ~1.38900. Wait for Wave (2) to complete.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">USDJPY — CLOSE TO ENTER · Sell break below 161.978</div><div class="ai-d">Rising wedge forming after Wave C/5 peak. Sell confirmation at 161.978. Current price very near. SL: 162.850. TP1: ~154.160. TP2: ~139.596. RR ~1:9.</div></div></div>
+          <div class="ai"><div class="ai-n">~</div><div><div class="ai-p" style="color:var(--yellow)">USDCAD — CLOSE TO ENTER · Sell after correction 1.41255–1.41544</div><div class="ai-d">Uptrend broken. Fib correction zone updated: 50%=1.41255, 61.8%=1.41544. Sell when correction completes. SL: 1.42478. TP: ~1.362.</div></div></div>
+          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">AUDUSD — WATCH · No confirmation yet</div><div class="ai-d">Bearish not confirmed. Staying out. Will sell only if breaks below the consolidation range. TP 38.2%: 0.67573.</div></div></div>
           <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">USDCHF — ACTIVE · Trail SL 0.80098</div><div class="ai-d">Wave (3) of (3) running. Manage SL at 0.80098. Hard stop 0.79097. Re-entry dip at 0.80266 possible.</div></div></div>
-          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">EURUSD — MANAGE · Trail SL (6th repeat)</div><div class="ai-d">JUL 17 (6th): "Move the stop-loss even lower." Trail below 1.15288. Wave (3) to 1.11855. No fresh entry.</div></div></div>
+          <div class="ai u"><div class="ai-n">✕</div><div><div class="ai-p">EURUSD — MANAGE · Trail SL (7th repeat)</div><div class="ai-d">JUL 20 (7th): "Move the stop-loss even lower to guarantee a profit on this trade." Trail below 1.15288. Wave (3) to 1.11855.</div></div></div>
         </div>
         <div class="panel">
           <div class="panel-h"><span>Risk Plan (if all valid taken)</span><span style="color:var(--green)">€100/TRADE</span></div>
           <div class="rk">
-            <div class="rk-r"><span>USDJPY</span><span class="c-green">ENTER — sell at 162.349 · €100</span></div>
-            <div class="rk-r"><span>XAUUSD</span><span class="c-green">ENTER — buy ~3,960–3,980 · €100*</span></div>
+            <div class="rk-r"><span>XAUUSD</span><span class="c-green">ENTER — buy ~4,050, Wave (5) · €100*</span></div>
             <div class="rk-r"><span>GBPUSD</span><span class="c-yellow">CLOSE — Wave (2) ~1.33213 · watch €100</span></div>
-            <div class="rk-r"><span>USDCAD</span><span class="c-yellow">CLOSE — sell after retest 1.41363 · watch €100</span></div>
-            <div class="rk-r"><span>AUDUSD</span><span class="c-muted">WATCH — Sell Stop cancelled</span></div>
+            <div class="rk-r"><span>USDJPY</span><span class="c-yellow">CLOSE — sell break below 161.978 · watch €100</span></div>
+            <div class="rk-r"><span>USDCAD</span><span class="c-yellow">CLOSE — sell after retest 1.41255 · watch €100</span></div>
+            <div class="rk-r"><span>AUDUSD</span><span class="c-muted">WATCH — no confirmation</span></div>
             <div class="rk-r"><span>USDCHF</span><span class="c-red">ACTIVE — manage only (trail SL 0.80098)</span></div>
-            <div class="rk-r"><span>EURUSD</span><span class="c-red">MANAGE / trail SL only</span></div>
-            <div class="rk-r tot"><span>OPEN RISK</span><span class="c-yellow">€100 USDJPY + XAUUSD if triggered</span></div>
-            <div class="rk-r tot"><span>MAX IF ALL TRIGGERED</span><span class="c-yellow">≤€400 · cap 4.5% · *size XAUUSD small</span></div>
+            <div class="rk-r"><span>EURUSD</span><span class="c-red">MANAGE / trail SL only (7th)</span></div>
+            <div class="rk-r tot"><span>OPEN RISK</span><span class="c-yellow">€100 XAUUSD · *size carefully (volatile)</span></div>
+            <div class="rk-r tot"><span>MAX IF ALL TRIGGERED</span><span class="c-yellow">≤€400 · cap 4.5% · *small lot on XAUUSD</span></div>
           </div>
         </div>
         <div class="panel">
@@ -187,7 +187,14 @@
       <table>
         <thead><tr><th>PDF Date</th><th>Pair</th><th>Event</th><th>Old Level</th><th>New Level</th><th>Outcome</th></tr></thead>
         <tbody>
-          <tr><td>JUL 17</td><td class="c-green">USDJPY</td><td>78.6% zone still active — sell setup ongoing</td><td class="c-green">ENTER at 162.345</td><td class="c-green">ENTER at 162.349 · SL 162.850 · TP1 ~155.500</td><td class="c-green">ENTERING — sell zone persists</td></tr>
+          <tr><td>JUL 20</td><td class="c-green">XAUUSD</td><td>COUNT UPGRADE — Full WXY = Wave (4) complete at ~3,810. Wave (5) launching.</td><td class="c-green">Buy ~3,960–3,980 · SL 3,942.651 · TP 4,717</td><td class="c-green">Buy ~4,000–4,100 · SL below 3,810 · TP ~6,200+</td><td class="c-green">UPGRADED — Wave (5) launching · RR 1:20+</td></tr>
+          <tr><td>JUL 20</td><td class="c-yellow">USDJPY</td><td>Sell confirmation level changed to 161.978 (rising wedge setup)</td><td class="c-green">ENTER at 162.349 · SL 162.850</td><td class="c-yellow">Sell break below 161.978 · SL 162.850 · TP1 154.160</td><td class="c-yellow">CLOSE TO ENTER — very near confirmation</td></tr>
+          <tr><td>JUL 20</td><td class="c-yellow">USDCAD</td><td>Fib correction zone refined: 50%=1.41255, 61.8%=1.41544</td><td class="c-yellow">Sell after retest 1.41363–1.41626</td><td class="c-yellow">Sell after correction 1.41255–1.41544 · SL 1.42478</td><td class="c-yellow">CLOSE TO ENTER — awaiting bounce</td></tr>
+          <tr><td>JUL 20</td><td class="c-green">EURUSD</td><td>Trail SL lower (7th consecutive)</td><td class="c-green">trail below 1.15288 (6th)</td><td class="c-green">trail below 1.15288 (7th repeat)</td><td class="c-green">ACTIVE — Wave (3) continuing</td></tr>
+          <tr><td>JUL 20</td><td class="c-green">GBPUSD</td><td>No change — Wave (2) buy zone unchanged</td><td class="c-yellow">Wave (2) buy zone ~1.33213 · SL 1.31405</td><td class="c-yellow">Wave (2) buy zone ~1.33213 · SL 1.31405 · TP ~1.38900</td><td class="c-yellow">CLOSE TO ENTER — unchanged</td></tr>
+          <tr><td>JUL 20</td><td class="c-muted">AUDUSD</td><td>No change — bearish still unconfirmed</td><td class="c-muted">WATCH</td><td class="c-muted">WATCH — staying out</td><td class="c-muted">NO ENTRY — unchanged</td></tr>
+          <tr><td>JUL 20</td><td class="c-green">USDCHF</td><td>No change — Wave (3) of (3) ongoing</td><td class="c-green">trail SL 0.80098</td><td class="c-green">trail SL 0.80098 (unchanged)</td><td class="c-green">ACTIVE — Wave 3 running</td></tr>
+                    <tr><td>JUL 17</td><td class="c-green">USDJPY</td><td>78.6% zone still active — sell setup ongoing</td><td class="c-green">ENTER at 162.345</td><td class="c-green">ENTER at 162.349 · SL 162.850 · TP1 ~155.500</td><td class="c-green">ENTERING — sell zone persists</td></tr>
           <tr><td>JUL 17</td><td class="c-green">XAUUSD</td><td>Wave (2) deepened — lower entry zone</td><td class="c-green">Buy ~3,999–4,050 · SL 3,942.651</td><td class="c-green">Buy ~3,960–3,980 · SL 3,942.651 · TP 4,717.666</td><td class="c-green">ENTERING — Wave (2) deeper, same count</td></tr>
           <tr><td>JUL 17</td><td class="c-green">GBPUSD</td><td>UPGRADED — Wave (1) complete, Wave (2) dip = buy zone</td><td class="c-red">CAUTION — near invalidation 1.31405</td><td class="c-green">Wave (2) buy zone ~1.33213 · SL 1.31405 · TP ~1.38500</td><td class="c-yellow">CLOSE TO ENTER — buy on Wave (2)</td></tr>
           <tr><td>JUL 17</td><td class="c-yellow">USDCAD</td><td>FIRST SELL SETUP — uptrend broken, correction forming</td><td class="c-muted">NO TRADE (WXY unresolved)</td><td class="c-yellow">Sell after correction 1.41363–1.41626 · SL 1.42478 · TP ~1.36000</td><td class="c-yellow">CLOSE TO ENTER — monitoring retest</td></tr>
@@ -239,7 +246,7 @@
 
   <div class="footer">
     <div>FX ENGINE EXECUTION PLATFORM · NOT FINANCIAL ADVICE</div>
-    <div>PDF JUL 17 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
+    <div>PDF JUL 20 2026 · ANALYST: BAMDAD AHMADIPOUR</div>
   </div>
 
 <div id="lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.93);z-index:9999;cursor:zoom-out;align-items:center;justify-content:center;flex-direction:column">
@@ -350,7 +357,7 @@ function renderCards(){
 <div class="card-h"><span class="card-pair">${p.id}</span><div class="badges"><span class="badge ${p.stateCls}">${p.state}</span>${p.rr?`<span class="badge bd-rr">${p.rr}</span>`:''}</div></div>
 <div class="card-b">
 <div class="live-strip"><div><div class="live-lbl">${p.noLive?(price?'LIVE (XAU SPOT)':'LIVE (USE MT5)'):'LIVE (ECB REF)'}</div><div class="live-price">${price?(p.id==='XAUUSD'?price.toFixed(0):price.toFixed(p.dec)):(p.noLive?'~4,020':'—')}</div></div><div class="prox">${prox}</div></div>
-<div class="fresh-strip"><span class="fresh-tag ${p.freshCls}">${p.fresh}</span><div><span class="fresh-lbl">FRESH ENTRY (JUL 13)</span><span class="fresh-txt">${p.freshNote}</span></div></div>
+<div class="fresh-strip"><span class="fresh-tag ${p.freshCls}">${p.fresh}</span><div><span class="fresh-lbl">FRESH ENTRY (JUL 20)</span><span class="fresh-txt">${p.freshNote}</span></div></div>
 <div class="arrow-strip"><span class="arrow-tag ${p.arrowCls}">↗ ${p.arrow}</span><div><span class="arrow-lbl">ARROW ORIGIN vs PRICE</span><span class="arrow-txt">${p.arrowNote}</span></div></div>
 <div class="lv">${p.levels.map(l=>`<div><div class="lv-l">${l[0]}</div><div class="lv-v ${l[2]||''}">${l[1]}</div></div>`).join('')}</div>
 <div class="conf"><span class="lv-l" style="margin:0">CONF</span><div class="conf-bar"><div class="conf-fill" style="width:${p.conf}%;background:${p.confColor}"></div></div><span class="conf-pct" style="color:${p.confColor}">${p.conf===0?'N/A':p.conf+'%'}</span></div>

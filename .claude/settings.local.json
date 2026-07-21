@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone *)",
+      "Bash(node --check /Users/bamdad/Projects/fx-engine/index.html)",
+      "Bash(sed -n '/<script>/,/<\\\\/script>/p' /Users/bamdad/Projects/fx-engine/index.html)",
+      "Bash(sed '1d;$d')",
+      "Bash(node --check /Users/bamdad/.claude/jobs/8238be15/tmp/check.js)",
+      "Read(//usr/local/bin/**)",
+      "Bash(/opt/homebrew/bin/node --version)",
+      "Bash(gh auth *)",
+      "Bash(git -C /Users/bamdad/.claude/jobs/8238be15/tmp/fx-engine-clone remote get-url origin)",
+      "Bash(git -C /Users/bamdad/.claude/jobs/8238be15/tmp/fx-engine-clone config --list)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(git init *)",
+      "Bash(git checkout *)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
+    ]
+  }
+}
